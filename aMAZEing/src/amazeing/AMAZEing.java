@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package amazeing;
+
+import javax.swing.JFrame;
 
 /**
  *
@@ -15,13 +12,13 @@ public class AMAZEing {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println("Hello world");
-        System.out.println("Tested full project");
-        System.out.println("Victor");
-        
-        Test test = new Test();
-        
+        Level level = new Level();
+        level.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        level.setVisible(true);
+        level.setTitle("aMAZEing level 1");
+        level.setSize(600, 600);
+        level.tekenLevel();
+        level.test();
     }
     
 }
