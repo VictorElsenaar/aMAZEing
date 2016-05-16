@@ -33,12 +33,21 @@ public class Game extends JFrame{
             @Override
             public void keyReleased(KeyEvent e) { 
                 if (e.getKeyCode() == KeyEvent.VK_DOWN ) {
-                  //  map[1][1] = new Tile(new Figure("Leeg"));
-                   // map[2][1] = new Tile(new Figure("Speler"));
-                   System.out.println("DOWN");
+                   if(debug){System.out.println("DOWN");}
                    level.move_down();
-                   
                 } 
+                if (e.getKeyCode() == KeyEvent.VK_UP ) {
+                   if(debug){System.out.println("UP");}
+                   level.move_up();
+                } 
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT ) {
+                   if(debug){System.out.println("RIGHT");}
+                   level.move_right();
+                }
+                if (e.getKeyCode() == KeyEvent.VK_LEFT ) {
+                   if(debug){System.out.println("LEFT");}
+                   level.move_left();
+                }                 
             } 
             public void keyTyped(KeyEvent e) { } 
         }); 
