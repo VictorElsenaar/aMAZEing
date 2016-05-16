@@ -56,18 +56,32 @@ public class Level extends JComponent{
              JOptionPane.showMessageDialog(null, "Vriend gevonden! gefeliciteerd!");
         }
         if(!isMuur(nieuweVak)) {
+            // Oude vak speler ophalen
+            Speler huidigeSpeler = (Speler) oudeVak.getFiguur();
+
             // OUDE VAK LEEG MAKEN
             Figuur empty = new Leeg();
             oudeVak.setFiguur(empty);
             doolhofMap.set(tempindex, oudeVak);
             
+            // controleer of er op het vak iets anders staat, voor nu alleen bazooka
+            if(isBazooka(nieuweVak)) {
+                huidigeSpeler.addBazooka();
+            }
+            System.out.println("Aantal bazooka's = " + huidigeSpeler.getCount());
+            
             // nieuwevak spelers object in plaatsen LET OP NOG NAKIJKEN OF ER NOG OPPAKBARE DINGEN LIGGEN
-            Speler speler = new Speler();
-            nieuweVak.setFiguur(speler);
+            nieuweVak.setFiguur(huidigeSpeler);
             doolhofMap.set(tempindex+value,nieuweVak);
             revalidate();
             repaint();
         }
+    }
+    public boolean isBazooka(Vak nieuwevak) {
+        if(nieuwevak.getFiguur().getNaam().equals("bazooka")) {
+            return true;
+        }
+        return false;
     }
     public boolean isMuur(Vak nieuwevak){
         if(nieuwevak.getFiguur().getNaam().equals("muur")) {

@@ -12,8 +12,15 @@ import java.awt.Color;
  * @author vic
  */
 public class Speler extends Figuur {
-
+    private int bazooka_count;
     public Speler() {
         super("speler", Color.BLUE);
+        bazooka_count = 0;
+    }
+    public void addBazooka() {
+        this.bazooka_count++;
+    }
+    public int getCount() {
+        return bazooka_count;
     }
 }
