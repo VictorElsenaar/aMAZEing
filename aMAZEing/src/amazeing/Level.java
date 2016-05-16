@@ -23,26 +23,12 @@ import javax.swing.JComponent;
 public class Level extends JComponent{
     private final int LEVEL_FRAME_SIZE = 500;
     private final int VAKGROOTTE = 25;
-    //private final int AANTALVAKKENBREEDTE = 10;
-    //private final int AANTALVAKKENHOOGTE = 10;
     
-    
-    
-    private final int ROWS = 10;
-    private final int COLUMNS = 10;
-    
-    
-    
-    
-    
-    private Map<Vak,Figuur> map;
+    private final int MAZESIZE = 10; // Always square
     
     private LinkedList<Vak> doolhofMap;
     
     private Vak spelersVak;
-    
-    
-
     
     public Level() {
         setLevel(levelOne());
@@ -67,11 +53,11 @@ public class Level extends JComponent{
                 vak.setFiguur(empty);
                 iterator.set(vak);
                 
-                Vak vak2 = doolhofMap.get(tempindex+10);
+                Vak nieuweVak = doolhofMap.get(tempindex+MAZESIZE);
                 Speler speler = new Speler();
-                vak2.setFiguur(speler);
+                nieuweVak.setFiguur(speler);
 
-                doolhofMap.set(tempindex+10, vak2);
+                doolhofMap.set(tempindex+MAZESIZE, nieuweVak);
                
                 readLevel();
                 revalidate();
@@ -83,61 +69,6 @@ public class Level extends JComponent{
                 break;
             }
         }
-
-        
-        //System.out.println("test");
-        //System.out.println(doolhofMap.indexOf(spelersVak));
-        //Vak vak = doolhofMap.set(tempindex, spelersVak)
-        // in plaatsen van speler op map, bewaar key naar value in speler (hashcode key)
-        
-        
-        
-        // Haal op basis van key de values op
-        // verwijder
-        // maak nieuwe aan van nieuwe positie
-//        System.out.println("voor vak");
-//        System.out.println(speler.getx());
-//        Vak vak = new Vak(speler.getVak().getXAs(),speler.getVak().getYAs());
-//        System.out.println("na new vak");
-//        System.out.println("voor remove");
-//        map.remove(vak);
-//        System.out.println("na remove");
-//        map.put(new Vak(speler.getx()+1,speler.gety()),speler);
-
-        
-//        Set<Vak> keySet = map.keySet();
-//        for (Vak key : keySet)
-//        {
-//            Figuur value = map.get(key);
-//            if (value.getNaam().equals("speler")) { // als object een muur is
-//                map.remove(value);
-//                
-//            } 
-//        }         
-        
-//        Iterator<Map.Entry<Vak,Figuur>> iter = map.entrySet().iterator();
-//        while (iter.hasNext()) {
-//            Map.Entry<Vak,Figuur> entry = iter.next();
-//            if("speler".equalsIgnoreCase(entry.getValue().getNaam())){
-//                int x = entry.getValue().getVak().getXAs();
-//                int y = entry.getValue().getVak().getYAs();
-//                iter.remove();
-//                map.put(new Vak(y,x),speler);
-//            }
-//        }
-        
-//        for (Map.Entry<Vak,Figuur> entry : map.entrySet()) {
-//            if(entry.getValue().getNaam().equals("speler")){
-//                System.out.println("test");
-////            System.out.println(entry.getKey().getCord() + "/" + entry.getValue().getNaam());
-//               map.put(new Vak(entry.getKey().getYAs(),entry.getKey().getXAs()),speler);        
-//               entry.
-//            }
-//
-//        }
-        
-        
-        //readLevel();
     }
     
     public void setLevel(String level) {
@@ -147,43 +78,24 @@ public class Level extends JComponent{
         Figuur empty = new Leeg();
         Speler speler = new Speler();
         
-        
-        
-        map = new HashMap<>();
-        
         doolhofMap = new LinkedList<>();
-        
-        
-        
+         
         int counter = 0;
-        for (int x = 0; x < ROWS ; x++) {
+        for (int x = 0; x < MAZESIZE ; x++) {
             if(debug){System.out.println("rows " + x);}
-            for(int y = 0; y < COLUMNS ; y++) {
+            for(int y = 0; y < MAZESIZE ; y++) {
                 Vak vak;
                 if(debug){System.out.println("columns " + y);}
                 String typeOnPosition = level.substring(counter, counter+1);
                 if(debug){System.out.println(typeOnPosition);}
+                // Als het een 1 is, dan een muur plaatsen
                 if(Integer.parseInt(typeOnPosition) == 1) {
-                     
-                    //map.put(new Vak(y,x),muur);
                     vak = new Vak(x,y,muur);
-                    
-                    
-                    
-                   // map[x][y] = new Tile(new Figure("Muur"));
+                // Als het een 2 is dan een speler plaatsen
                 } else if (Integer.parseInt(typeOnPosition) == 2) {
                     vak = new Vak(x,y,speler);                    
-                    
-//                    map.put(new Vak(y,x),speler);
-//                    speler.setx(y);
-//                    speler.sety(x);
-//                    speler.setVak(new Vak(y,x));
-//                    System.out.println("Victor: " + speler.getx());
-                   // map[x][y] = new Tile(new Figure("Speler"));
-                } else
+                } else // ANDERS is het een leeg vak
                 {
-                    //map.put(new Vak(y,x),empty);
-                   // map[x][y] = new Tile(new Figure("Leeg"));
                     vak = new Vak(x,y,empty);
                 }
                 doolhofMap.add(vak); 
@@ -194,17 +106,6 @@ public class Level extends JComponent{
     }
 
     public void readLevel() {
-//        Set<Vak> keySet = map.keySet();
-//        for (Vak key : keySet)
-//        {
-//            Figuur value = map.get(key);
-//            System.out.println(key.getCord()+ "->" + value.getNaam()); // coordinaten + object output in console
-//        }
-//        for (Map.Entry<Vak,Figuur> entry : map.entrySet()) {
-//            System.out.println(entry.getKey().getCord() + "/" + entry.getValue().getNaam());      
-//        }
-        
-        
         ListIterator<Vak> iterator = doolhofMap.listIterator();
         while(iterator.hasNext()) {
             Vak vak = iterator.next();
@@ -214,25 +115,6 @@ public class Level extends JComponent{
     }
     
     public void paint(Graphics g) {
-//        for (int i = 0; i < LEVEL_FRAME_SIZE; i+=VAKGROOTTE) {
-//            for (int j = 0; j < LEVEL_FRAME_SIZE; j+=VAKGROOTTE) {
-//              g.drawLine(i, j, LEVEL_FRAME_SIZE, j); // de grid tekenen
-//              g.drawLine(i, j, i, LEVEL_FRAME_SIZE); // de grid tekenen
-//            }
-//        }
-        
-//////        Set<Vak> keySet = map.keySet();
-//////        for (Vak key : keySet)
-//////        {
-//////            Figuur value = map.get(key);
-//////            if (value.getNaam().equals("muur")) { // als object een muur is
-//////                g.setColor(java.awt.Color.black);
-//////                g.fillRect((key.getXAs()*VAKGROOTTE), (key.getYAs()*VAKGROOTTE), VAKGROOTTE, VAKGROOTTE); // vul de vakken zwart
-//////            } else if (value.getNaam().equals("speler")) {
-//////                g.setColor(java.awt.Color.red);
-//////                g.fillRect((key.getXAs()*VAKGROOTTE), (key.getYAs()*VAKGROOTTE), VAKGROOTTE, VAKGROOTTE);
-//////            }
-//////        }
         ListIterator<Vak> iterator = doolhofMap.listIterator();
         while(iterator.hasNext()) {
             Vak vak = iterator.next();
