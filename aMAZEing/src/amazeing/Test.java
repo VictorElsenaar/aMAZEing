@@ -10,5 +10,7 @@ package amazeing;
  * @author Kahoo
  */
 public class Test {
-    
+    public Test() {
+        
+    }
 }
