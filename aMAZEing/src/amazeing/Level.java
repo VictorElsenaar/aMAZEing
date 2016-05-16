@@ -8,8 +8,11 @@ package amazeing;
 import static amazeing.AMAZEing.debug;
 //import static amazeing.AMAZEing.speler;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
@@ -85,6 +88,7 @@ public class Level extends JComponent{
         Figuur empty = new Leeg();
         Speler speler = new Speler();
         Vriend vriend = new Vriend();
+        Bazooka bazooka = new Bazooka();
         
         doolhofMap = new LinkedList<>();
          
@@ -104,6 +108,8 @@ public class Level extends JComponent{
                     vak = new Vak(x,y,speler);
                 } else if (Integer.parseInt(typeOnPosition) == 3) {
                     vak = new Vak(x,y,vriend);
+                } else if (Integer.parseInt(typeOnPosition) == 4) {
+                    vak = new Vak(x,y,bazooka);
                 } else // ANDERS is het een leeg vak
                 {
                     vak = new Vak(x,y,empty);
@@ -129,10 +135,21 @@ public class Level extends JComponent{
         while(iterator.hasNext()) {
             Vak vak = iterator.next();
             Figuur figuur = vak.getFiguur();
+            
             g.setColor(figuur.getkleur());
             // x en y as lijken omgedraaid te moeten...
             g.fillRect((vak.gety()*VAKGROOTTE), (vak.getx()*VAKGROOTTE), VAKGROOTTE, VAKGROOTTE);
             
+            if(figuur.getNaam().equals("bazooka")) {
+                BufferedImage image; 
+                try {
+                    image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\bazooka.jpeg"));
+                    g.drawImage(image, (vak.gety()*VAKGROOTTE), (vak.getx()*VAKGROOTTE), null);
+                }
+                catch (Exception e) {
+
+                }
+            }
             // Speler locatie globaal opslaan
             if(figuur instanceof Speler){
                 // dan het vakje van de speler opslaan globaal, zodat we weten waar de speler is.
@@ -147,7 +164,7 @@ public class Level extends JComponent{
             + "1210100001"
             + "1010101011"
             + "1010101001"
-            + "1010001101"
+            + "1010041101"
             + "1010110001"
             + "1010100111"
             + "1010101131"
