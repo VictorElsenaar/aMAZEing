@@ -6,15 +6,12 @@
 package amazeing;
 
 import static amazeing.AMAZEing.debug;
-import java.awt.Color;
 //import static amazeing.AMAZEing.speler;
 import java.awt.Graphics;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
-import java.util.Map;
-import java.util.Set;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -52,6 +49,9 @@ public class Level extends JComponent{
         tempindex = doolhofMap.indexOf(spelersVak);
         Vak oudeVak = doolhofMap.get(tempindex);
         Vak nieuweVak = doolhofMap.get(tempindex+value);
+        if (isVriend(nieuweVak)) {
+             JOptionPane.showMessageDialog(null, "Vriend gevonden! gefeliciteerd!");
+        }
         if(!isMuur(nieuweVak)) {
             // OUDE VAK LEEG MAKEN
             Figuur empty = new Leeg();
@@ -72,12 +72,19 @@ public class Level extends JComponent{
         }
         return false;
     }
+    public boolean isVriend(Vak nieuwevak) {
+        if(nieuwevak.getFiguur().getNaam().equals("vriend")) {
+            return true;
+        }
+        return false;
+    }
     public void setLevel(String level) {
         System.out.println(level);
 
         Muur muur = new Muur();
         Figuur empty = new Leeg();
         Speler speler = new Speler();
+        Vriend vriend = new Vriend();
         
         doolhofMap = new LinkedList<>();
          
@@ -94,7 +101,9 @@ public class Level extends JComponent{
                     vak = new Vak(x,y,muur);
                 // Als het een 2 is dan een speler plaatsen
                 } else if (Integer.parseInt(typeOnPosition) == 2) {
-                    vak = new Vak(x,y,speler);                    
+                    vak = new Vak(x,y,speler);
+                } else if (Integer.parseInt(typeOnPosition) == 3) {
+                    vak = new Vak(x,y,vriend);
                 } else // ANDERS is het een leeg vak
                 {
                     vak = new Vak(x,y,empty);
@@ -141,7 +150,7 @@ public class Level extends JComponent{
             + "1010001101"
             + "1010110001"
             + "1010100111"
-            + "1010101101"
+            + "1010101131"
             + "1000100001"
             + "1111111111";
     }   
@@ -154,7 +163,7 @@ public class Level extends JComponent{
             + "1000110001"
             + "1011000101"
             + "1010011101"
-            + "1000110001"
+            + "1000113001"
             + "1111111111";
     }
 }
