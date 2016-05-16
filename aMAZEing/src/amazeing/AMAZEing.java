@@ -18,6 +18,7 @@ public class AMAZEing {
         // TODO code application logic here
         System.out.println("Hello world");
         System.out.println("Tested full project");
+        System.out.println("Hoi world");
     }
     
 }
