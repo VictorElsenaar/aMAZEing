@@ -1,6 +1,7 @@
 package amazeing;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -8,17 +9,29 @@ import javax.swing.JFrame;
  */
 public class AMAZEing {
 
+    public static boolean debug = true;
+    
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        Level level = new Level();
-        level.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        level.setVisible(true);
-        level.setTitle("aMAZEing level 1");
-        level.setSize(600, 600);
-        level.tekenLevel();
-        level.test();
-    }
+    private static final int WIDTH = 700;
+    private static final int HEIGHT = 600;
+    //public static Speler speler;
     
+    
+    public static void main(String[] args) {
+        // Teken globale panel
+        // midden links is het level gebied (toont een dummy plaatje van een doolhof
+        // rechts is het menu
+        
+        // Bij keuze starten van level
+        // bouw in het level gebied een level op
+        
+        Game game = new Game();
+        game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        game.setVisible(true);
+        game.setTitle("aMAZEing");
+        game.setSize(WIDTH, HEIGHT);
+        
+    }
 }

@@ -7,7 +7,9 @@ package amazeing;
 public class Vak {
     private int x_as;
     private int y_as;
-    
+    public Vak() {
+        
+    }
     public Vak(int x_as, int y_as) {
         this.x_as = x_as;
         this.y_as = y_as;
