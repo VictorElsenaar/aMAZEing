@@ -19,6 +19,9 @@ public class AMAZEing {
         System.out.println("Hello world");
         System.out.println("Tested full project");
         System.out.println("Victor");
+        
+        Test test = new Test();
+        
     }
     
 }
