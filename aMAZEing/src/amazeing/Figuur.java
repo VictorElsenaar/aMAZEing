@@ -1,25 +1,25 @@
 package amazeing;
 
+import java.awt.Color;
+
 /**
  *
  * @author Kahoo
  */
 public abstract class Figuur {
     protected String naam;
-    private Vak vak;
+    protected Color kleur;
     
-    public Figuur(String naam) {
+    public Figuur(String naam, Color kleur) {
         this.naam = naam;
+        this.kleur = kleur;
     }
     
     public String getNaam() {
         return naam;
     }
+    public Color getkleur() {
+        return kleur;
+    }
     
-    public Vak getVak() {
-        return vak;
-    }
-    public void setVak(Vak vak) {
-        this.vak = vak;
-    }
 }
