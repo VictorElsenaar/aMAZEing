@@ -36,67 +36,22 @@ public class Level extends JComponent{
            
     }
     public void move_left() {
-        int tempindex=0;
-        tempindex = doolhofMap.indexOf(spelersVak);
-        Vak oudeVak = doolhofMap.get(tempindex);
-        Vak nieuweVak = doolhofMap.get(tempindex-1);
-        if(!isMuur(nieuweVak)) {
-            // OUDE VAK LEEG MAKEN
-            Figuur empty = new Leeg();
-            oudeVak.setFiguur(empty);
-            doolhofMap.set(tempindex, oudeVak);
-            
-            // nieuwevak spelers object in plaatsen LET OP NOG NAKIJKEN OF ER NOG OPPAKBARE DINGEN LIGGEN
-            Speler speler = new Speler();
-            nieuweVak.setFiguur(speler);
-            doolhofMap.set(tempindex-1,nieuweVak);
-            revalidate();
-            repaint();
-        }
+        move(-1);
     } 
     public void move_right() {
-        int tempindex=0;
-        tempindex = doolhofMap.indexOf(spelersVak);
-        Vak oudeVak = doolhofMap.get(tempindex);
-        Vak nieuweVak = doolhofMap.get(tempindex+1);
-        if(!isMuur(nieuweVak)) {
-            // OUDE VAK LEEG MAKEN
-            Figuur empty = new Leeg();
-            oudeVak.setFiguur(empty);
-            doolhofMap.set(tempindex, oudeVak);
-            
-            // nieuwevak spelers object in plaatsen LET OP NOG NAKIJKEN OF ER NOG OPPAKBARE DINGEN LIGGEN
-            Speler speler = new Speler();
-            nieuweVak.setFiguur(speler);
-            doolhofMap.set(tempindex+1,nieuweVak);
-            revalidate();
-            repaint();
-        }
+        move(1);
     }    
     public void move_up() {
-        int tempindex=0;
-        tempindex = doolhofMap.indexOf(spelersVak);
-        Vak oudeVak = doolhofMap.get(tempindex);
-        Vak nieuweVak = doolhofMap.get(tempindex-MAZESIZE);
-        if(!isMuur(nieuweVak)) {
-            // OUDE VAK LEEG MAKEN
-            Figuur empty = new Leeg();
-            oudeVak.setFiguur(empty);
-            doolhofMap.set(tempindex, oudeVak);
-            
-            // nieuwevak spelers object in plaatsen LET OP NOG NAKIJKEN OF ER NOG OPPAKBARE DINGEN LIGGEN
-            Speler speler = new Speler();
-            nieuweVak.setFiguur(speler);
-            doolhofMap.set(tempindex-MAZESIZE,nieuweVak);
-            revalidate();
-            repaint();
-        }
+        move(-MAZESIZE);
     }
     public void move_down() {
+        move(MAZESIZE);       
+    }
+    public void move(int value) {
         int tempindex=0;
         tempindex = doolhofMap.indexOf(spelersVak);
         Vak oudeVak = doolhofMap.get(tempindex);
-        Vak nieuweVak = doolhofMap.get(tempindex+MAZESIZE);
+        Vak nieuweVak = doolhofMap.get(tempindex+value);
         if(!isMuur(nieuweVak)) {
             // OUDE VAK LEEG MAKEN
             Figuur empty = new Leeg();
@@ -106,40 +61,10 @@ public class Level extends JComponent{
             // nieuwevak spelers object in plaatsen LET OP NOG NAKIJKEN OF ER NOG OPPAKBARE DINGEN LIGGEN
             Speler speler = new Speler();
             nieuweVak.setFiguur(speler);
-            doolhofMap.set(tempindex+MAZESIZE,nieuweVak);
+            doolhofMap.set(tempindex+value,nieuweVak);
             revalidate();
             repaint();
         }
-        /*ListIterator<Vak> iterator = doolhofMap.listIterator();
-        while(iterator.hasNext()) {
-            Vak vak = iterator.next();
-            if(vak.equals(spelersVak)) {
-                Figuur figuur = vak.getFiguur();
-                if(debug){System.out.println(figuur.getNaam());}
-                
-                // nu zijn we in de list beland op de spelerspositie.
-                // maak het vak leeg want hij loopt naar beneden @@@@ CONTROLE NOG INBOUWEN OF HET UBERHAUPT WEL KAN :-)
-                tempindex = doolhofMap.indexOf(spelersVak);
-                Figuur empty = new Leeg();
-                vak.setFiguur(empty);
-                iterator.set(vak);
-                               
-                Vak nieuweVak = doolhofMap.get(tempindex+MAZESIZE);
-                Speler speler = new Speler();
-                nieuweVak.setFiguur(speler);
-
-                doolhofMap.set(tempindex+MAZESIZE, nieuweVak);
-               
-                readLevel();
-                revalidate();
-                repaint();
-                // Naar links = iterator.previous;
-                // naar rechts = iterator.next;
-                // naar beneden = iterator+10;
-                // naar boven = iterator-10;
-                break;
-            }
-        }*/        
     }
     public boolean isMuur(Vak nieuwevak){
         if(nieuwevak.getFiguur().getNaam().equals("muur")) {
@@ -233,3 +158,38 @@ public class Level extends JComponent{
             + "1111111111";
     }
 }
+/* Usefull old codes
+
+ListIterator<Vak> iterator = doolhofMap.listIterator();
+        while(iterator.hasNext()) {
+            Vak vak = iterator.next();
+            if(vak.equals(spelersVak)) {
+                Figuur figuur = vak.getFiguur();
+                if(debug){System.out.println(figuur.getNaam());}
+                
+                // nu zijn we in de list beland op de spelerspositie.
+                // maak het vak leeg want hij loopt naar beneden @@@@ CONTROLE NOG INBOUWEN OF HET UBERHAUPT WEL KAN :-)
+                tempindex = doolhofMap.indexOf(spelersVak);
+                Figuur empty = new Leeg();
+                vak.setFiguur(empty);
+                iterator.set(vak);
+                               
+                Vak nieuweVak = doolhofMap.get(tempindex+MAZESIZE);
+                Speler speler = new Speler();
+                nieuweVak.setFiguur(speler);
+
+                doolhofMap.set(tempindex+MAZESIZE, nieuweVak);
+               
+                readLevel();
+                revalidate();
+                repaint();
+                // Naar links = iterator.previous;
+                // naar rechts = iterator.next;
+                // naar beneden = iterator+10;
+                // naar boven = iterator-10;
+                break;
+            }
+        }
+
+
+*/
