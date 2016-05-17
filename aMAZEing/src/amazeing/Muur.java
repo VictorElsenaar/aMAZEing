@@ -10,11 +10,11 @@ public class Muur extends Figuur {
     private boolean borderMuur;
     
     public Muur() {
-        super("muur", Color.BLACK);
-        
+        super("muur", Color.DARK_GRAY);
+        borderMuur = false;
     }
-    
-    public void setBorderMuur(boolean borderMuur) {
+    public Muur(boolean borderMuur) {
+        super("buitenmuur", Color.BLACK);
         this.borderMuur = borderMuur;
     }
     

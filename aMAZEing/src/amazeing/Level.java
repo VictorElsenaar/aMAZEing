@@ -84,7 +84,7 @@ public class Level extends JComponent{
         return false;
     }
     public boolean isMuur(Vak nieuwevak){
-        if(nieuwevak.getFiguur().getNaam().equals("muur")) {
+        if(nieuwevak.getFiguur().getNaam().equals("muur") || nieuwevak.getFiguur().getNaam().equals("buitenmuur") ) {
             return true;
         }
         return false;
@@ -94,45 +94,6 @@ public class Level extends JComponent{
             return true;
         }
         return false;
-    }
-    public void setLevel(String level) {
-        System.out.println(level);
-
-        Muur muur = new Muur();
-        Figuur empty = new Leeg();
-        Speler speler = new Speler();
-        Vriend vriend = new Vriend();
-        Bazooka bazooka = new Bazooka();
-        
-        doolhofMap = new LinkedList<>();
-         
-        int counter = 0;
-        for (int x = 0; x < MAZESIZE ; x++) {
-            if(debug){System.out.println("rows " + x);}
-            for(int y = 0; y < MAZESIZE ; y++) {
-                Vak vak;
-                if(debug){System.out.println("columns " + y);}
-                String typeOnPosition = level.substring(counter, counter+1);
-                if(debug){System.out.println(typeOnPosition);}
-                // Als het een 1 is, dan een muur plaatsen
-                if(Integer.parseInt(typeOnPosition) == 1) {
-                    vak = new Vak(x,y,muur);
-                // Als het een 2 is dan een speler plaatsen
-                } else if (Integer.parseInt(typeOnPosition) == 2) {
-                    vak = new Vak(x,y,speler);
-                } else if (Integer.parseInt(typeOnPosition) == 3) {
-                    vak = new Vak(x,y,vriend);
-                } else if (Integer.parseInt(typeOnPosition) == 4) {
-                    vak = new Vak(x,y,bazooka);
-                } else // ANDERS is het een leeg vak
-                {
-                    vak = new Vak(x,y,empty);
-                }
-                doolhofMap.add(vak); 
-                counter++;
-            }
-            
-        }
     }
 
     public void readLevel() {
@@ -149,7 +110,6 @@ public class Level extends JComponent{
         while(iterator.hasNext()) {
             Vak vak = iterator.next();
             Figuur figuur = vak.getFiguur();
-            
             g.setColor(figuur.getkleur());
             // x en y as lijken omgedraaid te moeten...
             g.fillRect((vak.gety()*VAKGROOTTE), (vak.getx()*VAKGROOTTE), VAKGROOTTE, VAKGROOTTE);
@@ -171,30 +131,74 @@ public class Level extends JComponent{
             }
         }
     }
+      
+    public void setLevel(String level) {
+        System.out.println(level);
+
+        Muur muur = new Muur();
+        Muur buitenmuur = new Muur(true);
+        Figuur empty = new Leeg();
+        Speler speler = new Speler();
+        Vriend vriend = new Vriend();
+        Bazooka bazooka = new Bazooka();
         
-    
+        doolhofMap = new LinkedList<>();
+         
+        int counter = 0;
+        for (int x = 0; x < MAZESIZE ; x++) {
+            if(debug){System.out.println("rows " + x);}
+            for(int y = 0; y < MAZESIZE ; y++) {
+                Vak vak;
+                if(debug){System.out.println("columns " + y);}
+                String typeOnPosition = level.substring(counter, counter+1);
+                if(debug){System.out.println(typeOnPosition);}
+                // Als het een 1 is, dan een buitenmuur plaatsen
+                if(Integer.parseInt(typeOnPosition) == 1) {
+                    vak = new Vak(x,y,buitenmuur);
+                // Als het een 2 is dan een binnenmuur plaatsen
+                } else if (Integer.parseInt(typeOnPosition) == 2) {
+                    vak = new Vak(x,y,muur);
+                // Als het een 3 is dan een speler plaatsen
+                } else if (Integer.parseInt(typeOnPosition) == 3) {
+                    vak = new Vak(x,y,speler);
+                // Als het een 4 is dan een vriend plaatsen
+                } else if (Integer.parseInt(typeOnPosition) == 4) {
+                    vak = new Vak(x,y,vriend);
+                // Als het een 5 is dan een bazooka plaatsen
+                } else if (Integer.parseInt(typeOnPosition) == 5) {
+                    vak = new Vak(x,y,bazooka);                    
+                } else // ANDERS is het een leeg vak
+                {
+                    vak = new Vak(x,y,empty);
+                }
+                doolhofMap.add(vak); 
+                counter++;
+            }
+            
+        }
+    }    
     public String levelOne() {
       return  "1111111111"
-            + "1210100001"
-            + "1010101011"
-            + "1010101001"
-            + "1010041101"
-            + "1010110001"
-            + "1010100111"
-            + "1010101131"
-            + "1000100001"
+            + "1320200001"
+            + "1020202021"
+            + "1020202001"
+            + "1020052201"
+            + "1020220001"
+            + "1020200221"
+            + "1020202241"
+            + "1000200001"
             + "1111111111";
     }   
     public String levelTwo() {
       return  "1111111111"
-            + "1120000001"
-            + "1010101101"
-            + "1010100001"
-            + "1010111111"
-            + "1000110001"
-            + "1011000101"
-            + "1010011101"
-            + "1000113001"
+            + "1230000001"
+            + "1020202201"
+            + "1020200001"
+            + "1020222221"
+            + "1000220001"
+            + "1022000201"
+            + "1020022201"
+            + "1000224001"
             + "1111111111";
     }
 }
