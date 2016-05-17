@@ -77,6 +77,42 @@ public class Level extends JComponent{
             repaint();
         }
     }
+    public void fire_down() {
+        fire(MAZESIZE);
+    }
+    public void fire_up() {
+        fire(-MAZESIZE);
+    }
+    public void fire_right() {
+        fire(1);
+    }
+    public void fire_left() {
+        fire(-1);
+    }    
+    public void fire(int value) {
+        int currentLocationIndex = doolhofMap.indexOf(spelersVak);
+        Vak schietvak = doolhofMap.get(currentLocationIndex+value);
+        int i = 1;
+        while(!isMuur(schietvak)) {
+            schietvak = doolhofMap.get(currentLocationIndex+(value*i));
+            i++;
+        }
+        if(isMuur(schietvak)) { 
+            // muur vak gevonden dus afhandelen.
+            if(debug) {System.out.println("vakje is een muur, dus kogel afhandelen");}
+            Muur muur = (Muur) schietvak.getFiguur();
+            if(muur.getBorderMuur()){
+                if(debug) {System.out.println("Bordermuur kan niet kapot");}
+                // Bordermuur dus kogel is verloren, animatie moet het duidelijk maken
+            } else {
+                if(debug) {System.out.println("Normale muur is stuk!");}
+                Figuur empty = new Leeg();
+                schietvak.setFiguur(empty);
+                repaint();
+            }
+        }
+        
+    }   
     public boolean isBazooka(Vak nieuwevak) {
         if(nieuwevak.getFiguur().getNaam().equals("bazooka")) {
             return true;
