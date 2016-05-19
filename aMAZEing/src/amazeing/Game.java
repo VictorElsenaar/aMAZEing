@@ -38,6 +38,7 @@ public class Game extends JFrame{
                    if(fireing){
                        if(debug) {System.out.println("FIRE DOWN"); }
                        //level.fire_down();
+                       level.fire("down");
                        fireing = false;
                    } else { // move character
                        //level.move_down();
@@ -50,6 +51,7 @@ public class Game extends JFrame{
                    if(fireing){
                        if(debug) {System.out.println("FIRE UP"); }
                       // level.fire_up();  
+                       level.fire("up");
                        fireing = false;
                    } else { // move character                   
                        level.move("up");
@@ -59,7 +61,7 @@ public class Game extends JFrame{
                    if(debug){System.out.println("RIGHT");}
                     if(fireing){
                        if(debug) {System.out.println("FIRE RIGHT"); }
-                       //level.fire_right();  
+                       level.fire("right");  
                        fireing = false;
                    } else { // move character
                         level.move("right");
@@ -69,7 +71,8 @@ public class Game extends JFrame{
                    if(debug){System.out.println("LEFT");}
                    if(fireing){
                        if(debug) {System.out.println("FIRE LEFT"); }
-                       //level.fire_left(); 
+                       //level.fire_left();
+                       level.fire("left");
                        fireing = false;
                    } else { // move character                   
                        level.move("left");

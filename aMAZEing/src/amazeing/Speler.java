@@ -5,6 +5,7 @@
  */
 package amazeing;
 
+import static amazeing.AMAZEing.debug;
 import java.awt.Color;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
@@ -14,18 +15,20 @@ import javax.swing.JOptionPane;
  * @author vic
  */
 public class Speler extends Figuur {
-    private Level level;
-    private int bazooka_count;
+    //private Level level;
+    private Bazooka bazooka = new Bazooka();
+    //private int bazooka_count;
     public Speler() {
         super("speler", Color.BLUE);
-        bazooka_count = 0;
+        //bazooka_count = 0;
     }
+    /*
     public void addBazooka() {
         this.bazooka_count++;
     }
     public int getCount() {
         return bazooka_count;
-    }
+    }*/
     public LinkedList<Vak> move(String richting, LinkedList<Vak> doolhofMap, int mazesize, Vak spelersVak) {
         int positionchange = 0;
         switch(richting) {
@@ -62,9 +65,11 @@ public class Speler extends Figuur {
             
             // controleer of er op het vak iets anders staat, voor nu alleen bazooka
             if(isBazooka(nieuweVak)) {
-                huidigeSpeler.addBazooka();
+                //huidigeSpeler.addBazooka();
+                bazooka.setAmmo(bazooka.getAmmo()+1);
+                System.out.println("#########"+bazooka.getAmmo());
             }
-            System.out.println("Aantal bazooka's = " + huidigeSpeler.getCount());
+            //System.out.println("Aantal bazooka's = " + huidigeSpeler.getCount());
             
             // nieuwevak spelers object in plaatsen LET OP NOG NAKIJKEN OF ER NOG OPPAKBARE DINGEN LIGGEN
             nieuweVak.setFiguur(huidigeSpeler);
@@ -90,4 +95,47 @@ public class Speler extends Figuur {
         }
         return false;
     }
+    public LinkedList<Vak> fire(String richting, LinkedList<Vak> doolhofMap, int mazesize, Vak spelersVak) {
+        int positionchange = 0;
+        switch(richting) {
+            case "right":
+                positionchange = 1;
+                break;
+            case "left":
+                positionchange = -1;
+                break;
+            case "up":
+                positionchange = -mazesize;
+                break;
+            case "down":
+                positionchange = mazesize;
+                break;
+        }
+        if (bazooka.getAmmo() > 0) {
+            int currentLocationIndex = doolhofMap.indexOf(spelersVak);
+            Vak schietvak = doolhofMap.get(currentLocationIndex+positionchange);
+            int i = 1;
+            while(!isMuur(schietvak)) {
+                schietvak = doolhofMap.get(currentLocationIndex+(positionchange*i));
+                i++;
+            }
+            if(isMuur(schietvak)) { 
+                // muur vak gevonden dus afhandelen.
+                if(debug) {System.out.println("vakje is een muur, dus kogel afhandelen");}
+                Muur muur = (Muur) schietvak.getFiguur();
+                if(muur.getBorderMuur()){
+                    if(debug) {System.out.println("Bordermuur kan niet kapot");}
+                    // Bordermuur dus kogel is verloren, animatie moet het duidelijk maken
+                } else {
+                    if(debug) {System.out.println("Normale muur is stuk!");}
+                    Figuur empty = new Leeg();
+                    schietvak.setFiguur(empty);
+                }
+            }
+            bazooka.reload(bazooka);
+        } else {
+            if (debug) {System.out.println("Geen ammo.");}
+        }
+        return doolhofMap;
+    }   
 }

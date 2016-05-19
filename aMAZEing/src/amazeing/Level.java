@@ -90,6 +90,12 @@ public class Level extends JComponent{
         }
     }*/
     
+    public void fire(String richting) {
+        Speler huidigeSpeler = (Speler) spelersVak.getFiguur();   
+        doolhofMap = huidigeSpeler.fire(richting, doolhofMap, MAZESIZE, spelersVak );
+        repaint();
+    }
+    
     /*
     public void fire_down() {
         fire(MAZESIZE);
