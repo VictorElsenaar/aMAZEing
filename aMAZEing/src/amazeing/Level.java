@@ -30,11 +30,22 @@ public class Level extends JComponent{
     
     private Vak spelersVak;
     
+    
     public Level() {
         setLevel(levelOne());
         if(debug){readLevel();} // controleer het level
            
     }
+    
+                           //public LinkedList<Vak> move(String richting, LinkedList<Vak> doolhofMap, int mazesize, Vak spelersVak) {
+    public void move(String richting) {
+        Speler huidigeSpeler = (Speler) spelersVak.getFiguur();   
+        doolhofMap = huidigeSpeler.move(richting, doolhofMap, MAZESIZE, spelersVak );
+        revalidate();
+        repaint();
+    }
+    
+    /*
     public void move_left() {
         move(-1);
     } 
@@ -76,7 +87,9 @@ public class Level extends JComponent{
             revalidate();
             repaint();
         }
-    }
+    }*/
+    
+    /*
     public void fire_down() {
         fire(MAZESIZE);
     }
@@ -113,24 +126,7 @@ public class Level extends JComponent{
         }
         
     }   
-    public boolean isBazooka(Vak nieuwevak) {
-        if(nieuwevak.getFiguur().getNaam().equals("bazooka")) {
-            return true;
-        }
-        return false;
-    }
-    public boolean isMuur(Vak nieuwevak){
-        if(nieuwevak.getFiguur().getNaam().equals("muur") || nieuwevak.getFiguur().getNaam().equals("buitenmuur") ) {
-            return true;
-        }
-        return false;
-    }
-    public boolean isVriend(Vak nieuwevak) {
-        if(nieuwevak.getFiguur().getNaam().equals("vriend")) {
-            return true;
-        }
-        return false;
-    }
+    */
 
     public void readLevel() {
         ListIterator<Vak> iterator = doolhofMap.listIterator();
@@ -166,6 +162,15 @@ public class Level extends JComponent{
                 spelersVak = vak;
             }
         }
+    }
+    public LinkedList<Vak> getcurrentMap() {
+        return doolhofMap;
+    }
+    public int getMazeSize() {
+        return MAZESIZE;
+    }
+    public Vak getSpelersVak() {
+        return spelersVak;
     }
       
     public void setLevel(String level) {

@@ -37,40 +37,42 @@ public class Game extends JFrame{
                    if(debug){System.out.println("DOWN");}
                    if(fireing){
                        if(debug) {System.out.println("FIRE DOWN"); }
-                       level.fire_down();
+                       //level.fire_down();
                        fireing = false;
                    } else { // move character
-                       level.move_down();
+                       //level.move_down();
+                       level.move("down");
+
                    }
                 } 
                 if (e.getKeyCode() == KeyEvent.VK_UP ) {
                    if(debug){System.out.println("UP");}
                    if(fireing){
                        if(debug) {System.out.println("FIRE UP"); }
-                       level.fire_up();  
+                      // level.fire_up();  
                        fireing = false;
                    } else { // move character                   
-                       level.move_up();
+                       level.move("up");
                    }
                 } 
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT ) {
                    if(debug){System.out.println("RIGHT");}
                     if(fireing){
                        if(debug) {System.out.println("FIRE RIGHT"); }
-                       level.fire_right();  
+                       //level.fire_right();  
                        fireing = false;
                    } else { // move character
-                        level.move_right();
+                        level.move("right");
                    }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT ) {
                    if(debug){System.out.println("LEFT");}
                    if(fireing){
                        if(debug) {System.out.println("FIRE LEFT"); }
-                       level.fire_left(); 
+                       //level.fire_left(); 
                        fireing = false;
                    } else { // move character                   
-                        level.move_left();
+                       level.move("left");
                    }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_F) {
