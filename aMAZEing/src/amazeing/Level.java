@@ -6,6 +6,7 @@
 package amazeing;
 
 import static amazeing.AMAZEing.debug;
+import java.awt.Color;
 //import static amazeing.AMAZEing.speler;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -145,7 +146,12 @@ public class Level extends JComponent{
             g.setColor(figuur.getkleur());
             // x en y as lijken omgedraaid te moeten...
             g.fillRect((vak.gety()*VAKGROOTTE), (vak.getx()*VAKGROOTTE), VAKGROOTTE, VAKGROOTTE);
-            
+            /*
+            g.setColor(Color.GRAY);
+            g.fillRect((vak.gety()*VAKGROOTTE)+2, (vak.getx()*VAKGROOTTE)+2, VAKGROOTTE-4, VAKGROOTTE-4);
+            g.setColor(Color.LIGHT_GRAY);
+            g.fillRect((vak.gety()*VAKGROOTTE)+4, (vak.getx()*VAKGROOTTE)+4, VAKGROOTTE-8, VAKGROOTTE-8);
+            */
             if(figuur.getNaam().equals("bazooka")) {
                 BufferedImage image; 
                 try {
