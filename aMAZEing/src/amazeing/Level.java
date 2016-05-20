@@ -23,25 +23,29 @@ import javax.swing.JOptionPane;
  */
 public class Level extends JComponent{
     private final int LEVEL_FRAME_SIZE = 500;
-    private final int VAKGROOTTE = 25;
     
-    private final int MAZESIZE = 10; // Always square
+    /**
+     * maximaal aantal vakken op 1 lijn. (altijd vierkant) Max aantal blokken totaal zou zijn MAX_MAZE_SIZE * MAX_MAZE_SIZE
+     */
+    private final int MAX_MAZE_SIZE = 50; 
+    
+    // Bij het inladen van het level wordt deze maat bewaard van de huidige maze.
+    private int current_maze_size;
+    // en de maat in pixels van een vak
+    private int vak_size_pixels;
     
     private LinkedList<Vak> doolhofMap;
     
     private Vak spelersVak;
-    
-    
+        
     public Level() {
-        setLevel(levelOne());
-        if(debug){readLevel();} // controleer het level
-           
+        setLevel(levelThree());
+        if(debug){readLevel();} // controleer het level          
     }
     
-                           //public LinkedList<Vak> move(String richting, LinkedList<Vak> doolhofMap, int mazesize, Vak spelersVak) {
     public void move(String richting) {
         Speler huidigeSpeler = (Speler) spelersVak.getFiguur();   
-        doolhofMap = huidigeSpeler.move(richting, doolhofMap, MAZESIZE, spelersVak );
+        doolhofMap = huidigeSpeler.move(richting, doolhofMap, current_maze_size, spelersVak );
         revalidate();
         repaint();
     }
@@ -92,7 +96,7 @@ public class Level extends JComponent{
     
     public void fire(String richting) {
         Speler huidigeSpeler = (Speler) spelersVak.getFiguur();   
-        doolhofMap = huidigeSpeler.fire(richting, doolhofMap, MAZESIZE, spelersVak );
+        doolhofMap = huidigeSpeler.fire(richting, doolhofMap, current_maze_size, spelersVak );
         repaint();
     }
     
@@ -151,7 +155,7 @@ public class Level extends JComponent{
             Figuur figuur = vak.getFiguur();
             g.setColor(figuur.getkleur());
             // x en y as lijken omgedraaid te moeten...
-            g.fillRect((vak.gety()*VAKGROOTTE), (vak.getx()*VAKGROOTTE), VAKGROOTTE, VAKGROOTTE);
+            g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
             /*
             g.setColor(Color.GRAY);
             g.fillRect((vak.gety()*VAKGROOTTE)+2, (vak.getx()*VAKGROOTTE)+2, VAKGROOTTE-4, VAKGROOTTE-4);
@@ -162,7 +166,7 @@ public class Level extends JComponent{
                 BufferedImage image; 
                 try {
                     image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\bazooka.jpeg"));
-                    g.drawImage(image, (vak.gety()*VAKGROOTTE), (vak.getx()*VAKGROOTTE), null);
+                    g.drawImage(image, (vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), null);
                 }
                 catch (Exception e) {
 
@@ -179,14 +183,24 @@ public class Level extends JComponent{
         return doolhofMap;
     }
     public int getMazeSize() {
-        return MAZESIZE;
+        return current_maze_size;
     }
     public Vak getSpelersVak() {
         return spelersVak;
     }
       
     public void setLevel(String level) {
+        // Bepaal de breedte en hoogte
+        for (int i = 1; i < MAX_MAZE_SIZE; i++) {
+            if((level.length() / i) == i){
+                current_maze_size = i;
+            }
+        }
+        // Bepaal aantal pixels voor de map, zodat hij netjes het frame vult.
+        vak_size_pixels = LEVEL_FRAME_SIZE / current_maze_size;
+        
         System.out.println(level);
+        
 
         Muur muur = new Muur();
         Muur buitenmuur = new Muur(true);
@@ -198,9 +212,9 @@ public class Level extends JComponent{
         doolhofMap = new LinkedList<>();
          
         int counter = 0;
-        for (int x = 0; x < MAZESIZE ; x++) {
+        for (int x = 0; x < current_maze_size ; x++) {
             if(debug){System.out.println("rows " + x);}
-            for(int y = 0; y < MAZESIZE ; y++) {
+            for(int y = 0; y < current_maze_size ; y++) {
                 Vak vak;
                 if(debug){System.out.println("columns " + y);}
                 String typeOnPosition = level.substring(counter, counter+1);
@@ -253,6 +267,28 @@ public class Level extends JComponent{
             + "1020022201"
             + "1000224001"
             + "1111111111";
+    }
+    public String levelThree() {
+        return "11111111111111111111" 
+            +  "10000020002000000031" 
+            +  "10222020202022222221"
+            +  "10200020202020002401"                
+            +  "10202220000020202201"                
+            +  "10200000222220202001"                
+            +  "10222222200000200021"                
+            +  "10202000202222222221"                
+            +  "10202020200000000001"                
+            +  "10250020202222222201"
+            +  "10222220200002000201"
+            +  "10000000202202020201"
+            +  "10222222252200020201"                
+            +  "10000000222222220201"                
+            +  "12022220200022220201"                
+            +  "10002000202000000201"                
+            +  "10202020202022220201"                
+            +  "10202020202000200201"                
+            +  "10200020002020000001"                
+            +  "11111111111111111111";
     }
 }
 /* Usefull old codes
