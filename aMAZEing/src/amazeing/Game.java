@@ -13,16 +13,7 @@ import javax.swing.JFrame;
  * @author Kahoo
  */
 public class Game extends JFrame{
-//    private final int VAKGROOTTE = 25;
-//    private final int AANTALVAKKENBREEDTE = 10;
-//    private final int AANTALVAKKENHOOGTE = 10;
-//    
-//    
-//    
-//    private final int ROWS = 10;
-//    private final int COLUMNS = 10;
-//    
-//    private Map<Vak,Figuur> map;
+
     boolean fireing = false;
     private Level level;
     public Game() {
@@ -37,12 +28,10 @@ public class Game extends JFrame{
                    if(debug){System.out.println("DOWN");}
                    if(fireing){
                        if(debug) {System.out.println("FIRE DOWN"); }
-                       //level.fire_down();
-                       level.fire("down");
+                       level.action("down", "fire");
                        fireing = false;
                    } else { // move character
-                       //level.move_down();
-                       level.move("down");
+                       level.action("down", "move");
 
                    }
                 } 
@@ -50,32 +39,30 @@ public class Game extends JFrame{
                    if(debug){System.out.println("UP");}
                    if(fireing){
                        if(debug) {System.out.println("FIRE UP"); }
-                      // level.fire_up();  
-                       level.fire("up");
+                       level.action("up", "fire");
                        fireing = false;
                    } else { // move character                   
-                       level.move("up");
+                       level.action("up", "move");
                    }
                 } 
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT ) {
                    if(debug){System.out.println("RIGHT");}
                     if(fireing){
                        if(debug) {System.out.println("FIRE RIGHT"); }
-                       level.fire("right");  
+                       level.action("right", "fire");
                        fireing = false;
                    } else { // move character
-                        level.move("right");
+                        level.action("right", "move");
                    }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT ) {
                    if(debug){System.out.println("LEFT");}
                    if(fireing){
                        if(debug) {System.out.println("FIRE LEFT"); }
-                       //level.fire_left();
-                       level.fire("left");
+                       level.action("left", "fire");
                        fireing = false;
                    } else { // move character                   
-                       level.move("left");
+                       level.action("left", "move");
                    }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_F) {

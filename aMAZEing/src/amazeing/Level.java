@@ -43,19 +43,19 @@ public class Level extends JComponent{
         if(debug){readLevel();} // controleer het level          
     }
     
-    public void move(String richting) {
+    public void action(String richting, String type) {
         Speler huidigeSpeler = (Speler) spelersVak.getFiguur();   
-        doolhofMap = huidigeSpeler.move(richting, doolhofMap, current_maze_size, spelersVak );
+        switch(type) {
+            case "move":
+                doolhofMap = huidigeSpeler.move(richting, doolhofMap, current_maze_size, spelersVak );
+                break;
+            case "fire":
+                doolhofMap = huidigeSpeler.fire(richting, doolhofMap, current_maze_size, spelersVak );
+                break;
+        }
         revalidate();
         repaint();
     }
-    
-    public void fire(String richting) {
-        Speler huidigeSpeler = (Speler) spelersVak.getFiguur();   
-        doolhofMap = huidigeSpeler.fire(richting, doolhofMap, current_maze_size, spelersVak );
-        repaint();
-    }
-
     public void readLevel() {
         ListIterator<Vak> iterator = doolhofMap.listIterator();
         while(iterator.hasNext()) {
