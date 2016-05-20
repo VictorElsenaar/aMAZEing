@@ -30,6 +30,7 @@ public class Speler extends Figuur {
         return bazooka_count;
     }*/
     public LinkedList<Vak> move(String richting, LinkedList<Vak> doolhofMap, int mazesize, Vak spelersVak) {
+        
         int positionchange = 0;
         switch(richting) {
             case "right":
@@ -50,11 +51,11 @@ public class Speler extends Figuur {
         tempindex = doolhofMap.indexOf(spelersVak);
         Vak oudeVak = doolhofMap.get(tempindex);
         Vak nieuweVak = doolhofMap.get(tempindex+positionchange);
-        if (isVriend(nieuweVak)) {
+        if (nieuweVak.isVriend(nieuweVak)) {
              JOptionPane.showMessageDialog(null, "Vriend gevonden! gefeliciteerd!");
         }
         
-        if(!isMuur(nieuweVak)) {
+        if(!nieuweVak.isMuur(nieuweVak)) {
             // Oude vak speler ophalen
             Speler huidigeSpeler = (Speler) oudeVak.getFiguur();
 
@@ -64,7 +65,7 @@ public class Speler extends Figuur {
             doolhofMap.set(tempindex, oudeVak);
             
             // controleer of er op het vak iets anders staat, voor nu alleen bazooka
-            if(isBazooka(nieuweVak)) {
+            if(nieuweVak.isBazooka(nieuweVak)) {
                 //huidigeSpeler.addBazooka();
                 bazooka.setAmmo(bazooka.getAmmo()+1);
                 System.out.println("#########"+bazooka.getAmmo());
@@ -74,26 +75,8 @@ public class Speler extends Figuur {
             // nieuwevak spelers object in plaatsen LET OP NOG NAKIJKEN OF ER NOG OPPAKBARE DINGEN LIGGEN
             nieuweVak.setFiguur(huidigeSpeler);
             doolhofMap.set(tempindex+positionchange,nieuweVak);
-        }    
+        }
         return doolhofMap;
-    }
-    public boolean isBazooka(Vak nieuwevak) {
-        if(nieuwevak.getFiguur().getNaam().equals("bazooka")) {
-            return true;
-        }
-        return false;
-    }
-    public boolean isMuur(Vak nieuwevak){
-        if(nieuwevak.getFiguur().getNaam().equals("muur") || nieuwevak.getFiguur().getNaam().equals("buitenmuur") ) {
-            return true;
-        }
-        return false;
-    }
-    public boolean isVriend(Vak nieuwevak) {
-        if(nieuwevak.getFiguur().getNaam().equals("vriend")) {
-            return true;
-        }
-        return false;
     }
     public LinkedList<Vak> fire(String richting, LinkedList<Vak> doolhofMap, int mazesize, Vak spelersVak) {
         int positionchange = 0;
@@ -115,11 +98,11 @@ public class Speler extends Figuur {
             int currentLocationIndex = doolhofMap.indexOf(spelersVak);
             Vak schietvak = doolhofMap.get(currentLocationIndex+positionchange);
             int i = 1;
-            while(!isMuur(schietvak)) {
+            while(!schietvak.isMuur(schietvak)) {
                 schietvak = doolhofMap.get(currentLocationIndex+(positionchange*i));
                 i++;
             }
-            if(isMuur(schietvak)) { 
+            if(schietvak.isMuur(schietvak)) { 
                 // muur vak gevonden dus afhandelen.
                 if(debug) {System.out.println("vakje is een muur, dus kogel afhandelen");}
                 Muur muur = (Muur) schietvak.getFiguur();
