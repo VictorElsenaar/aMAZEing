@@ -20,8 +20,7 @@ public class Speler extends Figuur {
 
     // Constructor
     public Speler() {
-        super("speler", Color.BLUE);
-
+        super(Color.BLUE);
     }
     
     private int positionchange(String richting, int current_maze_size) {

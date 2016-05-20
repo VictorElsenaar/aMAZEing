@@ -8,6 +8,6 @@ import java.awt.Color;
  */
 public class Leeg extends Figuur{
     public Leeg() {
-        super("leeg", Color.WHITE);
+        super(Color.WHITE);
     }
 }

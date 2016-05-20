@@ -39,7 +39,7 @@ public class Vak {
     public String toString() {
         String x = Integer.toString(getx());
         String y = Integer.toString(gety());
-        String cord = x + " " + y + " bevat " + figuur.getNaam();
+        String cord = x + " " + y + " bevat ERR  Vak toString methode gesloopt";// + figuur.getNaam();
         return cord;
     }
     

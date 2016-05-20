@@ -50,94 +50,11 @@ public class Level extends JComponent{
         repaint();
     }
     
-    /*
-    public void move_left() {
-        move(-1);
-    } 
-    public void move_right() {
-        move(1);
-    }    
-    public void move_up() {
-        move(-MAZESIZE);
-    }
-    public void move_down() {
-        move(MAZESIZE);       
-    }
-    public void move(int value) {
-        int tempindex=0;
-        tempindex = doolhofMap.indexOf(spelersVak);
-        Vak oudeVak = doolhofMap.get(tempindex);
-        Vak nieuweVak = doolhofMap.get(tempindex+value);
-        if (isVriend(nieuweVak)) {
-             JOptionPane.showMessageDialog(null, "Vriend gevonden! gefeliciteerd!");
-        }
-        if(!isMuur(nieuweVak)) {
-            // Oude vak speler ophalen
-            Speler huidigeSpeler = (Speler) oudeVak.getFiguur();
-
-            // OUDE VAK LEEG MAKEN
-            Figuur empty = new Leeg();
-            oudeVak.setFiguur(empty);
-            doolhofMap.set(tempindex, oudeVak);
-            
-            // controleer of er op het vak iets anders staat, voor nu alleen bazooka
-            if(isBazooka(nieuweVak)) {
-                huidigeSpeler.addBazooka();
-            }
-            System.out.println("Aantal bazooka's = " + huidigeSpeler.getCount());
-            
-            // nieuwevak spelers object in plaatsen LET OP NOG NAKIJKEN OF ER NOG OPPAKBARE DINGEN LIGGEN
-            nieuweVak.setFiguur(huidigeSpeler);
-            doolhofMap.set(tempindex+value,nieuweVak);
-            revalidate();
-            repaint();
-        }
-    }*/
-    
     public void fire(String richting) {
         Speler huidigeSpeler = (Speler) spelersVak.getFiguur();   
         doolhofMap = huidigeSpeler.fire(richting, doolhofMap, current_maze_size, spelersVak );
         repaint();
     }
-    
-    /*
-    public void fire_down() {
-        fire(MAZESIZE);
-    }
-    public void fire_up() {
-        fire(-MAZESIZE);
-    }
-    public void fire_right() {
-        fire(1);
-    }
-    public void fire_left() {
-        fire(-1);
-    }    
-    public void fire(int value) {
-        int currentLocationIndex = doolhofMap.indexOf(spelersVak);
-        Vak schietvak = doolhofMap.get(currentLocationIndex+value);
-        int i = 1;
-        while(!isMuur(schietvak)) {
-            schietvak = doolhofMap.get(currentLocationIndex+(value*i));
-            i++;
-        }
-        if(isMuur(schietvak)) { 
-            // muur vak gevonden dus afhandelen.
-            if(debug) {System.out.println("vakje is een muur, dus kogel afhandelen");}
-            Muur muur = (Muur) schietvak.getFiguur();
-            if(muur.getBorderMuur()){
-                if(debug) {System.out.println("Bordermuur kan niet kapot");}
-                // Bordermuur dus kogel is verloren, animatie moet het duidelijk maken
-            } else {
-                if(debug) {System.out.println("Normale muur is stuk!");}
-                Figuur empty = new Leeg();
-                schietvak.setFiguur(empty);
-                repaint();
-            }
-        }
-        
-    }   
-    */
 
     public void readLevel() {
         ListIterator<Vak> iterator = doolhofMap.listIterator();
@@ -162,7 +79,7 @@ public class Level extends JComponent{
             g.setColor(Color.LIGHT_GRAY);
             g.fillRect((vak.gety()*VAKGROOTTE)+4, (vak.getx()*VAKGROOTTE)+4, VAKGROOTTE-8, VAKGROOTTE-8);
             */
-            if(figuur.getNaam().equals("bazooka")) {
+            if(figuur instanceof Bazooka) {
                 BufferedImage image; 
                 try {
                     image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\bazooka.jpeg"));

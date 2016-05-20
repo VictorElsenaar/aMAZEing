@@ -9,9 +9,12 @@ import java.util.LinkedList;
  * @author Victor
  */
 public class Bazooka extends Figuur{
+    
     private int ammo;
+    
+    // Constructor
     public Bazooka() {
-        super("bazooka", Color.CYAN);
+        super(Color.CYAN);
         ammo = 0;
     }
     public int getAmmo() {
