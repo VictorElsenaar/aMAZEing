@@ -7,15 +7,16 @@ package amazeing;
 
 import static amazeing.AMAZEing.debug;
 import java.awt.Color;
+import java.awt.GradientPaint;
 //import static amazeing.AMAZEing.speler;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -70,15 +71,31 @@ public class Level extends JComponent{
         while(iterator.hasNext()) {
             Vak vak = iterator.next();
             Figuur figuur = vak.getFiguur();
-            g.setColor(figuur.getkleur());
+// TESTING
+            Graphics2D g2d = (Graphics2D) g;
+            Color color1 = figuur.getkleur();
+            Color color2 = color1.brighter();
+            color2 = color2.brighter();
+            GradientPaint gp = new GradientPaint(
+                    0, 0, color1,
+                    0, (vak.getx()*vak_size_pixels), color2);
+            g2d.setPaint(gp);
+            g2d.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+// TESTING  
+            
+// DEFAULT //           
+            //g.setColor(figuur.getkleur());
             // x en y as lijken omgedraaid te moeten...
-            g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
-            /*
-            g.setColor(Color.GRAY);
-            g.fillRect((vak.gety()*VAKGROOTTE)+2, (vak.getx()*VAKGROOTTE)+2, VAKGROOTTE-4, VAKGROOTTE-4);
-            g.setColor(Color.LIGHT_GRAY);
-            g.fillRect((vak.gety()*VAKGROOTTE)+4, (vak.getx()*VAKGROOTTE)+4, VAKGROOTTE-8, VAKGROOTTE-8);
-            */
+           // g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+// DEFAULT //
+            
+            
+            // Temp uitvogel ding
+////            g.setColor(Color.GRAY);
+////            g.fillRect((vak.gety()*VAKGROOTTE)+2, (vak.getx()*VAKGROOTTE)+2, VAKGROOTTE-4, VAKGROOTTE-4);
+////            g.setColor(Color.LIGHT_GRAY);
+////            g.fillRect((vak.gety()*VAKGROOTTE)+4, (vak.getx()*VAKGROOTTE)+4, VAKGROOTTE-8, VAKGROOTTE-8);
+            
             if(figuur instanceof Bazooka) {
                 BufferedImage image; 
                 try {

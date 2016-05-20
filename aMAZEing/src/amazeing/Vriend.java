@@ -14,6 +14,6 @@ import java.awt.Color;
 public class Vriend extends Figuur {
 
     public Vriend() {
-        super(Color.PINK);
+        super(Color.MAGENTA);
     }
 }
