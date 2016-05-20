@@ -24,31 +24,15 @@ public class Bazooka extends Figuur{
         this.ammo --;
         if (debug){System.out.println("Ammo nog over: " + ammo);}
     }
-    /*
-    public LinkedList<Vak> fire(String richting, LinkedList<Vak> doolhofMap, int mazesize, Vak spelersVak) {
-        int positionchange = 0;
-        switch(richting) {
-            case "right":
-                positionchange = 1;
-                break;
-            case "left":
-                positionchange = -1;
-                break;
-            case "up":
-                positionchange = -mazesize;
-                break;
-            case "down":
-                positionchange = mazesize;
-                break;
-        }
+    public LinkedList<Vak> fire(String richting, LinkedList<Vak> doolhofMap, int current_maze_size, Vak spelersVak, int position_change_amount) {
         int currentLocationIndex = doolhofMap.indexOf(spelersVak);
-        Vak schietvak = doolhofMap.get(currentLocationIndex+positionchange);
+        Vak schietvak = doolhofMap.get(currentLocationIndex+position_change_amount);
         int i = 1;
-        while(!isMuur(schietvak)) {
-            schietvak = doolhofMap.get(currentLocationIndex+(positionchange*i));
+        while(!schietvak.isMuur(schietvak)) {
+            schietvak = doolhofMap.get(currentLocationIndex+(position_change_amount*i));
             i++;
         }
-        if(isMuur(schietvak)) { 
+        if(schietvak.isMuur(schietvak)) { 
             // muur vak gevonden dus afhandelen.
             if(debug) {System.out.println("vakje is een muur, dus kogel afhandelen");}
             Muur muur = (Muur) schietvak.getFiguur();
@@ -61,13 +45,7 @@ public class Bazooka extends Figuur{
                 schietvak.setFiguur(empty);
             }
         }
+        this.reload(this);
         return doolhofMap;
-    }   
-    public boolean isMuur(Vak nieuwevak){
-        if(nieuwevak.getFiguur().getNaam().equals("muur") || nieuwevak.getFiguur().getNaam().equals("buitenmuur") ) {
-            return true;
-        }
-        return false;
-    } */
-    
+    }
 }

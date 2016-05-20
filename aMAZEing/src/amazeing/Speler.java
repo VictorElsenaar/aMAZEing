@@ -15,42 +15,40 @@ import javax.swing.JOptionPane;
  * @author vic
  */
 public class Speler extends Figuur {
-    //private Level level;
+
     private Bazooka bazooka = new Bazooka();
-    //private int bazooka_count;
+
+    // Constructor
     public Speler() {
         super("speler", Color.BLUE);
-        //bazooka_count = 0;
+
     }
-    /*
-    public void addBazooka() {
-        this.bazooka_count++;
-    }
-    public int getCount() {
-        return bazooka_count;
-    }*/
-    public LinkedList<Vak> move(String richting, LinkedList<Vak> doolhofMap, int mazesize, Vak spelersVak) {
-        
-        int positionchange = 0;
+    
+    private int positionchange(String richting, int current_maze_size) {
+        int position_change_amount = 0;
         switch(richting) {
             case "right":
-                positionchange = 1;
+                position_change_amount = 1;
                 break;
             case "left":
-                positionchange = -1;
+                position_change_amount = -1;
                 break;
             case "up":
-                positionchange = -mazesize;
+                position_change_amount = -current_maze_size;
                 break;
             case "down":
-                positionchange = mazesize;
+                position_change_amount = current_maze_size;
                 break;
-        }
-        
+        }        
+        return position_change_amount;
+    }
+    
+    public LinkedList<Vak> move(String richting, LinkedList<Vak> doolhofMap, int current_maze_size, Vak spelersVak) {
+        int position_change_amount = positionchange(richting, current_maze_size);
         int tempindex=0;
         tempindex = doolhofMap.indexOf(spelersVak);
         Vak oudeVak = doolhofMap.get(tempindex);
-        Vak nieuweVak = doolhofMap.get(tempindex+positionchange);
+        Vak nieuweVak = doolhofMap.get(tempindex+position_change_amount);
         if (nieuweVak.isVriend(nieuweVak)) {
              JOptionPane.showMessageDialog(null, "Vriend gevonden! gefeliciteerd!");
         }
@@ -64,58 +62,20 @@ public class Speler extends Figuur {
             oudeVak.setFiguur(empty);
             doolhofMap.set(tempindex, oudeVak);
             
-            // controleer of er op het vak iets anders staat, voor nu alleen bazooka
             if(nieuweVak.isBazooka(nieuweVak)) {
-                //huidigeSpeler.addBazooka();
                 bazooka.setAmmo(bazooka.getAmmo()+1);
                 System.out.println("#########"+bazooka.getAmmo());
             }
-            //System.out.println("Aantal bazooka's = " + huidigeSpeler.getCount());
             
-            // nieuwevak spelers object in plaatsen LET OP NOG NAKIJKEN OF ER NOG OPPAKBARE DINGEN LIGGEN
             nieuweVak.setFiguur(huidigeSpeler);
-            doolhofMap.set(tempindex+positionchange,nieuweVak);
+            doolhofMap.set(tempindex+position_change_amount,nieuweVak);
         }
         return doolhofMap;
     }
-    public LinkedList<Vak> fire(String richting, LinkedList<Vak> doolhofMap, int mazesize, Vak spelersVak) {
-        int positionchange = 0;
-        switch(richting) {
-            case "right":
-                positionchange = 1;
-                break;
-            case "left":
-                positionchange = -1;
-                break;
-            case "up":
-                positionchange = -mazesize;
-                break;
-            case "down":
-                positionchange = mazesize;
-                break;
-        }
+    public LinkedList<Vak> fire(String richting, LinkedList<Vak> doolhofMap, int current_maze_size, Vak spelersVak) {
+        int position_change_amount = positionchange(richting, current_maze_size);
         if (bazooka.getAmmo() > 0) {
-            int currentLocationIndex = doolhofMap.indexOf(spelersVak);
-            Vak schietvak = doolhofMap.get(currentLocationIndex+positionchange);
-            int i = 1;
-            while(!schietvak.isMuur(schietvak)) {
-                schietvak = doolhofMap.get(currentLocationIndex+(positionchange*i));
-                i++;
-            }
-            if(schietvak.isMuur(schietvak)) { 
-                // muur vak gevonden dus afhandelen.
-                if(debug) {System.out.println("vakje is een muur, dus kogel afhandelen");}
-                Muur muur = (Muur) schietvak.getFiguur();
-                if(muur.getBorderMuur()){
-                    if(debug) {System.out.println("Bordermuur kan niet kapot");}
-                    // Bordermuur dus kogel is verloren, animatie moet het duidelijk maken
-                } else {
-                    if(debug) {System.out.println("Normale muur is stuk!");}
-                    Figuur empty = new Leeg();
-                    schietvak.setFiguur(empty);
-                }
-            }
-            bazooka.reload(bazooka);
+            this.bazooka.fire(richting, doolhofMap, current_maze_size, spelersVak, position_change_amount);
         } else {
             if (debug) {System.out.println("Geen ammo.");}
         }
