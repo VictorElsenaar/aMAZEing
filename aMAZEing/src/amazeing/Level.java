@@ -38,9 +38,11 @@ public class Level extends JComponent{
     private LinkedList<Vak> doolhofMap;
     
     private Vak spelersVak;
+    
+    private String currentLevel;
         
     public Level() {
-        setLevel(levelThree());
+        setLevel(levelOne());
         if(debug){readLevel();} // controleer het level          
     }
     
@@ -122,8 +124,14 @@ public class Level extends JComponent{
     public Vak getSpelersVak() {
         return spelersVak;
     }
-      
+    public String getCurrentLevel() {
+        return currentLevel;
+    }  
+    public void setCurrentLevel(String currentLevel) {
+        this.currentLevel = currentLevel;
+    }
     public void setLevel(String level) {
+        setCurrentLevel(level);
         // Bepaal de breedte en hoogte
         for (int i = 1; i < MAX_MAZE_SIZE; i++) {
             if((level.length() / i) == i){
