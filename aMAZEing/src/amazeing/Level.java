@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package amazeing;
 
 import static amazeing.AMAZEing.debug;
-import java.awt.Color;
 import java.awt.GradientPaint;
 //import static amazeing.AMAZEing.speler;
 import java.awt.Graphics;
@@ -42,8 +36,8 @@ public class Level extends JComponent{
     private String currentLevel;
         
     public Level() {
-        setLevel(levelOne());
-        if(debug){readLevel();} // controleer het level          
+        setLevel(levelThree());
+        if(debug){readLevel();} // controleer het level        
     }
     
     public void action(String richting, String type) {
@@ -74,21 +68,25 @@ public class Level extends JComponent{
             Vak vak = iterator.next();
             Figuur figuur = vak.getFiguur();
 // TESTING
-            Graphics2D g2d = (Graphics2D) g;
-            Color color1 = figuur.getkleur();
-            Color color2 = color1.brighter();
-            color2 = color2.brighter();
-            GradientPaint gp = new GradientPaint(
-                    0, 0, color1,
-                    0, (vak.getx()*vak_size_pixels), color2);
-            g2d.setPaint(gp);
-            g2d.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+//            Graphics2D g2d = (Graphics2D) g;
+//            Color color1 = figuur.getkleur();
+//            Color color2 = color1.brighter();
+//            color2 = color2.brighter();
+//            GradientPaint gp = new GradientPaint(
+//                    0, 0, color1,
+//                    0, (vak.getx()*vak_size_pixels), color2);
+//            g2d.setPaint(gp);
+//            g2d.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
 // TESTING  
             
 // DEFAULT //           
-            //g.setColor(figuur.getkleur());
+            g.setColor(figuur.getkleur());
             // x en y as lijken omgedraaid te moeten...
-           // g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+            g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+            g.setColor(figuur.getkleur1());
+            g.fillRect((vak.gety()*vak_size_pixels)+5, (vak.getx()*vak_size_pixels)+5, vak_size_pixels-10, vak_size_pixels-10);
+            g.setColor(figuur.getkleur2());
+            g.fillRect((vak.gety()*vak_size_pixels)+10, (vak.getx()*vak_size_pixels)+10, vak_size_pixels-20, vak_size_pixels-20);
 // DEFAULT //
             
             

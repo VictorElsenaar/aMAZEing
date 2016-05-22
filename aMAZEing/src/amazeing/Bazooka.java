@@ -14,7 +14,9 @@ public class Bazooka extends Figuur{
     
     // Constructor
     public Bazooka() {
-        super(Color.CYAN);
+        super(Color.CYAN); //Color(0,255,255)
+        kleur1 = new Color(120,255,255);
+        kleur2 = new Color(160,255,255);
         ammo = 0;
     }
     public int getAmmo() {

@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -28,8 +29,7 @@ public class Game extends JFrame{
     boolean fireing = false;
     private Level level;
     private JPanel gamePanel;
-    private JPanel menuPanel;
-    private JButton startButton;
+    private MenuPanel menuPanel;
     
     public Game() {
         setLayout(null);
@@ -45,39 +45,55 @@ public class Game extends JFrame{
         gamePanel.add(level);
         add(gamePanel);
         
-//        JPanel menuPanel = new MenuPanel();
-//        menuPanel.setSize(130, 520);
-//        menuPanel.setBounds(540, 10, 130, 520);
-//        menuPanel.setBorder(border);
-//        add(menuPanel);
-        
-        menuPanel = new JPanel();
+        menuPanel = new MenuPanel();
         menuPanel.setSize(130, 520);
         menuPanel.setBounds(540, 10, 130, 520);
         menuPanel.setBorder(border);
-        menuPanel.setLayout(null);
-        
-        ActionListener listener = new ClickListener();
-        
-        startButton = new JButton("Start");
-        startButton.setPreferredSize(new Dimension(110, 20));
-        startButton.setBounds(10, 10, 110, 20);
-        startButton.addActionListener(listener);
-        menuPanel.add(startButton);
-        
-        JButton restartButton = new JButton("Restart");
-        restartButton.setPreferredSize(new Dimension(110, 20));
-        restartButton.setBounds(10, 40, 110, 20);
-        restartButton.addActionListener(listener);
-        menuPanel.add(restartButton);
-        
-        JButton afsluitenButton = new JButton("Afsluiten");
-        afsluitenButton.setPreferredSize(new Dimension(110, 20));
-        afsluitenButton.setBounds(10, 70, 110, 20);
-        afsluitenButton.addActionListener(listener);
-        menuPanel.add(afsluitenButton);
-        
+        setListenersAanButtons();
         add(menuPanel);
+        
+//        menuPanel = new JPanel();
+//        menuPanel.setSize(130, 520);
+//        menuPanel.setBounds(540, 10, 130, 520);
+//        menuPanel.setBorder(border);
+//        menuPanel.setLayout(null);
+//        
+//        ActionListener listener = new ClickListener();
+//        
+//        JButton startButton = new JButton("Start");
+//        //startButton.setPreferredSize(new Dimension(110, 20));
+//        startButton.setBounds(10, 10, 110, 20);
+//        startButton.addActionListener(listener);
+//        menuPanel.add(startButton);
+//        
+//        JButton restartButton = new JButton("Restart");
+//        //restartButton.setPreferredSize(new Dimension(110, 20));
+//        restartButton.setBounds(10, 40, 110, 20);
+//        restartButton.addActionListener(listener);
+//        menuPanel.add(restartButton);
+//        
+//        JButton afsluitenButton = new JButton("Afsluiten");
+//        //afsluitenButton.setPreferredSize(new Dimension(110, 20));
+//        afsluitenButton.setBounds(10, 70, 110, 20);
+//        afsluitenButton.addActionListener(listener);
+//        menuPanel.add(afsluitenButton);
+//        
+//        String[] levels = new String[] {
+//            "level 1", 
+//            "level 2",
+//            "level 3"
+//        };
+//        levelLijst = new JComboBox<>(levels);
+//        levelLijst.setBounds(10, 100, 110, 20);
+//        menuPanel.add(levelLijst);
+//        
+//        JButton goButton = new JButton("Go");
+//        //goButton.setPreferredSize(new Dimension(110, 20));
+//        goButton.setBounds(10, 130, 110, 20);
+//        goButton.addActionListener(listener);
+//        menuPanel.add(goButton);
+//        
+//        add(menuPanel);
         
         addKeyListener(new KeyListener() { 
             public void keyPressed(KeyEvent e) { } 
@@ -141,7 +157,6 @@ public class Game extends JFrame{
         public void actionPerformed(ActionEvent e) {
             if (debug){System.out.println(e.getActionCommand());}
             if (e.getActionCommand().equals("Start")) {
-                
                 requestFocusInWindow();
             }
             if (e.getActionCommand().equals("Restart")) {
@@ -151,7 +166,36 @@ public class Game extends JFrame{
             if (e.getActionCommand().equals("Afsluiten")) {
                 System.exit(0);
             }
+            if (e.getActionCommand().equals("Go")) {
+                JComboBox<String> levelLijst = menuPanel.getLevelLijst();
+                String selectedLevel = (String) levelLijst.getSelectedItem();
+                switch (selectedLevel) {
+                    case "level 1":
+                        level.setLevel(level.levelOne());
+                        repaint();
+                        break;
+                    case "level 2":
+                        level.setLevel(level.levelTwo());
+                        repaint();
+                        break;
+                    case "level 3":
+                        level.setLevel(level.levelThree());
+                        repaint();
+                        break;
+                }
+            }
         }
+    }
+    public void setListenersAanButtons() {
+        ActionListener listener = new ClickListener();
+        JButton startButton = menuPanel.getStartButton();
+        startButton.addActionListener(listener);
+        JButton restartButton = menuPanel.getRestartButton();
+        restartButton.addActionListener(listener);
+        JButton afsluitenButton = menuPanel.getAfsluitenButton();
+        afsluitenButton.addActionListener(listener);
+        JButton goButton = menuPanel.getGoButton();
+        goButton.addActionListener(listener);
     }
 //    public void tekenLevel() {
 //        Muur borderMuur = new Muur();
