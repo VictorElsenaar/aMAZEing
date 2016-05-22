@@ -38,6 +38,7 @@ public class Game extends JFrame{
     
     public Game() {
         setLayout(null);
+        setFocusTraversalKeysEnabled(false); // TAB disable
         
         gamePanel = new JPanel();
         gamePanel.setSize(520, 520);
@@ -56,9 +57,6 @@ public class Game extends JFrame{
         menuPanel.setBorder(border);
         setListenersAanButtons();
         add(menuPanel);
-        
-
-        
         
         addKeyListener(new KeyListener() { 
             @Override
@@ -98,6 +96,7 @@ public class Game extends JFrame{
             if (e.getActionCommand().equals("Restart")) {
                 level.setLevel(level.getCurrentLevel());
                 repaint();
+                requestFocusInWindow();
             }
             if (e.getActionCommand().equals("Afsluiten")) {
                 System.exit(0);
@@ -109,14 +108,17 @@ public class Game extends JFrame{
                     case "level 1":
                         level.setLevel(level.levelOne());
                         repaint();
+                        requestFocusInWindow();
                         break;
                     case "level 2":
                         level.setLevel(level.levelTwo());
                         repaint();
+                        requestFocusInWindow();
                         break;
                     case "level 3":
                         level.setLevel(level.levelThree());
                         repaint();
+                        requestFocusInWindow();
                         break;
                 }
             }
