@@ -21,7 +21,8 @@ public class Speler extends Figuur {
 
     // Constructor
     public Speler() {
-        super(Color.BLUE); //Color(0,0,255)
+        super( Color.BLUE); //Color(0,0,255)
+        //super(new Color(0,32,255)); //Color(0,0,255)
         kleur1 = new Color(0,32,255);
         kleur2 = new Color(0,52,255);
     }
