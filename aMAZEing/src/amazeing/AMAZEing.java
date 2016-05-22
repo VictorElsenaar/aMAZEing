@@ -17,7 +17,7 @@ public class AMAZEing {
     private static final int WIDTH = 700;
     private static final int HEIGHT = 600;
     //public static Speler speler;
-    
+    private static Thread thread = new Thread();
     
     public static void main(String[] args) {
         // Teken globale panel
@@ -33,5 +33,16 @@ public class AMAZEing {
         game.setTitle("aMAZEing");
         game.setSize(WIDTH, HEIGHT);
         
+        thread.start();
+        while(true) 
+        {
+            try {
+                Thread.sleep(25);
+                game.executeQueue();
+            } catch (Exception ex) {  
+                // do something with the exception
+            }
+        }                           
+    
     }
 }

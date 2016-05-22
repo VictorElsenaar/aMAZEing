@@ -1,24 +1,18 @@
 package amazeing;
 import static amazeing.AMAZEing.debug;
-import com.sun.org.apache.bcel.internal.Repository;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.Queue;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-import sun.management.Agent;
 
 /**
  *
@@ -30,6 +24,17 @@ public class Game extends JFrame{
     private Level level;
     private JPanel gamePanel;
     private MenuPanel menuPanel;
+
+    
+    // Bouw Queue
+    
+    // Vul queue met acties vanuit Game (want keylistener)
+    
+    // Timer checkt queue voor nieuwe actie of bestaande actie
+    
+    // Actie > Level > speler > level > game > queue method (ik ben klaar)
+    private Queue<QueueHandler> queue = new LinkedList<QueueHandler>();
+    
     
     public Game() {
         setLayout(null);
@@ -52,94 +57,27 @@ public class Game extends JFrame{
         setListenersAanButtons();
         add(menuPanel);
         
-//        menuPanel = new JPanel();
-//        menuPanel.setSize(130, 520);
-//        menuPanel.setBounds(540, 10, 130, 520);
-//        menuPanel.setBorder(border);
-//        menuPanel.setLayout(null);
-//        
-//        ActionListener listener = new ClickListener();
-//        
-//        JButton startButton = new JButton("Start");
-//        //startButton.setPreferredSize(new Dimension(110, 20));
-//        startButton.setBounds(10, 10, 110, 20);
-//        startButton.addActionListener(listener);
-//        menuPanel.add(startButton);
-//        
-//        JButton restartButton = new JButton("Restart");
-//        //restartButton.setPreferredSize(new Dimension(110, 20));
-//        restartButton.setBounds(10, 40, 110, 20);
-//        restartButton.addActionListener(listener);
-//        menuPanel.add(restartButton);
-//        
-//        JButton afsluitenButton = new JButton("Afsluiten");
-//        //afsluitenButton.setPreferredSize(new Dimension(110, 20));
-//        afsluitenButton.setBounds(10, 70, 110, 20);
-//        afsluitenButton.addActionListener(listener);
-//        menuPanel.add(afsluitenButton);
-//        
-//        String[] levels = new String[] {
-//            "level 1", 
-//            "level 2",
-//            "level 3"
-//        };
-//        levelLijst = new JComboBox<>(levels);
-//        levelLijst.setBounds(10, 100, 110, 20);
-//        menuPanel.add(levelLijst);
-//        
-//        JButton goButton = new JButton("Go");
-//        //goButton.setPreferredSize(new Dimension(110, 20));
-//        goButton.setBounds(10, 130, 110, 20);
-//        goButton.addActionListener(listener);
-//        menuPanel.add(goButton);
-//        
-//        add(menuPanel);
+
+        
         
         addKeyListener(new KeyListener() { 
-            public void keyPressed(KeyEvent e) { } 
+            @Override
+            public void keyPressed(KeyEvent e) { 
+                if (e.getKeyCode() == KeyEvent.VK_LEFT ) {
+                    keyLeft();
+                }
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT ) {
+                    keyRight();
+                }
+                if (e.getKeyCode() == KeyEvent.VK_DOWN ) {
+                    keyDown();
+                }
+                if (e.getKeyCode() == KeyEvent.VK_UP ) {
+                    keyUp();
+                }                 
+            } 
             @Override
             public void keyReleased(KeyEvent e) { 
-                if (e.getKeyCode() == KeyEvent.VK_DOWN ) {
-                   if(debug){System.out.println("DOWN");}
-                   if(fireing){
-                       if(debug) {System.out.println("FIRE DOWN"); }
-                       level.action("down", "fire");
-                       fireing = false;
-                   } else { // move character
-                       level.action("down", "move");
-
-                   }
-                } 
-                if (e.getKeyCode() == KeyEvent.VK_UP ) {
-                   if(debug){System.out.println("UP");}
-                   if(fireing){
-                       if(debug) {System.out.println("FIRE UP"); }
-                       level.action("up", "fire");
-                       fireing = false;
-                   } else { // move character                   
-                       level.action("up", "move");
-                   }
-                } 
-                if (e.getKeyCode() == KeyEvent.VK_RIGHT ) {
-                   if(debug){System.out.println("RIGHT");}
-                    if(fireing){
-                       if(debug) {System.out.println("FIRE RIGHT"); }
-                       level.action("right", "fire");
-                       fireing = false;
-                   } else { // move character
-                        level.action("right", "move");
-                   }
-                }
-                if (e.getKeyCode() == KeyEvent.VK_LEFT ) {
-                   if(debug){System.out.println("LEFT");}
-                   if(fireing){
-                       if(debug) {System.out.println("FIRE LEFT"); }
-                       level.action("left", "fire");
-                       fireing = false;
-                   } else { // move character                   
-                       level.action("left", "move");
-                   }
-                }
                 if (e.getKeyCode() == KeyEvent.VK_F) {
                     if(debug){System.out.println("(F)IRE - pick a direction");}
                     fireing = true;
@@ -147,10 +85,8 @@ public class Game extends JFrame{
             } 
             public void keyTyped(KeyEvent e) { } 
         }); 
-       
-      // setLevel(levelOne());
-      // if(debug){readLevel();} // controleer het level
-    }
+    }   
+
     
     class ClickListener implements ActionListener {
         @Override
@@ -186,6 +122,47 @@ public class Game extends JFrame{
             }
         }
     }
+    private void keyLeft() {
+        if(debug){System.out.println("LEFT");}
+        if(fireing){
+            if(debug) {System.out.println("FIRE LEFT"); }
+            queue.add(new QueueHandler("left", "fire"));
+            fireing = false;
+        } else { // move character       
+            queue.add(new QueueHandler("left", "move"));
+        }            
+    }
+    private void keyRight() {
+        if(debug){System.out.println("RIGHT");}
+         if(fireing){
+            if(debug) {System.out.println("FIRE RIGHT"); }
+            queue.add(new QueueHandler("right", "fire"));
+            fireing = false;
+        } else { // move character
+            queue.add(new QueueHandler("right", "move"));
+        }        
+    }
+    private void keyDown() {
+        if(debug){System.out.println("DOWN");}
+        if(fireing){
+            if(debug) {System.out.println("FIRE DOWN"); }
+            queue.add(new QueueHandler("down", "fire"));
+            fireing = false;
+        } else { // move character
+            queue.add(new QueueHandler("down", "move"));
+        }        
+    }
+    private void keyUp() {
+        if(debug){System.out.println("UP");}
+        if(fireing){
+            if(debug) {System.out.println("FIRE UP"); }
+            queue.add(new QueueHandler("up", "fire"));
+            fireing = false;
+        } else { // move character        
+            queue.add(new QueueHandler("up", "move"));
+        }        
+    }
+    
     public void setListenersAanButtons() {
         ActionListener listener = new ClickListener();
         JButton startButton = menuPanel.getStartButton();
@@ -197,93 +174,9 @@ public class Game extends JFrame{
         JButton goButton = menuPanel.getGoButton();
         goButton.addActionListener(listener);
     }
-//    public void tekenLevel() {
-//        Muur borderMuur = new Muur();
-//        Figuur empty = new Empty();
-//        borderMuur.setBorderMuur(true);
-//        map = new HashMap<>();
-//        for(int x = 0; x < AANTALVAKKENBREEDTE; x++) {
-//            for(int y = 0; y < AANTALVAKKENHOOGTE; y++) {
-//                if (x == 0 || x == (AANTALVAKKENBREEDTE-1) || y == 0 || y == (AANTALVAKKENHOOGTE-1)) {
-//                    map.put(new Vak(x,y),borderMuur);
-//                } else {
-//                    map.put(new Vak(x,y),empty);
-//                }
-//            }
-//        }
-//    }
-/*    public void setLevel(String level) {
-        System.out.println(level);
-
-        Muur muur = new Muur();
-        Figuur empty = new Empty();
-        map = new HashMap<>();
-        
-        int counter = 0;
-        for (int x = 0; x < ROWS ; x++) {
-            if(debug){System.out.println("rows " + x);}
-            for(int y = 0; y < COLUMNS ; y++) {
-                if(debug){System.out.println("columns " + y);}
-                String typeOnPosition = level.substring(counter, counter+1);
-                if(debug){System.out.println(typeOnPosition);}
-                if(Integer.parseInt(typeOnPosition) == 1) {
-                     map.put(new Vak(y,x),muur);
-                   // map[x][y] = new Tile(new Figure("Muur"));
-                } else if (Integer.parseInt(typeOnPosition) == 2) {
-                   // map[x][y] = new Tile(new Figure("Speler"));
-                } else
-                {
-                    map.put(new Vak(y,x),empty);
-                   // map[x][y] = new Tile(new Figure("Leeg"));
-                }
-                counter++;
-            }
-            
-        }
+    public void executeQueue() {
+        QueueHandler next = queue.remove();
+        System.out.println(next);
+        level.action(next.getType(),next.getDirection());
     }
-
-    public void readLevel() {
-//        Set<Vak> keySet = map.keySet();
-//        for (Vak key : keySet)
-//        {
-//            Figuur value = map.get(key);
-//            System.out.println(key.getCord()+ "->" + value.getNaam()); // coordinaten + object output in console
-//        }
-        for (Map.Entry<Vak,Figuur> entry : map.entrySet()) {
-            System.out.println(entry.getKey().getCord() + "/" + entry.getValue().getNaam());
-        }
-    }
-    
-    public void paint(Graphics g) {
-        for (int i = 0; i < levelsize; i+=VAKGROOTTE) {
-            for (int j = 0; j < levelsize; j+=VAKGROOTTE) {
-              g.drawLine(i, j, levelsize, j); // de grid tekenen
-              g.drawLine(i, j, i, levelsize); // de grid tekenen
-            }
-        }
-        
-        Set<Vak> keySet = map.keySet();
-        for (Vak key : keySet)
-        {
-            Figuur value = map.get(key);
-            if (value.getNaam().equals("muur")) { // als object een muur is
-                
-                g.fillRect((key.getXAs()*VAKGROOTTE), (key.getYAs()*VAKGROOTTE), VAKGROOTTE, VAKGROOTTE); // vul de vakken zwart
-            }
-        }
-    }
-        
-    
-    public String levelOne() {
-      return  "1111111111"
-            + "1010100001"
-            + "1010101011"
-            + "1010101001"
-            + "1010001101"
-            + "1010110001"
-            + "1010100111"
-            + "1010101101"
-            + "1000100001"
-            + "1111111111";
-    }    */
 }
