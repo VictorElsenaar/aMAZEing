@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 public class Speler extends Figuur {
 
     private Bazooka bazooka = new Bazooka();
+    private Vak huidigeVak;
 
     // Constructor
     public Speler() {
@@ -25,7 +26,7 @@ public class Speler extends Figuur {
         kleur2 = new Color(0,52,255);
     }
     
-    private int positionchange(String richting, int current_maze_size) {
+    public int positionchange(String richting, int current_maze_size) {
         int position_change_amount = 0;
         switch(richting) {
             case "right":
@@ -47,13 +48,15 @@ public class Speler extends Figuur {
     public LinkedList<Vak> move(String richting, LinkedList<Vak> doolhofMap, int current_maze_size, Vak spelersVak) {
         int position_change_amount = positionchange(richting, current_maze_size);
         int tempindex=0;
+//        int x = 0;
+//        int y = 0;
         tempindex = doolhofMap.indexOf(spelersVak);
         Vak oudeVak = doolhofMap.get(tempindex);
         Vak nieuweVak = doolhofMap.get(tempindex+position_change_amount);
-        if (nieuweVak.isVriend(nieuweVak)) {
-             JOptionPane.showMessageDialog(null, "Vriend gevonden! gefeliciteerd!");
-        }
-        
+//        if (nieuweVak.isVriend(nieuweVak)) {
+//             JOptionPane.showMessageDialog(null, "Vriend gevonden! gefeliciteerd!");
+//        }
+//        
         if(!nieuweVak.isMuur(nieuweVak)) {
             // Oude vak speler ophalen
             Speler huidigeSpeler = (Speler) oudeVak.getFiguur();
@@ -70,6 +73,7 @@ public class Speler extends Figuur {
             
             nieuweVak.setFiguur(huidigeSpeler);
             doolhofMap.set(tempindex+position_change_amount,nieuweVak);
+            huidigeVak = doolhofMap.get(tempindex+position_change_amount);
         }
         return doolhofMap;
     }
@@ -82,4 +86,7 @@ public class Speler extends Figuur {
         }
         return doolhofMap;
     }   
+    public Vak getVak(){
+        return huidigeVak;
+    }
 }

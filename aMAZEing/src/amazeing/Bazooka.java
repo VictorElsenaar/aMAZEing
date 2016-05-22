@@ -18,6 +18,7 @@ public class Bazooka extends Figuur{
         kleur1 = new Color(120,255,255);
         kleur2 = new Color(160,255,255);
         ammo = 0;
+        if(debug) {ammo = 99;}
     }
     public int getAmmo() {
         return ammo;

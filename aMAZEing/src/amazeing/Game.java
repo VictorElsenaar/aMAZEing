@@ -1,5 +1,6 @@
 package amazeing;
 import static amazeing.AMAZEing.debug;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import java.util.Queue;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -24,7 +26,8 @@ public class Game extends JFrame{
     private Level level;
     private JPanel gamePanel;
     private MenuPanel menuPanel;
-
+    private JPanel informationPanel;
+    private JLabel infoLabel;
     
     // Bouw Queue
     
@@ -40,6 +43,18 @@ public class Game extends JFrame{
         setLayout(null);
         setFocusTraversalKeysEnabled(false); // TAB disable
         
+        
+        informationPanel = new JPanel();
+        informationPanel.setSize(420, 32);
+        informationPanel.setBounds(60,200, 420,32); //moet dus op basis van gamepanel zijn
+        informationPanel.setBackground(Color.MAGENTA);
+        infoLabel = new JLabel();
+        
+        informationPanel.add(infoLabel, BorderLayout.CENTER);        
+        setInformationPanel(true);
+        add(informationPanel);
+        
+        
         gamePanel = new JPanel();
         gamePanel.setSize(520, 520);
         gamePanel.setBounds(10, 10, 520, 520);
@@ -51,6 +66,7 @@ public class Game extends JFrame{
         gamePanel.add(level);
         add(gamePanel);
         
+
         menuPanel = new MenuPanel();
         menuPanel.setSize(130, 520);
         menuPanel.setBounds(540, 10, 130, 520);
@@ -91,10 +107,16 @@ public class Game extends JFrame{
         public void actionPerformed(ActionEvent e) {
             if (debug){System.out.println(e.getActionCommand());}
             if (e.getActionCommand().equals("Start")) {
-                requestFocusInWindow();
+                if(level.getSpelersVak() == level.getVriendVak()) {
+                    setInformationPanel(true, "Vriend al gevonden! Druk op restart of kies een nieuw level.");
+                } else {
+                    setInformationPanel(false);
+                    requestFocusInWindow();
+                }
             }
             if (e.getActionCommand().equals("Restart")) {
                 level.setLevel(level.getCurrentLevel());
+                setInformationPanel(false);
                 repaint();
                 requestFocusInWindow();
             }
@@ -107,18 +129,18 @@ public class Game extends JFrame{
                 switch (selectedLevel) {
                     case "level 1":
                         level.setLevel(level.levelOne());
+                        setInformationPanel(true);
                         repaint();
-                        requestFocusInWindow();
                         break;
                     case "level 2":
                         level.setLevel(level.levelTwo());
+                        setInformationPanel(true);
                         repaint();
-                        requestFocusInWindow();
                         break;
                     case "level 3":
                         level.setLevel(level.levelThree());
+                        setInformationPanel(true);
                         repaint();
-                        requestFocusInWindow();
                         break;
                 }
             }
@@ -179,6 +201,24 @@ public class Game extends JFrame{
     public void executeQueue() {
         QueueHandler next = queue.remove();
         System.out.println(next);
-        level.action(next.getType(),next.getDirection());
+        level.action(next.getType(),next.getDirection());     
+        // Check if game ends
+        endGame();
+    }
+    public void endGame() {
+        if (level.getVriendVak() == level.getSpelersVak()) {
+            if(debug){System.out.println("Vriend gevonden");}
+            setInformationPanel(true, "Gefeliciteerd! Vriend gevonden.");   
+            menuPanel.requestFocusInWindow();
+        }
+    }
+    
+    public void setInformationPanel(boolean b, String text) {
+        infoLabel.setText(text);
+        informationPanel.setVisible(b);
+    }
+    public void setInformationPanel(boolean b) {
+        infoLabel.setText("Druk op start om het spel te starten.");
+        informationPanel.setVisible(b);
     }
 }

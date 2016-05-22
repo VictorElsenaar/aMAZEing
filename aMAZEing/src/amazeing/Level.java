@@ -1,10 +1,8 @@
 package amazeing;
 
 import static amazeing.AMAZEing.debug;
-import java.awt.GradientPaint;
 //import static amazeing.AMAZEing.speler;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.LinkedList;
@@ -32,11 +30,12 @@ public class Level extends JComponent{
     private LinkedList<Vak> doolhofMap;
     
     private Vak spelersVak;
+    private Vak vriendVak;
     
     private String currentLevel;
         
     public Level() {
-        setLevel(levelThree());
+        setLevel(levelOne());
         if(debug){readLevel();} // controleer het level        
     }
     
@@ -49,9 +48,25 @@ public class Level extends JComponent{
             case "fire":
                 doolhofMap = huidigeSpeler.fire(richting, doolhofMap, current_maze_size, spelersVak );
                 break;
+            default:
+                break;
         }
         revalidate();
         repaint();
+        spelersVak = huidigeSpeler.getVak();
+        System.out.println(spelersVak.toString());
+        System.out.println(vriendVak.toString());
+//        
+//        ListIterator<Vak> iterator = doolhofMap.listIterator();
+//        while(iterator.hasNext()) {
+//            Vak vak = iterator.next();
+//            Figuur figuur = vak.getFiguur();
+//                        if(figuur instanceof Speler){
+//                // dan het vakje van de speler opslaan globaal, zodat we weten waar de speler is.
+//                spelersVak = vak;
+//            }
+//        }
+        
     }
     public void readLevel() {
         ListIterator<Vak> iterator = doolhofMap.listIterator();
@@ -122,6 +137,9 @@ public class Level extends JComponent{
     public Vak getSpelersVak() {
         return spelersVak;
     }
+    public Vak getVriendVak() {
+        return vriendVak;
+    }
     public String getCurrentLevel() {
         return currentLevel;
     }  
@@ -171,6 +189,7 @@ public class Level extends JComponent{
                 // Als het een 4 is dan een vriend plaatsen
                 } else if (Integer.parseInt(typeOnPosition) == 4) {
                     vak = new Vak(x,y,vriend);
+                    vriendVak = vak;
                 // Als het een 5 is dan een bazooka plaatsen
                 } else if (Integer.parseInt(typeOnPosition) == 5) {
                     vak = new Vak(x,y,bazooka);                    
