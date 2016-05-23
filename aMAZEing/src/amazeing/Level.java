@@ -73,6 +73,9 @@ public class Level extends JComponent{
         while(iterator.hasNext()) {
             Vak vak = iterator.next();
             System.out.println(vak.toString());
+            System.out.println("x:"+vak.getx());
+            System.out.println("y:"+vak.gety());
+            System.out.println("vak index:"+doolhofMap.indexOf(vak));
         }
         
     }
@@ -95,6 +98,43 @@ public class Level extends JComponent{
 // TESTING  
             
 // DEFAULT //           
+<<<<<<< HEAD
+//            g.setColor(figuur.getkleur());
+//            // x en y as lijken omgedraaid te moeten...
+//            g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+//            g.setColor(figuur.getkleur1());
+//            //g.fillRect((vak.gety()*vak_size_pixels)+5, (vak.getx()*vak_size_pixels)+5, vak_size_pixels-10, vak_size_pixels-10);
+//            //g.setColor(figuur.getkleur2());
+//            //g.fillRect((vak.gety()*vak_size_pixels)+10, (vak.getx()*vak_size_pixels)+10, vak_size_pixels-20, vak_size_pixels-20);
+//            int change = MAX_MAZE_SIZE/10;
+//            int change2 = change*2;
+//            g.fillRect((vak.gety()*vak_size_pixels)+change, (vak.getx()*vak_size_pixels)+change, vak_size_pixels-change*2, vak_size_pixels-change*2);
+//            g.setColor(figuur.getkleur2());
+//            g.fillRect((vak.gety()*vak_size_pixels)+change2, (vak.getx()*vak_size_pixels)+change2, vak_size_pixels-change2*2, vak_size_pixels-change2*2);
+            
+            if (figuur instanceof Muur) {
+                Muur muur = (Muur)vak.getFiguur();
+                if (muur.getBorderMuur()) {
+                    g.setColor(muur.getkleur());
+                    g.drawRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels); // vierkant
+                    g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+vak_size_pixels, (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)); // derde (middelste) diagonale lijn
+                    g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/3), (vak.gety()*vak_size_pixels)+(vak_size_pixels/3), (vak.getx()*vak_size_pixels)); // eerste diagonale lijn
+                    g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.gety()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.getx()*vak_size_pixels)); // tweede diagonale lijn
+                    g.drawLine((vak.gety()*vak_size_pixels)+(vak_size_pixels/3), (vak.getx()*vak_size_pixels)+vak_size_pixels, (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)); // vierde diagonale lijn
+                    g.drawLine((vak.gety()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.getx()*vak_size_pixels)+vak_size_pixels, (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)*2); // vijfde diagonale lijn
+                } else {
+                    g.setColor(muur.getkleur());
+                    g.drawRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels); // vierkant
+                    g.drawLine((vak.gety()*vak_size_pixels)+(vak_size_pixels/3), (vak.getx()*vak_size_pixels), (vak.gety()*vak_size_pixels)+(vak_size_pixels/3), (vak.getx()*vak_size_pixels)+vak_size_pixels); // eerste verticale lijn
+                    //g.drawLine((vak.gety()*vak_size_pixels)+(vak_size_pixels/2), (vak.getx()*vak_size_pixels), (vak.gety()*vak_size_pixels)+(vak_size_pixels/2), (vak.getx()*vak_size_pixels)+vak_size_pixels); // tweede (middelste) verticale lijn
+                    g.drawLine((vak.gety()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.getx()*vak_size_pixels), (vak.gety()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.getx()*vak_size_pixels)+vak_size_pixels); // derde verticale lijn
+                    g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/3), (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)); // eerste horizontale lijn
+                    //g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/2), (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/2)); // tweede (middelste) horizontale lijn
+                    g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)*2); // derde horizontale lijn
+                }
+            }
+                
+=======
             g.setColor(figuur.getkleur());
             // x en y as lijken omgedraaid te moeten...
             g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
@@ -109,6 +149,7 @@ public class Level extends JComponent{
             g.fillRect((vak.gety()*vak_size_pixels)+change2, (vak.getx()*vak_size_pixels)+change2, vak_size_pixels-change2*2, vak_size_pixels-change2*2);
             
 
+>>>>>>> 72b2afec0ed420ffe6b4639f28ffc08aff56edfc
             
 // DEFAULT //
             
@@ -123,7 +164,7 @@ public class Level extends JComponent{
                 BufferedImage image; 
                 try {
                     image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\bazooka.jpeg"));
-                    g.drawImage(image.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), null);
+                    g.drawImage(image.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
                 }
                 catch (Exception e) {
 
@@ -133,6 +174,25 @@ public class Level extends JComponent{
             if(figuur instanceof Speler){
                 // dan het vakje van de speler opslaan globaal, zodat we weten waar de speler is.
                 spelersVak = vak;
+                BufferedImage image1; 
+                try {
+                    image1 = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\speler.jpg"));
+                    g.drawImage(image1.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+                }
+                catch (Exception e) {
+
+                }
+                
+            }
+            if (figuur instanceof Vriend) {
+                BufferedImage image; 
+                try {
+                    image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\vriend.jpg"));
+                    g.drawImage(image.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+                }
+                catch (Exception e) {
+
+                }
             }
         }
     }

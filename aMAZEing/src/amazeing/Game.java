@@ -61,8 +61,9 @@ public class Game extends JFrame{
         Border border = new LineBorder(Color.lightGray, 2, true);
         gamePanel.setBorder(border);
         gamePanel.setLayout(null);
+        gamePanel.setBackground(Color.WHITE);
         level = new Level();
-        level.setBounds(10, 10, 500, 500);
+        level.setBounds(10, 10, 501, 501);
         gamePanel.add(level);
         add(gamePanel);
         

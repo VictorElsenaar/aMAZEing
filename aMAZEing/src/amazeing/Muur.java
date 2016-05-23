@@ -18,8 +18,8 @@ public class Muur extends Figuur {
     public Muur(boolean borderMuur) {
         super(Color.BLACK);
         this.borderMuur = borderMuur;
-        kleur1 = new Color(20,20,20);
-        kleur2 = new Color(30,30,30);
+//        kleur1 = new Color(20,20,20);
+//        kleur2 = new Color(30,30,30);
     }
     
     public boolean getBorderMuur() {
