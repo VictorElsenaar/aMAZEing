@@ -41,7 +41,7 @@ public class Level extends JComponent{
 //        System.out.println("vriendVak " + vriendVak.toString());
 //        System.out.println("current_maze_size " + current_maze_size);
 //        System.out.println("doolhofMap " + doolhofMap.toString());
-        SnelsteRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
+        OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
     }
     
     public void action(String richting, String type) {
