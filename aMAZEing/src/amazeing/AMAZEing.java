@@ -37,7 +37,7 @@ public class AMAZEing {
         while(true) 
         {
             try {
-                Thread.sleep(25);
+                //Thread.sleep(25);
                 game.executeQueue();
             } catch (Exception ex) {  
                 // do something with the exception
