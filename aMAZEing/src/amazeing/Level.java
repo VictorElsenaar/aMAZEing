@@ -78,15 +78,13 @@ public class Level extends JComponent{
         while(iterator.hasNext()) {
             Vak vak = iterator.next();
             System.out.println(vak.toString());
-            System.out.println("x:"+vak.getx());
-            System.out.println("y:"+vak.gety());
-            System.out.println("vak index:"+doolhofMap.indexOf(vak));
         }
         
     }
     
     public void paint(Graphics g) {
         ListIterator<Vak> iterator = doolhofMap.listIterator();
+        BufferedImage image;
         while(iterator.hasNext()) {
             Vak vak = iterator.next();
             Figuur figuur = vak.getFiguur();
@@ -159,7 +157,6 @@ public class Level extends JComponent{
 ////            g.fillRect((vak.gety()*VAKGROOTTE)+4, (vak.getx()*VAKGROOTTE)+4, VAKGROOTTE-8, VAKGROOTTE-8);
             
             if(figuur instanceof Bazooka) {
-                BufferedImage image; 
                 try {
                     image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\bazooka.jpeg"));
                     g.drawImage(image.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
@@ -171,16 +168,14 @@ public class Level extends JComponent{
             if(figuur instanceof Speler){
                 // dan het vakje van de speler opslaan globaal, zodat we weten waar de speler is.
                 spelersVak = vak;
-                BufferedImage image1; 
                 try {
-                    image1 = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\speler.jpg"));
-                    g.drawImage(image1.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+                    image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\speler.jpg"));
+                    g.drawImage(image.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
                 }
                 catch (Exception e) {
                 }
             }
             if (figuur instanceof Vriend) {
-                BufferedImage image; 
                 try {
                     image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\vriend.jpg"));
                     g.drawImage(image.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen

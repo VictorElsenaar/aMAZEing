@@ -62,21 +62,6 @@ public class MenuPanel extends JPanel{
 //        goButton.addActionListener(listener);
         add(goButton);
     }
-    class ClickListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (debug){System.out.println(e.getActionCommand());}
-            if (e.getActionCommand().equals("Start")) {
-                requestFocusInWindow();
-            }
-            if (e.getActionCommand().equals("Restart")) {
-            }
-            if (e.getActionCommand().equals("Afsluiten")) {
-                System.exit(0);
-            }
-        }
-    }
-    
     public JButton getStartButton() {
         return startButton;
     }

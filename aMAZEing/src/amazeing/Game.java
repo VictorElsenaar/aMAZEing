@@ -22,7 +22,7 @@ import javax.swing.border.LineBorder;
  */
 public class Game extends JFrame{
 
-    boolean fireing = false;
+    private boolean fireing = false;
     private Level level;
     private JPanel gamePanel;
     private MenuPanel menuPanel;
