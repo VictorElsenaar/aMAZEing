@@ -58,10 +58,11 @@ public class OptimaleRoute {
                         // KOPIEREN !!! en de nieuwe stap daar in opslaan ipv in de huidige_route!
                        // if(nog_opties_teller > 1) {
                         if(ga_alternatieve) {
-                            //LinkedList<Integer> alternatieve_route = (LinkedList<Integer>) huidige_route.clone();
+                            LinkedList<Integer> alternatieve_route = (LinkedList<Integer>) huidige_route.clone();
                             System.out.println("alternatieve route toegevoegd nog_opties_teller groter dan 1 = " + nog_opties_teller);
-                            alternatieve_route.clear();
-                            alternatieve_route.addAll(huidige_route);
+                            //alternatieve_route.clear();
+                            //alternatieve_route.addAll(huidige_route);
+                            
 //                            LinkedList<Integer> alternatieve_route = new LinkedList<Integer>();
 //                            for(int pad : huidige_route) {
 //                                int copy = pad;
@@ -84,7 +85,9 @@ public class OptimaleRoute {
                             Vak eind_vak_huidige_route = doolhofMap.get(huidige_stap_positie);
                             if(eind_vak_huidige_route == eindVak){
                                 // sla huidige_route op
-                                gevonden_routes.add(huidige_route);
+                                System.out.println("route gevonden------------------------------------------------------");
+                                LinkedList<Integer> route_gevonden = (LinkedList<Integer>) huidige_route.clone();
+                                gevonden_routes.add(route_gevonden);
                               //  nog_opties_teller = 0;
                                 break;
                             }
@@ -106,6 +109,7 @@ public class OptimaleRoute {
                 System.out.println("te verwerken routes " + te_verwerken_routes.size());
                 huidige_route.clear();
                 huidige_route.addAll(te_verwerken_routes.pop());
+                System.out.println("huidige route formaat " + huidige_route.size());
                 start_vak = huidige_route.getLast();
                 //huidige_route.clear();
                 //LinkedList<Integer> alternatieve_route = (LinkedList<Integer>) huidige_route.clone();
@@ -126,8 +130,10 @@ public class OptimaleRoute {
        // }
         System.out.println("gevonden_routes " + gevonden_routes.size());
         if(gevonden_routes.size() > 0) {
+            System.out.println("kom ik hier?");
             huidige_route.clear();
             huidige_route.addAll(gevonden_routes.pop());
+            System.out.println(huidige_route.size());
             for(int pad : huidige_route){
                 System.out.println("huidige_route" + pad);
             }
