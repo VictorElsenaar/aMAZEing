@@ -35,8 +35,13 @@ public class Level extends JComponent{
     private String currentLevel;
         
     public Level() {
-        setLevel(levelOne());
-        if(debug){readLevel();} // controleer het level        
+        setLevel(levelThree());
+        if(debug){readLevel();} // controleer het level    
+//        System.out.println("spelersVak " + spelersVak.toString());
+//        System.out.println("vriendVak " + vriendVak.toString());
+//        System.out.println("current_maze_size " + current_maze_size);
+//        System.out.println("doolhofMap " + doolhofMap.toString());
+//        SnelsteRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
     }
     
     public void action(String richting, String type) {
@@ -194,6 +199,7 @@ public class Level extends JComponent{
                 // Als het een 3 is dan een speler plaatsen
                 } else if (Integer.parseInt(typeOnPosition) == 3) {
                     vak = new Vak(x,y,speler);
+                    spelersVak = vak;
                 // Als het een 4 is dan een vriend plaatsen
                 } else if (Integer.parseInt(typeOnPosition) == 4) {
                     vak = new Vak(x,y,vriend);
