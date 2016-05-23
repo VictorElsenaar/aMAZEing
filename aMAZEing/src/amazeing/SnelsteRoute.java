@@ -15,7 +15,7 @@ import java.util.LinkedList;
 public class SnelsteRoute {
     
     private static LinkedList<LinkedList> te_verwerken_routes = new LinkedList<LinkedList>();
-    //private static LinkedList<Integer> alternatieve_route = new LinkedList<Integer>();
+    private static LinkedList<Integer> alternatieve_route = new LinkedList<Integer>();
     
     private static LinkedList<LinkedList> gevonden_routes = new LinkedList<LinkedList>();
     
@@ -33,15 +33,17 @@ public class SnelsteRoute {
         huidige_route.add(start_vak);
         System.out.println("STARTPLEK " + start_vak);
         int nog_opties_teller = 0;
+        boolean ga_alternatieve = false;
 //        Bepaal welke kant men op kan gaan, controlleer hier dat deze niet reeds gebruikt is.
 
         while(true){
             nog_opties_teller = 0;
+            ga_alternatieve = false;
             for(int richting : richtingen) {
                 int huidige_stap_positie = start_vak+richting;
                 // Is deze stap een muur, en zijn er meer stappen? (De eerste is de huidige route, nieuwe worden een nieuwe route.
                 
-                    Vak tijdelijk_vak = doolhofMap.get(huidige_stap_positie);
+                Vak tijdelijk_vak = doolhofMap.get(huidige_stap_positie);
                       
                 if(!tijdelijk_vak.isMuur(tijdelijk_vak)) {
                     // Als vak nog niet gebruikt is in huidige route, dan toevoegen en instellen als nieuw vertrekpunt
@@ -50,16 +52,19 @@ public class SnelsteRoute {
                         // Als we meer dan richtingen vinden in onze huidige route
                         // dan vinden we een splitsing, dus dan moeten we de huidige volledige route 
                         // KOPIEREN !!! en de nieuwe stap daar in opslaan ipv in de huidige_route!
-                        if(nog_opties_teller > 1) {
+                        System.out.println(huidige_stap_positie);
+                        System.out.println(tijdelijk_vak.toString());
+                       // if(nog_opties_teller > 1) {
+                        if(ga_alternatieve) {
                             //LinkedList<Integer> alternatieve_route = (LinkedList<Integer>) huidige_route.clone();
                             System.out.println("alternatieve route toegevoegd nog_opties_teller groter dan 1 = " + nog_opties_teller);
-                            //alternatieve_route.clear();
-                            //alternatieve_route.addAll(huidige_route);
-                            LinkedList<Integer> alternatieve_route = new LinkedList<Integer>();
-                            for(int pad : huidige_route) {
-                                int copy = pad;
-                                alternatieve_route.add(copy);
-                            }
+                            alternatieve_route.clear();
+                            alternatieve_route.addAll(huidige_route);
+//                            LinkedList<Integer> alternatieve_route = new LinkedList<Integer>();
+//                            for(int pad : huidige_route) {
+//                                int copy = pad;
+//                                alternatieve_route.add(copy);
+//                            }
                             alternatieve_route.add(huidige_stap_positie);
                             te_verwerken_routes.add(alternatieve_route);
                             System.out.println("Alternatieve_route is dus gevonden en deze is zo lang: " + alternatieve_route.size());
@@ -69,17 +74,17 @@ public class SnelsteRoute {
                            // }
                             
                         } else {
+                            ga_alternatieve = true;
                             // huidige route verder aanvullen.
                             huidige_route.add(huidige_stap_positie);
                             start_vak = huidige_stap_positie;
                             // Controleer of dit toevallig de vriend is die je zoekt!
                             Vak eind_vak_huidige_route = doolhofMap.get(huidige_stap_positie);
-                            if(eind_vak_huidige_route.isVriend(eind_vak_huidige_route)){
+                            if(eind_vak_huidige_route == eindVak){
                                 // sla huidige_route op en pak een alternatieve erbij
+                                System.out.println("!!!!GEVONDEN ROUTE!!!!");
                                 gevonden_routes.add(huidige_route);
-                                // pak een alternatieve route erbij dit doen we door 
-                                //nog_opties_teller op 0 te zetten zodat de if onderaan dit oppakt.
-                                nog_opties_teller = 0;
+                              //  nog_opties_teller = 0;
                                 break;
                             }
                         }
@@ -96,7 +101,7 @@ public class SnelsteRoute {
             // Als alleen op de huidige route geen opties meer zijn dan moet we een alternatieve route erbij pakken.
             if(nog_opties_teller == 0) {
                 System.out.println("Er zijn geen opties meer in deze route");
-                System.out.println("te verwerken routes + " + te_verwerken_routes.size());
+                System.out.println("te verwerken routes " + te_verwerken_routes.size());
                 huidige_route.clear();
                 huidige_route.addAll(te_verwerken_routes.pop());
                 start_vak = huidige_route.getLast();
@@ -111,9 +116,9 @@ public class SnelsteRoute {
         }
         
         System.out.println("te verwerken routes" + te_verwerken_routes.size());
-        for(int pad : huidige_route){
+       // for(int pad : huidige_route){
          //   System.out.println("huidige_route" + pad);
-        }
+    //    }
        // for(int pad : alternatieve_route){
           //  System.out.println("laatste alternatieve route " + pad);
        // }

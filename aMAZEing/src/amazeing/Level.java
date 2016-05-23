@@ -35,13 +35,13 @@ public class Level extends JComponent{
     private String currentLevel;
         
     public Level() {
-        setLevel(levelThree());
+        setLevel(levelOne());
         if(debug){readLevel();} // controleer het level    
 //        System.out.println("spelersVak " + spelersVak.toString());
 //        System.out.println("vriendVak " + vriendVak.toString());
 //        System.out.println("current_maze_size " + current_maze_size);
 //        System.out.println("doolhofMap " + doolhofMap.toString());
-//        SnelsteRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
+        SnelsteRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
     }
     
     public void action(String richting, String type) {
@@ -290,12 +290,34 @@ public class Level extends JComponent{
             + "1000224001"
             + "1111111111";
     }
-    public String levelThree() {
+//    public String levelThree() {
+//        return "11111111111111111111" 
+//            +  "10000020002000000031" 
+//            +  "10222020202022222221"
+//            +  "10200020202020002401"                
+//            +  "10202220000020202201"                
+//            +  "10200000222220202001"                
+//            +  "10222222200000200021"                
+//            +  "10202000202222222221"                
+//            +  "10202020200000000001"                
+//            +  "10250020202222222201"
+//            +  "10222220200002000201"
+//            +  "10000000202202020201"
+//            +  "10222222252200020201"                
+//            +  "10000000222222220201"                
+//            +  "12022220200022220201"                
+//            +  "10002000202000000201"                
+//            +  "10202020202022220201"                
+//            +  "10202020202000220201"                
+//            +  "10200020002020000001"                
+//            +  "11111111111111111111";
+//    }
+        public String levelThree() {
         return "11111111111111111111" 
             +  "10000020002000000031" 
             +  "10222020202022222221"
             +  "10200020202020002401"                
-            +  "10202220000020202201"                
+            +  "10202220200020202201"                
             +  "10200000222220202001"                
             +  "10222222200000200021"                
             +  "10202000202222222221"                
@@ -305,11 +327,11 @@ public class Level extends JComponent{
             +  "10000000202202020201"
             +  "10222222252200020201"                
             +  "10000000222222220201"                
-            +  "12022220200022220201"                
+            +  "12222220200022220201"                
             +  "10002000202000000201"                
             +  "10202020202022220201"                
-            +  "10202020202000220201"                
-            +  "10200020002020000001"                
+            +  "10202020202020220201"                
+            +  "10200020002020000201"                
             +  "11111111111111111111";
     }
 }
