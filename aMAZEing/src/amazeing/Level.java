@@ -98,7 +98,6 @@ public class Level extends JComponent{
 // TESTING  
             
 // DEFAULT //           
-<<<<<<< HEAD
 //            g.setColor(figuur.getkleur());
 //            // x en y as lijken omgedraaid te moeten...
 //            g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
@@ -133,24 +132,18 @@ public class Level extends JComponent{
                     g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)*2); // derde horizontale lijn
                 }
             }
-                
-=======
-            g.setColor(figuur.getkleur());
-            // x en y as lijken omgedraaid te moeten...
-            g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
-            g.setColor(figuur.getkleur1());
-            //g.fillRect((vak.gety()*vak_size_pixels)+5, (vak.getx()*vak_size_pixels)+5, vak_size_pixels-10, vak_size_pixels-10);
-            //g.setColor(figuur.getkleur2());
-            //g.fillRect((vak.gety()*vak_size_pixels)+10, (vak.getx()*vak_size_pixels)+10, vak_size_pixels-20, vak_size_pixels-20);
-            int change = MAX_MAZE_SIZE/10;
-            int change2 = change*2;
-            g.fillRect((vak.gety()*vak_size_pixels)+change, (vak.getx()*vak_size_pixels)+change, vak_size_pixels-change*2, vak_size_pixels-change*2);
-            g.setColor(figuur.getkleur2());
-            g.fillRect((vak.gety()*vak_size_pixels)+change2, (vak.getx()*vak_size_pixels)+change2, vak_size_pixels-change2*2, vak_size_pixels-change2*2);
-            
-
->>>>>>> 72b2afec0ed420ffe6b4639f28ffc08aff56edfc
-            
+//            g.setColor(figuur.getkleur());
+//            // x en y as lijken omgedraaid te moeten...
+//            g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+//            g.setColor(figuur.getkleur1());
+//            //g.fillRect((vak.gety()*vak_size_pixels)+5, (vak.getx()*vak_size_pixels)+5, vak_size_pixels-10, vak_size_pixels-10);
+//            //g.setColor(figuur.getkleur2());
+//            //g.fillRect((vak.gety()*vak_size_pixels)+10, (vak.getx()*vak_size_pixels)+10, vak_size_pixels-20, vak_size_pixels-20);
+//            int change = MAX_MAZE_SIZE/10;
+//            int change2 = change*2;
+//            g.fillRect((vak.gety()*vak_size_pixels)+change, (vak.getx()*vak_size_pixels)+change, vak_size_pixels-change*2, vak_size_pixels-change*2);
+//            g.setColor(figuur.getkleur2());
+//            g.fillRect((vak.gety()*vak_size_pixels)+change2, (vak.getx()*vak_size_pixels)+change2, vak_size_pixels-change2*2, vak_size_pixels-change2*2);
 // DEFAULT //
             
             
@@ -167,7 +160,6 @@ public class Level extends JComponent{
                     g.drawImage(image.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
                 }
                 catch (Exception e) {
-
                 }
             }
             // Speler locatie globaal opslaan
@@ -180,9 +172,7 @@ public class Level extends JComponent{
                     g.drawImage(image1.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
                 }
                 catch (Exception e) {
-
                 }
-                
             }
             if (figuur instanceof Vriend) {
                 BufferedImage image; 
@@ -191,7 +181,6 @@ public class Level extends JComponent{
                     g.drawImage(image.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
                 }
                 catch (Exception e) {
-
                 }
             }
         }
