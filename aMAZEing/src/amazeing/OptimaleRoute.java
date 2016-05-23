@@ -14,10 +14,16 @@ import java.util.LinkedList;
  */
 public class OptimaleRoute {
     
+    // TODO
+    // wanneer een nieuwe route al langer is dan een reeds gevonden route, dan gelijk afkappen.
+    
+    
     private static LinkedList<LinkedList> te_verwerken_routes = new LinkedList<LinkedList>();
     private static LinkedList<Integer> alternatieve_route = new LinkedList<Integer>();
     
     private static LinkedList<LinkedList> gevonden_routes = new LinkedList<LinkedList>();
+    
+    private static LinkedList<Integer> kortste_route = new LinkedList<Integer>();
     
     private static ArrayList<Integer> richtingen = new ArrayList<Integer>();
     // Opslaan van indexnummers van de route. (indexnummer op volgorde van invoer, 
@@ -88,9 +94,22 @@ public class OptimaleRoute {
                                 System.out.println("route gevonden------------------------------------------------------");
                                 LinkedList<Integer> route_gevonden = (LinkedList<Integer>) huidige_route.clone();
                                 gevonden_routes.add(route_gevonden);
+                                if(kortste_route.isEmpty()) {
+                                    kortste_route = (LinkedList<Integer>) huidige_route.clone();
+                                }
+                                if(!kortste_route.isEmpty() && huidige_route.size() < kortste_route.size()) {
+                                    kortste_route = (LinkedList<Integer>) huidige_route.clone();
+                                }
                               //  nog_opties_teller = 0;
                                 break;
                             }
+                        }
+                        // als huidige route al langer is dan huidig korste route, dan gelijk afbreken en een alternatieve route oppakken.
+
+                        if(!kortste_route.isEmpty() && huidige_route.size() > kortste_route.size()) {
+                            // huidige route heeft al meer stappen dan de huidige kortste, dan kappen!
+                            nog_opties_teller = 0;
+                            break;
                         }
                     }
                 }                
@@ -140,6 +159,14 @@ public class OptimaleRoute {
         } else {
             System.out.println("Er zijn geen routes gevonden!");
         }
+        System.out.println("Toon eind lijst");
+             System.out.println(huidige_route.size());
+        while(gevonden_routes.size() > 0) {
+            System.out.println(huidige_route.size());
+            huidige_route.clear();
+            huidige_route.addAll(gevonden_routes.pop());
+        }
+        System.out.println("de kortste " + kortste_route.size());
 //        Creeer route voor elke richting. Sla op in een queue (vertrek plek + historie)
 //        Ga met Last in First out het vervolg stap.
 //        Indien men 1 kant op kan gaan, dan die toevoegen aan huidige test route + historie gekoppeld aan deze route dat dat vakje al geweest is.
@@ -161,6 +188,7 @@ public class OptimaleRoute {
         }
         return false;
     }
+    // Let op richting bepaling staat ook in Speler!
     private static void vul_richtingen(int current_maze_size) {
         richtingen.add(1);
         richtingen.add(-1);

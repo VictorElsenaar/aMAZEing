@@ -26,7 +26,7 @@ public class Speler extends Figuur {
         kleur1 = new Color(0,32,255);
         kleur2 = new Color(0,52,255);
     }
-    
+    // Let op richting bepaling staat ook in OptimaleRoute!
     public int positionchange(String richting, int current_maze_size) {
         int position_change_amount = 0;
         switch(richting) {
