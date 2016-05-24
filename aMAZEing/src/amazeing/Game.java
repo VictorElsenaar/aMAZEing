@@ -142,20 +142,27 @@ public class Game extends JFrame{
                 switch (selectedLevel) {
                     case "level 1":
                         level.setLevel(level.levelOne());
-                        setInformationPanel(true);
+                        //setInformationPanel(true);
                         repaint();
                         break;
                     case "level 2":
                         level.setLevel(level.levelTwo());
-                        setInformationPanel(true);
+                        //setInformationPanel(true);
                         repaint();
                         break;
                     case "level 3":
                         level.setLevel(level.levelThree());
-                        setInformationPanel(true);
+                        //setInformationPanel(true);
+                        repaint();
+                        break;
+                    case "level 4":
+                        level.setLevel(level.levelFour());
+                        //setInformationPanel(true);
                         repaint();
                         break;
                 }
+                setInformationPanel(false);
+                requestFocusInWindow();
             }
         }
     }

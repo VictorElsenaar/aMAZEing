@@ -50,7 +50,8 @@ public class MenuPanel extends JPanel{
         String[] levels = new String[] {
             "level 1", 
             "level 2",
-            "level 3"
+            "level 3",
+            "level 4"
         };
         levelLijst = new JComboBox<>(levels);
         levelLijst.setBounds(10, 100, 110, 20);
