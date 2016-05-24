@@ -30,7 +30,7 @@ public class OptimaleRoute {
     //FIFO is de te volgen route indien volgen nodig is, anders is het tonen en dat mag volledig random
     private static LinkedList<Integer> huidige_route = new LinkedList<Integer>();
     
-    public static void vindRoute(LinkedList<Vak> doolhofMap, int current_maze_size, Vak startVak, Vak eindVak) {
+    public static void vindRoute(ArrayList<Vak> doolhofMap, int current_maze_size, Vak startVak, Vak eindVak) {
         // current_maze_size * current_maze_size = dus max indexnummer;
         
         vul_richtingen(current_maze_size);

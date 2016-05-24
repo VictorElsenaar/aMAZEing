@@ -7,6 +7,7 @@ package amazeing;
 
 import static amazeing.AMAZEing.debug;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
@@ -46,7 +47,7 @@ public class Speler extends Figuur {
         return position_change_amount;
     }
     
-    public LinkedList<Vak> move(String richting, LinkedList<Vak> doolhofMap, int current_maze_size, Vak spelersVak) {
+    public ArrayList<Vak> move(String richting, ArrayList<Vak> doolhofMap, int current_maze_size, Vak spelersVak) {
         int position_change_amount = positionchange(richting, current_maze_size);
         int tempindex=0;
 //        int x = 0;
@@ -78,7 +79,7 @@ public class Speler extends Figuur {
         }
         return doolhofMap;
     }
-    public LinkedList<Vak> fire(String richting, LinkedList<Vak> doolhofMap, int current_maze_size, Vak spelersVak) {
+    public ArrayList<Vak> fire(String richting, ArrayList<Vak> doolhofMap, int current_maze_size, Vak spelersVak) {
         int position_change_amount = positionchange(richting, current_maze_size);
         if (bazooka.getAmmo() > 0) {
             this.bazooka.fire(richting, doolhofMap, current_maze_size, spelersVak, position_change_amount);

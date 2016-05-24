@@ -2,6 +2,7 @@ package amazeing;
 
 import static amazeing.AMAZEing.debug;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -30,7 +31,7 @@ public class Bazooka extends Figuur{
         this.ammo --;
         if (debug){System.out.println("Ammo nog over: " + ammo);}
     }
-    public LinkedList<Vak> fire(String richting, LinkedList<Vak> doolhofMap, int current_maze_size, Vak spelersVak, int position_change_amount) {
+    public ArrayList<Vak> fire(String richting, ArrayList<Vak> doolhofMap, int current_maze_size, Vak spelersVak, int position_change_amount) {
         int currentLocationIndex = doolhofMap.indexOf(spelersVak);
         Vak schietvak = doolhofMap.get(currentLocationIndex+position_change_amount);
         int i = 1;

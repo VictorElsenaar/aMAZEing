@@ -5,6 +5,7 @@ import static amazeing.AMAZEing.debug;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import javax.imageio.ImageIO;
@@ -28,7 +29,7 @@ public class Level extends JComponent{
     // en de maat in pixels van een vak
     private int vak_size_pixels;
     
-    private LinkedList<Vak> doolhofMap;
+    private ArrayList<Vak> doolhofMap;
     
     private Vak spelersVak;
     private Vak vriendVak;
@@ -36,7 +37,7 @@ public class Level extends JComponent{
     private String currentLevel;
         
     public Level() {
-        setLevel(levelFour());
+        setLevel(levelOne());
         if(debug){readLevel();} // controleer het level    
 //        System.out.println("spelersVak " + spelersVak.toString());
 //        System.out.println("vriendVak " + vriendVak.toString());
@@ -186,7 +187,7 @@ public class Level extends JComponent{
             }
         }
     }
-    public LinkedList<Vak> getcurrentMap() {
+    public ArrayList<Vak> getcurrentMap() {
         return doolhofMap;
     }
     public int getMazeSize() {
@@ -225,7 +226,7 @@ public class Level extends JComponent{
         Vriend vriend = new Vriend();
         Bazooka bazooka = new Bazooka();
         
-        doolhofMap = new LinkedList<>();
+        doolhofMap = new ArrayList<>();
          
         int counter = 0;
         for (int x = 0; x < current_maze_size ; x++) {
