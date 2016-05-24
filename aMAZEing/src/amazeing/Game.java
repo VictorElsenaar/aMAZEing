@@ -27,6 +27,8 @@ public class Game extends JFrame{
     private JPanel gamePanel;
     private MenuPanel menuPanel;
     private JPanel informationPanel;
+    private JPanel shadow_informationPanel;
+    private JPanel blackborder_informationPanel;
     private JLabel infoLabel;
     
     // Bouw Queue
@@ -43,17 +45,27 @@ public class Game extends JFrame{
         setLayout(null);
         setFocusTraversalKeysEnabled(false); // TAB disable
         
-        
         informationPanel = new JPanel();
         informationPanel.setSize(420, 32);
         informationPanel.setBounds(60,200, 420,32); //moet dus op basis van gamepanel zijn
-        informationPanel.setBackground(Color.MAGENTA);
+        informationPanel.setBackground(Color.GREEN.brighter().brighter());
         infoLabel = new JLabel();
-        
         informationPanel.add(infoLabel, BorderLayout.CENTER);        
-        setInformationPanel(true);
         add(informationPanel);
         
+        shadow_informationPanel = new JPanel();
+        shadow_informationPanel.setSize(430, 42);
+        shadow_informationPanel.setBounds(55,195, 430,42); //moet dus op basis van gamepanel zijn
+        shadow_informationPanel.setBackground(Color.GREEN.darker());
+        add(shadow_informationPanel);
+        
+        blackborder_informationPanel = new JPanel();
+        blackborder_informationPanel.setSize(434,46);
+        blackborder_informationPanel.setBounds(53,193, 434,46);
+        blackborder_informationPanel.setBackground(Color.BLACK);
+        add(blackborder_informationPanel);
+        
+        setInformationPanel(true);
         
         gamePanel = new JPanel();
         gamePanel.setSize(520, 520);
@@ -216,10 +228,15 @@ public class Game extends JFrame{
     
     public void setInformationPanel(boolean b, String text) {
         infoLabel.setText(text);
-        informationPanel.setVisible(b);
+        setCombinedInformationPanel(b);
     }
     public void setInformationPanel(boolean b) {
         infoLabel.setText("Druk op start om het spel te starten.");
+        setCombinedInformationPanel(b);
+    }
+    public void setCombinedInformationPanel(boolean b) {
         informationPanel.setVisible(b);
+        shadow_informationPanel.setVisible(b);
+        blackborder_informationPanel.setVisible(b);
     }
 }

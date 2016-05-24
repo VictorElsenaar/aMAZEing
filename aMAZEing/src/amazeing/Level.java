@@ -226,7 +226,7 @@ public class Level extends JComponent{
         Vriend vriend = new Vriend();
         Bazooka bazooka = new Bazooka();
         
-        doolhofMap = new ArrayList<>();
+        doolhofMap = new ArrayList<Vak>();
          
         int counter = 0;
         for (int x = 0; x < current_maze_size ; x++) {
