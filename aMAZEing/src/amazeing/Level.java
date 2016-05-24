@@ -59,7 +59,6 @@ public class Level extends JComponent{
                 LinkedList<Integer> kortste_route = new LinkedList<Integer>();
                 kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
                 HelperPad helperpad = new HelperPad(kortste_route, doolhofMap);
-                
                 helperpad.paint(null);
                 break;
             default:
