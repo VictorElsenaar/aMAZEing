@@ -55,6 +55,13 @@ public class Level extends JComponent{
             case "fire":
                 doolhofMap = huidigeSpeler.fire(richting, doolhofMap, current_maze_size, spelersVak );
                 break;
+            case "optimal_route":
+                LinkedList<Integer> kortste_route = new LinkedList<Integer>();
+                kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
+                HelperPad helperpad = new HelperPad(kortste_route, doolhofMap);
+                
+                helperpad.paint(null);
+                break;
             default:
                 break;
         }

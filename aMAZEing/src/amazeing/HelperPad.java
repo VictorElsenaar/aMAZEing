@@ -6,6 +6,8 @@
 package amazeing;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.ListIterator;
 import javax.swing.JComponent;
 
@@ -14,9 +16,24 @@ import javax.swing.JComponent;
  * @author vfelsenaar
  */
 public class HelperPad extends JComponent {
+    ArrayList<Vak> doolhofMap = new ArrayList<Vak>();
+    LinkedList<Integer> kortste_route = new LinkedList<Integer>();
+    public HelperPad(LinkedList<Integer> kortste_route, ArrayList<Vak> doolhofMap)  {
+        this.doolhofMap = doolhofMap;
+        this.kortste_route = kortste_route;
+    }
+            
     
     public void paint(Graphics g) {
+        
+        for (int i = 0; i < kortste_route.size(); i++) {
+            System.out.println(i);
+        }
+        
 //        ListIterator<Vak> iterator = doolhofMap.listIterator();
+//        while(iterator.hasNext()) {
+//            System.out.println(iterator.next().toString());
+//    }
 //
 //        while(iterator.hasNext()) {
 //            Vak vak = iterator.next();
