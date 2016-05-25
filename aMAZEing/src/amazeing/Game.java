@@ -49,6 +49,14 @@ public class Game extends JFrame{
         setLayout(null);
         setFocusTraversalKeysEnabled(false); // TAB disable
         
+        helperPanel = new JPanel();
+        helperPanel.setSize(520,520);
+        helperPanel.setBounds(10,10,520,520);
+        helperPanel.setLayout(null);
+        helperPanel.setVisible(false);
+        helperPanel.setBackground(Color.red);
+        add(helperPanel);
+        
         informationPanel = new JPanel();
         informationPanel.setSize(420, 32);
         informationPanel.setBounds(60,200, 420,32); //moet dus op basis van gamepanel zijn
@@ -174,25 +182,18 @@ public class Game extends JFrame{
                 switch (selectedLevel) {
                     case "level 1":
                         level.setLevel(level.levelOne());
-                        //setInformationPanel(true);
-                        repaint();
                         break;
                     case "level 2":
                         level.setLevel(level.levelTwo());
-                        //setInformationPanel(true);
-                        repaint();
                         break;
                     case "level 3":
                         level.setLevel(level.levelThree());
-                        //setInformationPanel(true);
-                        repaint();
                         break;
                     case "level 4":
                         level.setLevel(level.levelFour());
-                        //setInformationPanel(true);
-                        repaint();
                         break;
                 }
+                repaint();
                 setInformationPanel(false);
                 requestFocusInWindow();
             }
@@ -200,6 +201,7 @@ public class Game extends JFrame{
     }
     private void keyS() {
         queue.add(new QueueHandler("no direction","optimal_route"));
+        repaint(); // voorlopig nodig
     }
     private void keyLeft() {
         if(debug){System.out.println("LEFT");}
@@ -256,7 +258,13 @@ public class Game extends JFrame{
     public void executeQueue() {
         QueueHandler next = queue.remove();
         System.out.println(next);
-        level.action(next.getType(),next.getDirection());     
+        level.action(next.getType(),next.getDirection());    
+        if (next.getDirection().equals("optimal_route")) {
+            HelperPad helperpad = level.getHelperPad();
+            helperpad.setBounds(10, 10, 520, 520);
+            helperPanel.add(helperpad);
+            helperPanel.setVisible(true);
+        }
         // Check if game ends
         endGame();
     }

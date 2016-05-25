@@ -36,6 +36,8 @@ public class Level extends JComponent{
     
     private String currentLevel;
         
+    private HelperPad helperpad;
+    
     public Level() {
         setLevel(levelOne());
         if(debug){readLevel();} // controleer het level    
@@ -58,8 +60,9 @@ public class Level extends JComponent{
             case "optimal_route":
                 LinkedList<Integer> kortste_route = new LinkedList<Integer>();
                 kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
-                HelperPad helperpad = new HelperPad(kortste_route, doolhofMap);
-                helperpad.paint(null);
+                System.out.println("doet dit???");
+                helperpad = new HelperPad(kortste_route, doolhofMap);
+                //helperpad.paint(null);
                 break;
             default:
                 break;
@@ -81,6 +84,10 @@ public class Level extends JComponent{
 //        }
         
     }
+    public HelperPad getHelperPad() {
+        return helperpad;
+    }
+    
     public void readLevel() {
         ListIterator<Vak> iterator = doolhofMap.listIterator();
         while(iterator.hasNext()) {

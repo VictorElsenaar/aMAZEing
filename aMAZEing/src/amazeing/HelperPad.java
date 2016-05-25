@@ -5,6 +5,7 @@
  */
 package amazeing;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -22,14 +23,19 @@ public class HelperPad extends JComponent {
         this.doolhofMap = doolhofMap;
         this.kortste_route = kortste_route;
     }
-            
+    public HelperPad() {
+    }
     
     public void paint(Graphics g) {
-        
+        g.setColor(new Color(159,255,255));
         for (int i = 0; i < kortste_route.size(); i++) {
-            System.out.println(i);
+            //System.out.println(i);
+            //System.out.println("#:" + kortste_route.get(i));
+            //System.out.println("#:" + doolhofMap.get(kortste_route.get(i)));
+            Vak vak = doolhofMap.get(kortste_route.get(i));
+            g.fillRect((vak.gety()*50), (vak.getx()*50), 50, 50);
+            //System.out.println("vakX" + vak.gety() + " |vakY" + vak.getx());
         }
-        
 //        ListIterator<Vak> iterator = doolhofMap.listIterator();
 //        while(iterator.hasNext()) {
 //            System.out.println(iterator.next().toString());
