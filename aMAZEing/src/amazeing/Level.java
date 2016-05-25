@@ -137,6 +137,7 @@ public class Level extends JComponent{
                     try {
                         //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\buitenmuur.jpg"));
                         g.drawImage(buitenmuurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+                      //  g.drawImage(buitenmuurImage, (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null);
                     }
                     catch (Exception e) {                    
                         g.setColor(muur.getkleur());
@@ -548,6 +549,7 @@ public class Level extends JComponent{
         }        
         try {
             helperImage = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\helper.jpg"));
+            
         }
         catch (Exception e) {
         }        
