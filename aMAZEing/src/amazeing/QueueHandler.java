@@ -12,7 +12,7 @@ package amazeing;
 public class QueueHandler {
     private String action_direction;
     private String action_type;
-    public QueueHandler(String action_type, String action_direction) {
+    public QueueHandler(String action_direction, String action_type) {
         this.action_direction = action_direction;
         this.action_type = action_type;
     }

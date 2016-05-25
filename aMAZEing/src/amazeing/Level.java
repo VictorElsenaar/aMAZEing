@@ -49,14 +49,14 @@ public class Level extends JComponent{
       //OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
     }
     
-    public void action(String richting, String type) {
+    public void action(String direction, String type) {
         Speler huidigeSpeler = (Speler) spelersVak.getFiguur();   
         switch(type) {
             case "move":
-                doolhofMap = huidigeSpeler.move(richting, doolhofMap, current_maze_size, spelersVak );
+                doolhofMap = huidigeSpeler.move(direction, doolhofMap, current_maze_size, spelersVak );
                 break;
             case "fire":
-                doolhofMap = huidigeSpeler.fire(richting, doolhofMap, current_maze_size, spelersVak );
+                doolhofMap = huidigeSpeler.fire(direction, doolhofMap, current_maze_size, spelersVak );
                 break;
             case "optimal_route":
                 LinkedList<Integer> kortste_route = new LinkedList<Integer>();
