@@ -16,7 +16,7 @@ public class OptimaleRoute {
     
     // TODO
     // wanneer een nieuwe route al langer is dan een reeds gevonden route, dan gelijk afkappen.
-    
+    private static boolean optdebug = false;
     
     private static LinkedList<LinkedList> te_verwerken_routes = new LinkedList<LinkedList>();
     private static LinkedList<Integer> alternatieve_route = new LinkedList<Integer>();
@@ -37,7 +37,7 @@ public class OptimaleRoute {
 //        Begin van beginvak
         int start_vak = doolhofMap.indexOf(startVak);
         huidige_route.add(start_vak);
-        System.out.println("STARTPLEK " + start_vak);
+        if(optdebug){System.out.println("STARTPLEK " + start_vak);}
         int nog_opties_teller = 0;
         boolean ga_alternatieve = false;
 //        Bepaal welke kant men op kan gaan, controlleer hier dat deze niet reeds gebruikt is.
@@ -45,16 +45,16 @@ public class OptimaleRoute {
         while(true){
             nog_opties_teller = 0;
             ga_alternatieve = false;
-            System.out.println(richtingen);
+            if(optdebug){System.out.println(richtingen);}
             for(int richting : richtingen) {
                 int huidige_stap_positie = start_vak+richting;
                 // Is deze stap een muur, en zijn er meer stappen? (De eerste is de huidige route, nieuwe worden een nieuwe route.
                 Vak oude_start_vak = doolhofMap.get(start_vak);
                 Vak tijdelijk_vak = doolhofMap.get(huidige_stap_positie);
-                System.out.println("@@@@ VOLGEND VAKJE @@@@");
-                System.out.println("oude positie " + start_vak + " coords " + oude_start_vak.toString());
-                System.out.println("newe positie " + huidige_stap_positie + " coords " + tijdelijk_vak.toString());
-                System.out.println("@@@ END");
+                if(optdebug){System.out.println("@@@@ VOLGEND VAKJE @@@@");}
+                if(optdebug){System.out.println("oude positie " + start_vak + " coords " + oude_start_vak.toString());}
+                if(optdebug){System.out.println("newe positie " + huidige_stap_positie + " coords " + tijdelijk_vak.toString());}
+                if(optdebug){System.out.println("@@@ END");}
                 if(!tijdelijk_vak.isMuur(tijdelijk_vak)) {
                     // Als vak nog niet gebruikt is in huidige route, dan toevoegen en instellen als nieuw vertrekpunt
                     if(!is_gebruikt_vak(huidige_stap_positie)) {
@@ -65,7 +65,7 @@ public class OptimaleRoute {
                        // if(nog_opties_teller > 1) {
                         if(ga_alternatieve) {
                             LinkedList<Integer> alternatieve_route = (LinkedList<Integer>) huidige_route.clone();
-                            System.out.println("alternatieve route toegevoegd nog_opties_teller groter dan 1 = " + nog_opties_teller);
+                            if(optdebug){System.out.println("alternatieve route toegevoegd nog_opties_teller groter dan 1 = " + nog_opties_teller);}
                             //alternatieve_route.clear();
                             //alternatieve_route.addAll(huidige_route);
                             
@@ -76,8 +76,8 @@ public class OptimaleRoute {
 //                            }
                             alternatieve_route.add(huidige_stap_positie);
                             te_verwerken_routes.add(alternatieve_route);
-                            System.out.println("Alternatieve_route is dus gevonden en deze is zo lang: " + alternatieve_route.size());
-                            System.out.println("te verwerken routes 1 toegevoegd, stand is nu " + te_verwerken_routes.size());
+                            if(optdebug){System.out.println("Alternatieve_route is dus gevonden en deze is zo lang: " + alternatieve_route.size());}
+                            if(optdebug){System.out.println("te verwerken routes 1 toegevoegd, stand is nu " + te_verwerken_routes.size());}
                             //for(int pad : alternatieve_route) {
                             //    System.out.println("ALTERNATIEVE_ROUTE " + pad);
                            // }
@@ -91,7 +91,7 @@ public class OptimaleRoute {
                             Vak eind_vak_huidige_route = doolhofMap.get(huidige_stap_positie);
                             if(eind_vak_huidige_route == eindVak){
                                 // sla huidige_route op
-                                System.out.println("route gevonden------------------------------------------------------");
+                                if(optdebug){System.out.println("route gevonden------------------------------------------------------");}
                                 LinkedList<Integer> route_gevonden = (LinkedList<Integer>) huidige_route.clone();
                                 gevonden_routes.add(route_gevonden);
                                 if(kortste_route.isEmpty()) {
@@ -108,6 +108,9 @@ public class OptimaleRoute {
 
                         if(!kortste_route.isEmpty() && huidige_route.size() > kortste_route.size()) {
                             // huidige route heeft al meer stappen dan de huidige kortste, dan kappen!
+                            
+                            // Maar pakt hij dan nog een alternatieve route op?
+                            
                             nog_opties_teller = 0;
                             break;
                         }
@@ -116,19 +119,19 @@ public class OptimaleRoute {
             } // Dit is einde FOR!!!!
             // Alle richtingen zijn bepaald dus nu met huidige route verder.
             start_vak = huidige_route.getLast();
-            System.out.println("uit de hele route bepaling afhankelijk van nog opties teller doorgaan, als 0 is dan stoppen : " + nog_opties_teller);
-            System.out.println("is te verwerkenroutes 0 dan afbreken " + te_verwerken_routes.size());
+            if(optdebug){System.out.println("uit de hele route bepaling afhankelijk van nog opties teller doorgaan, als 0 is dan stoppen : " + nog_opties_teller);}
+            if(optdebug){System.out.println("is te verwerkenroutes 0 dan afbreken " + te_verwerken_routes.size());}
             // Er zijn in de huidige route geen opties meer en de te verwerken routes zijn ook verwerkt!
             if(nog_opties_teller == 0 && te_verwerken_routes.size() == 0) {
                 break;
             }
             // Als alleen op de huidige route geen opties meer zijn dan moet we een alternatieve route erbij pakken.
             if(nog_opties_teller == 0) {
-                System.out.println("Er zijn geen opties meer in deze route");
-                System.out.println("te verwerken routes " + te_verwerken_routes.size());
+                if(optdebug){System.out.println("Er zijn geen opties meer in deze route");}
+                if(optdebug){System.out.println("te verwerken routes " + te_verwerken_routes.size());}
                 huidige_route.clear();
                 huidige_route.addAll(te_verwerken_routes.pop());
-                System.out.println("huidige route formaat " + huidige_route.size());
+                if(optdebug){System.out.println("huidige route formaat " + huidige_route.size());}
                 start_vak = huidige_route.getLast();
                 //huidige_route.clear();
                 //LinkedList<Integer> alternatieve_route = (LinkedList<Integer>) huidige_route.clone();
@@ -140,33 +143,33 @@ public class OptimaleRoute {
  
         }
         
-        System.out.println("te verwerken routes" + te_verwerken_routes.size());
+        if(optdebug){System.out.println("te verwerken routes" + te_verwerken_routes.size());}
        // for(int pad : huidige_route){
          //   System.out.println("huidige_route" + pad);
     //    }
        // for(int pad : alternatieve_route){
           //  System.out.println("laatste alternatieve route " + pad);
        // }
-        System.out.println("gevonden_routes " + gevonden_routes.size());
+        if(optdebug){System.out.println("gevonden_routes " + gevonden_routes.size());}
         if(gevonden_routes.size() > 0) {
-            System.out.println("kom ik hier?");
+            if(optdebug){System.out.println("Er zijn routes gevonden dus");}
             huidige_route.clear();
             huidige_route.addAll(gevonden_routes.pop());
-            System.out.println(huidige_route.size());
+            if(optdebug){System.out.println(huidige_route.size());}
             for(int pad : huidige_route){
-                System.out.println("huidige_route" + pad);
+                if(optdebug){System.out.println("huidige_route" + pad);}
             }
         } else {
-            System.out.println("Er zijn geen routes gevonden!");
+            if(optdebug){System.out.println("Er zijn geen routes gevonden!");}
         }
-        System.out.println("Toon eind lijst");
-             System.out.println(huidige_route.size());
+        if(optdebug){System.out.println("Toon eind lijst");}
+             if(optdebug){System.out.println(huidige_route.size());}
         while(gevonden_routes.size() > 0) {
-            System.out.println(huidige_route.size());
+            if(optdebug){System.out.println(huidige_route.size());}
             huidige_route.clear();
             huidige_route.addAll(gevonden_routes.pop());
         }
-        System.out.println("de kortste " + kortste_route.size());
+        if(optdebug){System.out.println("de kortste " + kortste_route.size());}
         return kortste_route;
 //        Creeer route voor elke richting. Sla op in een queue (vertrek plek + historie)
 //        Ga met Last in First out het vervolg stap.

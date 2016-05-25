@@ -39,7 +39,7 @@ public class Level extends JComponent{
     private HelperPad helperpad;
     
     public Level() {
-        setLevel(levelOne());
+        setLevel(levelFour());
         if(debug){readLevel();} // controleer het level    
 //        System.out.println("spelersVak " + spelersVak.toString());
 //        System.out.println("vriendVak " + vriendVak.toString());
@@ -60,9 +60,9 @@ public class Level extends JComponent{
             case "optimal_route":
                 LinkedList<Integer> kortste_route = new LinkedList<Integer>();
                 kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
-                System.out.println("doet dit???");
-                helperpad = new HelperPad(kortste_route, doolhofMap);
-                //helperpad.paint(null);
+                if(debug) {System.out.println("Optimale_Route case in public action (class level)");}
+                helperpad = new HelperPad(kortste_route, doolhofMap, (LEVEL_FRAME_SIZE/current_maze_size));
+                repaint();
                 break;
             default:
                 break;
@@ -70,8 +70,8 @@ public class Level extends JComponent{
         revalidate();
         repaint();
         spelersVak = huidigeSpeler.getVak();
-        System.out.println(spelersVak.toString());
-        System.out.println(vriendVak.toString());
+        if(debug){System.out.println(spelersVak.toString());}
+        if(debug){System.out.println(vriendVak.toString());}
 //        
 //        ListIterator<Vak> iterator = doolhofMap.listIterator();
 //        while(iterator.hasNext()) {
@@ -92,7 +92,7 @@ public class Level extends JComponent{
         ListIterator<Vak> iterator = doolhofMap.listIterator();
         while(iterator.hasNext()) {
             Vak vak = iterator.next();
-            System.out.println(vak.toString());
+            if(debug){System.out.println(vak.toString());}
         }
         
     }
@@ -229,7 +229,7 @@ public class Level extends JComponent{
         // Bepaal aantal pixels voor de map, zodat hij netjes het frame vult.
         vak_size_pixels = LEVEL_FRAME_SIZE / current_maze_size;
         
-        System.out.println(level);
+        if(debug){System.out.println(level);}
         
 
         Muur muur = new Muur();
@@ -342,7 +342,7 @@ public class Level extends JComponent{
             +  "1020200000000020202020002020002022222021"
             +  "1020202222222020002022222020202020002021"
             +  "1020202000002020222000200020202000202001"
-            +  "1020202022202020202020202220200020202201"
+            +  "1020202022202020202020202220202222202201"
             +  "1020202025202020202020200000222220200201" 
             +  "1020202020202020000020222222200000220201"
             +  "1020202000202020222020000000002222200201"

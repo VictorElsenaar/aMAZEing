@@ -19,9 +19,11 @@ import javax.swing.JComponent;
 public class HelperPad extends JComponent {
     ArrayList<Vak> doolhofMap = new ArrayList<Vak>();
     LinkedList<Integer> kortste_route = new LinkedList<Integer>();
-    public HelperPad(LinkedList<Integer> kortste_route, ArrayList<Vak> doolhofMap)  {
+    int vak_size_pixels;
+    public HelperPad(LinkedList<Integer> kortste_route, ArrayList<Vak> doolhofMap, int vak_size_pixels)  {
         this.doolhofMap = doolhofMap;
         this.kortste_route = kortste_route;
+        this.vak_size_pixels = vak_size_pixels;
     }
     public HelperPad() {
     }
@@ -33,7 +35,8 @@ public class HelperPad extends JComponent {
             //System.out.println("#:" + kortste_route.get(i));
             //System.out.println("#:" + doolhofMap.get(kortste_route.get(i)));
             Vak vak = doolhofMap.get(kortste_route.get(i));
-            g.fillRect((vak.gety()*50), (vak.getx()*50), 50, 50);
+            g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+            //g.drawRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels); // vierkant
             //System.out.println("vakX" + vak.gety() + " |vakY" + vak.getx());
         }
 //        ListIterator<Vak> iterator = doolhofMap.listIterator();
