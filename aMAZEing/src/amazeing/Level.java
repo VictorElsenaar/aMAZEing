@@ -20,6 +20,11 @@ public class Level extends JComponent{
     private final int LEVEL_FRAME_SIZE = 500;
     
     /**
+     * Plaatjes thema
+     */
+    private final String THEME = "default";
+    
+    /**
      * maximaal aantal vakken op 1 lijn. (altijd vierkant) Max aantal blokken totaal zou zijn MAX_MAZE_SIZE * MAX_MAZE_SIZE
      */
     private final int MAX_MAZE_SIZE = 50; 
@@ -162,7 +167,7 @@ public class Level extends JComponent{
             
             if(figuur instanceof Bazooka) {
                 try {
-                    image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\bazooka.jpeg"));
+                    image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\bazooka.jpeg"));
                     g.drawImage(image.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
                 }
                 catch (Exception e) {
@@ -173,7 +178,7 @@ public class Level extends JComponent{
                 // dan het vakje van de speler opslaan globaal, zodat we weten waar de speler is.
                 spelersVak = vak;
                 try {
-                    image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\speler.jpg"));
+                    image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\speler.jpg"));
                     g.drawImage(image.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
                 }
                 catch (Exception e) {
@@ -181,7 +186,7 @@ public class Level extends JComponent{
             }
             if (figuur instanceof Vriend) {
                 try {
-                    image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\vriend.jpg"));
+                    image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\vriend.jpg"));
                     g.drawImage(image.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
                 }
                 catch (Exception e) {
