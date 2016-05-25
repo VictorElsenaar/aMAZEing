@@ -178,7 +178,6 @@ public class Game extends JFrame{
     }
     private void keyS() {
         queue.add(new QueueHandler("None","optimal_route"));
-        repaint(); // voorlopig nodig
     }
     private void keyLeft() {
         if(debug){System.out.println("LEFT");}
@@ -235,6 +234,7 @@ public class Game extends JFrame{
     public void executeQueue() {
         QueueHandler next = queue.remove();
         level.action(next.getDirection(),next.getType());    
+        System.out.println("@@@@@"+next.getDirection());
         // Check if game ends
         endGame();
     }

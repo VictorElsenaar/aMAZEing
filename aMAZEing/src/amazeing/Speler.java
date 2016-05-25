@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package amazeing;
 
 import static amazeing.AMAZEing.debug;
@@ -23,10 +18,7 @@ public class Speler extends Figuur {
 
     // Constructor
     public Speler() {
-        super( Color.BLUE); //Color(0,0,255)
-        //super(new Color(0,32,255)); //Color(0,0,255)
-        kleur1 = new Color(0,32,255);
-        kleur2 = new Color(0,52,255);
+        super(Color.BLUE); //Color(0,0,255)
     }
     // Let op richting bepaling staat ook in OptimaleRoute!
     public int positionchange(String richting, int current_maze_size) {
@@ -70,8 +62,8 @@ public class Speler extends Figuur {
             doolhofMap.set(tempindex, oudeVak);
             
             if(nieuweVak.isBazooka(nieuweVak)) {
-                bazooka.setAmmo(bazooka.getAmmo()+1);
-                System.out.println("#########"+bazooka.getAmmo());
+                bazooka.toevoegenAmmo();
+                System.out.println("Aantal raketten over van bazooka: " + bazooka.getAmmo());
             }
             if(nieuweVak.isHelper(nieuweVak)) {
                 helper.toevoegenAantal();

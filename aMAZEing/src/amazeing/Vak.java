@@ -1,5 +1,4 @@
 package amazeing;
-
 /**
  *
  * @author Kahoo

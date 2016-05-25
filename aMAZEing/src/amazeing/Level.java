@@ -286,7 +286,7 @@ public class Level extends JComponent{
     public String levelOne() {
       return  "1111111111"
             + "1320200001"
-            + "1026202021"
+            + "1626202021"
             + "1020202001"
             + "1020052201"
             + "1020220001"
