@@ -24,7 +24,7 @@ public class Level extends JComponent{
      * Options : - default
      *           - minecraft
      */
-    private final String THEME = "default";
+    private final String THEME = "minecraft";
     
     private BufferedImage spelerImage;
     private BufferedImage vriendImage;
@@ -56,8 +56,9 @@ public class Level extends JComponent{
     private boolean toonOptimaleRoute = false;
     
     public Level() {
-        InitialiseerImages();
+        //InitialiseerImages();
         setLevel(levelOne());
+        InitialiseerImages();
         if(debug){readLevel();} // controleer het level    
 //        System.out.println("spelersVak " + spelersVak.toString());
 //        System.out.println("vriendVak " + vriendVak.toString());
@@ -137,7 +138,7 @@ public class Level extends JComponent{
                     try {
                         //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\buitenmuur.jpg"));
                         g.drawImage(buitenmuurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
-                      //  g.drawImage(buitenmuurImage, (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null);
+                        //g.drawImage(buitenmuurImage, (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null);
                     }
                     catch (Exception e) {                    
                         g.setColor(muur.getkleur());
@@ -200,6 +201,7 @@ public class Level extends JComponent{
                 try {
                     //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\bazooka.jpeg"));
                     g.drawImage(bazookaImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+                    //g.drawImage(bazookaImage, (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null);
                 }
                 catch (Exception e) {
                 }
@@ -507,16 +509,6 @@ public class Level extends JComponent{
             +  "1111111111111111111111111111111111111111";
     }
     public void InitialiseerImages() {
-        /*
-            private final BufferedImage spelerImage;
-            private final BufferedImage vriendImage;
-            private final BufferedImage leegImage;
-            private final BufferedImage muurImage;
-            private final BufferedImage bazookaImage;
-            private final BufferedImage buitenmuurImage;
-            private final BufferedImage helperImage;
-    
-        */
         try {
             spelerImage = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\speler.jpg"));
         }
@@ -538,11 +530,15 @@ public class Level extends JComponent{
         catch (Exception e) {
         }        
         try {
-            bazookaImage = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\bazooka.jpeg"));
+            //buitenmuurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0)
+           // bazookaImage = (BufferedImage) (ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\bazooka.jpeg"))).getScaledInstance(vak_size_pixels, vak_size_pixels, 0);
+             bazookaImage = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\bazooka.jpg"));
+            
         }
         catch (Exception e) {
         }        
         try {
+           // buitenmuurImage = (BufferedImage) (ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\buitenmuur.jpg"))).getScaledInstance(vak_size_pixels, vak_size_pixels, 0);
             buitenmuurImage = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\buitenmuur.jpg"));
         }
         catch (Exception e) {
