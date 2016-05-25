@@ -36,13 +36,11 @@ public class Level extends JComponent{
     private Vak vriendVak;
     
     private String currentLevel;
-        
-    private HelperPad helperpad;
     
     private boolean toonOptimaleRoute = false;
     
     public Level() {
-        setLevel(levelFour());
+        setLevel(levelOne());
         if(debug){readLevel();} // controleer het level    
 //        System.out.println("spelersVak " + spelersVak.toString());
 //        System.out.println("vriendVak " + vriendVak.toString());
@@ -52,7 +50,7 @@ public class Level extends JComponent{
     }
     
     public void action(String direction, String type) {
-        Speler huidigeSpeler = (Speler) spelersVak.getFiguur();   
+        Speler huidigeSpeler = (Speler) spelersVak.getFiguur();  
         switch(type) {
             case "move":
                 doolhofMap = huidigeSpeler.move(direction, doolhofMap, current_maze_size, spelersVak );
@@ -61,11 +59,6 @@ public class Level extends JComponent{
                 doolhofMap = huidigeSpeler.fire(direction, doolhofMap, current_maze_size, spelersVak );
                 break;
             case "optimal_route":
-//                LinkedList<Integer> kortste_route = new LinkedList<Integer>();
-//                kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
-//                if(debug) {System.out.println("Optimale_Route case in public action (class level)");}
-//                helperpad = new HelperPad(kortste_route, doolhofMap, (LEVEL_FRAME_SIZE/current_maze_size));
-//                repaint();
                 toonOptimaleRoute = true;
                 break;
             default:
@@ -76,22 +69,9 @@ public class Level extends JComponent{
         spelersVak = huidigeSpeler.getVak();
         if(debug){System.out.println(spelersVak.toString());}
         if(debug){System.out.println(vriendVak.toString());}
-//        
-//        ListIterator<Vak> iterator = doolhofMap.listIterator();
-//        while(iterator.hasNext()) {
-//            Vak vak = iterator.next();
-//            Figuur figuur = vak.getFiguur();
-//                        if(figuur instanceof Speler){
-//                // dan het vakje van de speler opslaan globaal, zodat we weten waar de speler is.
-//                spelersVak = vak;
-//            }
-//        }
         
     }
-    public HelperPad getHelperPad() {
-        return helperpad;
-    }
-    
+
     public void readLevel() {
         ListIterator<Vak> iterator = doolhofMap.listIterator();
         while(iterator.hasNext()) {
@@ -203,12 +183,8 @@ public class Level extends JComponent{
                 }
             }
         }
-        // testje hier kan natuurlijk een if statement omheen
-        
-//                        kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
-//                if(debug) {System.out.println("Optimale_Route case in public action (class level)");}
-//                helperpad = new HelperPad(kortste_route, doolhofMap, (LEVEL_FRAME_SIZE/current_maze_size));
-        if(toonOptimaleRoute){
+        // Indien speler de optimale route te zien moet krijgen dan onderstaande uitvoeren.
+        if(toonOptimaleRoute){      
             LinkedList<Integer> kortste_route = new LinkedList<Integer>();
             kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
             g.setColor(new Color(159,255,255,124));

@@ -78,30 +78,7 @@ public class Game extends JFrame{
         add(blackborder_informationPanel);
         
         setInformationPanel(true);
-        
-//        // Op dit panel tekenen we op specifieke coordinaten de route.
-//        helperPanel = new JPanel();
-//        helperPanel.setSize(520,520);
-//        helperPanel.setBounds(10,10,520,520);
-//        helperPanel.setLayout(null);
-//        helperPanel.setBackground(new Color(0,0,0,124));
-//        
-//        HelperPad helperpad = new HelperPad(); // bovenaan definieren...! Maar deze moet parameters meekrijgen, 
-//                                               //namelijk de map en de lijst van coordinaten die uit OptimaleRoute 
-//                                               // komt die door level wordt aangeroepen...
-//                                               // VERDER doordenken kan geconcludeerd worden dat het indrukken van een key deze actie moet initieren.
-//        //Dus Gebruiker drukt op knop, activeer helper
-//        //Controleer of speler een helper bonus heeft
-//        //Zo ja, voer uit en haal 1 helper bonus punt eraf 
-//        
-//        // voor uit is vanuit GAME geinitieerd. Dus kan er een trigger aan level gegeven worden die op zijn beurt weer een trigger aan optimale route geeft.
-//        // De returns komen uiteindelijk van optimaleroute in level en terug naar game. En game kan deze dan meegeven aan de constructor van helperpad die vervolgens alle
-//        // plaatjes intekent.
-//        helperpad.setBounds(10,10,501,501);
-//        helperPanel.add(helperpad);
-//        add(helperPanel);
-//        helperPanel.setVisible(true);
-        
+                
         gamePanel = new JPanel();
         gamePanel.setSize(520, 520);
         gamePanel.setBounds(10, 10, 520, 520);
@@ -258,13 +235,6 @@ public class Game extends JFrame{
     public void executeQueue() {
         QueueHandler next = queue.remove();
         level.action(next.getDirection(),next.getType());    
-//        if (next.getType().equals("optimal_route")) {
-//            HelperPad helperpad = level.getHelperPad();
-//            helperpad.setBounds(10, 10, 520, 520);
-//            helperPanel.setBackground(new Color(0,0,0,124));
-//            helperPanel.add(helperpad);
-//            helperPanel.setVisible(true);
-//        }
         // Check if game ends
         endGame();
     }
