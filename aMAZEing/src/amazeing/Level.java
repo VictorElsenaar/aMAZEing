@@ -59,7 +59,8 @@ public class Level extends JComponent{
                 doolhofMap = huidigeSpeler.fire(direction, doolhofMap, current_maze_size, spelersVak );
                 break;
             case "optimal_route":
-                toonOptimaleRoute = true;
+                
+                toonOptimaleRoute = huidigeSpeler.activeerOptimaleRoute();
                 break;
             default:
                 break;
@@ -133,6 +134,10 @@ public class Level extends JComponent{
                     //g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/2), (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/2)); // tweede (middelste) horizontale lijn
                     g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)*2); // derde horizontale lijn
                 }
+            }
+            if(figuur instanceof Helper){
+                g.setColor(figuur.getkleur());
+                 g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
             }
 //            g.setColor(figuur.getkleur());
 //            // x en y as lijken omgedraaid te moeten...
@@ -237,6 +242,7 @@ public class Level extends JComponent{
         Speler speler = new Speler();
         Vriend vriend = new Vriend();
         Bazooka bazooka = new Bazooka();
+        Helper helper = new Helper();
         
         doolhofMap = new ArrayList<Vak>();
          
@@ -265,6 +271,8 @@ public class Level extends JComponent{
                 // Als het een 5 is dan een bazooka plaatsen
                 } else if (Integer.parseInt(typeOnPosition) == 5) {
                     vak = new Vak(x,y,bazooka);                    
+                } else if (Integer.parseInt(typeOnPosition) == 6) {
+                    vak = new Vak(x,y,helper);                    
                 } else // ANDERS is het een leeg vak
                 {
                     vak = new Vak(x,y,empty);
@@ -278,7 +286,7 @@ public class Level extends JComponent{
     public String levelOne() {
       return  "1111111111"
             + "1320200001"
-            + "1020202021"
+            + "1026202021"
             + "1020202001"
             + "1020052201"
             + "1020220001"
@@ -291,7 +299,7 @@ public class Level extends JComponent{
       return  "1111111111"
             + "1230000001"
             + "1020202201"
-            + "1020200001"
+            + "1020260001"
             + "1020222221"
             + "1000220001"
             + "1022000201"
@@ -302,7 +310,7 @@ public class Level extends JComponent{
     public String levelThree() {
         return "11111111111111111111" 
             +  "10000020002000000031" 
-            +  "10222020202022222221"
+            +  "10222020262022222221"
             +  "10200020202020002401"                
             +  "10202220000020202201"                
             +  "10200000222220202001"                
@@ -318,14 +326,14 @@ public class Level extends JComponent{
             +  "10002000202000000201"                
             +  "10202020202022220201"                
             +  "10202020202000220201"                
-            +  "10200020002020000001"                
+            +  "16200020002020000001"                
             +  "11111111111111111111";
     }
     public String levelFour() {
         return "1111111111111111111111111111111111111111"
             +  "1000002000200002000000000224222222000001"
             +  "1020202020202222022222020020000000022201"
-            +  "1023202020000000020000020222222222020201"
+            +  "1023202020000000026000020222222222020201"
             +  "1022202022222222222222020020000000020201" 
             +  "1020202000000000000000022220222202220201"
             +  "1020202022222222002220002020000202000201"
@@ -342,7 +350,7 @@ public class Level extends JComponent{
             +  "1020202222222020002022222020202020002021"
             +  "1020202000002020222000200020202000202001"
             +  "1020202022202020202020202220202222202201"
-            +  "1020202025202020202020200000222220200201" 
+            +  "1020202025202020202020200000222226200201" 
             +  "1020202020202020000020222222200000220201"
             +  "1020202000202020222020000000002222200201"
             +  "1020202222202020200022222222222020002201"
@@ -353,7 +361,7 @@ public class Level extends JComponent{
             +  "1020200020002000222222222222222000200001"
             +  "1000202000200020002000000000002220202201"
             +  "1222202222222222202022222222202000202001"
-            +  "1000002000200000202020000000202022202021"
+            +  "1600002000200000202020000000202022202021"
             +  "1022222020202220202020222220202000002001"
             +  "1000000020202000202020200020202222222201"
             +  "1022222020002020202020202020202000200001" 

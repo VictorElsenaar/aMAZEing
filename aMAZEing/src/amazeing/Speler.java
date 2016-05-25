@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 public class Speler extends Figuur {
 
     private Bazooka bazooka = new Bazooka();
+    private Helper helper = new Helper();
     private Vak huidigeVak;
 
     // Constructor
@@ -72,7 +73,9 @@ public class Speler extends Figuur {
                 bazooka.setAmmo(bazooka.getAmmo()+1);
                 System.out.println("#########"+bazooka.getAmmo());
             }
-            
+            if(nieuweVak.isHelper(nieuweVak)) {
+                helper.toevoegenAantal();
+            }
             nieuweVak.setFiguur(huidigeSpeler);
             doolhofMap.set(tempindex+position_change_amount,nieuweVak);
             huidigeVak = doolhofMap.get(tempindex+position_change_amount);
@@ -90,5 +93,12 @@ public class Speler extends Figuur {
     }   
     public Vak getVak(){
         return huidigeVak;
+    }
+    public boolean activeerOptimaleRoute() {
+        if(helper.getAantal() > 0) {
+            helper.gebruik();
+            return true;
+        }
+        return false;
     }
 }

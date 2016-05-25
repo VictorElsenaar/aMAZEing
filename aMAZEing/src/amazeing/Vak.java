@@ -34,6 +34,12 @@ public class Vak {
         }
         return false;
     }
+    public boolean isHelper(Vak vak) {
+        if(vak.getFiguur() instanceof Helper) {
+            return true;
+        }
+        return false;
+    }
 
     
     public String toString() {
