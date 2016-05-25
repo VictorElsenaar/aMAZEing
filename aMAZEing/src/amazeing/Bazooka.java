@@ -16,8 +16,6 @@ public class Bazooka extends Figuur{
     // Constructor
     public Bazooka() {
         super(Color.CYAN); //Color(0,255,255)
-        kleur1 = new Color(120,255,255);
-        kleur2 = new Color(160,255,255);
         ammo = 0;
         if(debug) {ammo = 99;}
     }
@@ -27,9 +25,8 @@ public class Bazooka extends Figuur{
     public void setAmmo(int ammo) {
         this.ammo = ammo;
     }
-    public void reload(Bazooka bazooka) {
-        this.ammo --;
-        if (debug){System.out.println("Ammo nog over: " + ammo);}
+    public void toevoegenAmmo() {
+        ammo++;
     }
     public ArrayList<Vak> fire(String richting, ArrayList<Vak> doolhofMap, int current_maze_size, Vak spelersVak, int position_change_amount) {
         int currentLocationIndex = doolhofMap.indexOf(spelersVak);
@@ -52,7 +49,8 @@ public class Bazooka extends Figuur{
                 schietvak.setFiguur(empty);
             }
         }
-        this.reload(this);
+        ammo --;
+        if (debug){System.out.println("Ammo nog over: " + ammo);}
         return doolhofMap;
     }
 }
