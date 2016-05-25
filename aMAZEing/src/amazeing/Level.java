@@ -39,6 +39,8 @@ public class Level extends JComponent{
         
     private HelperPad helperpad;
     
+    private boolean toonOptimaleRoute = false;
+    
     public Level() {
         setLevel(levelFour());
         if(debug){readLevel();} // controleer het level    
@@ -59,11 +61,12 @@ public class Level extends JComponent{
                 doolhofMap = huidigeSpeler.fire(direction, doolhofMap, current_maze_size, spelersVak );
                 break;
             case "optimal_route":
-                LinkedList<Integer> kortste_route = new LinkedList<Integer>();
-                kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
-                if(debug) {System.out.println("Optimale_Route case in public action (class level)");}
-                helperpad = new HelperPad(kortste_route, doolhofMap, (LEVEL_FRAME_SIZE/current_maze_size));
-                repaint();
+//                LinkedList<Integer> kortste_route = new LinkedList<Integer>();
+//                kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
+//                if(debug) {System.out.println("Optimale_Route case in public action (class level)");}
+//                helperpad = new HelperPad(kortste_route, doolhofMap, (LEVEL_FRAME_SIZE/current_maze_size));
+//                repaint();
+                toonOptimaleRoute = true;
                 break;
             default:
                 break;
@@ -205,15 +208,19 @@ public class Level extends JComponent{
 //                        kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
 //                if(debug) {System.out.println("Optimale_Route case in public action (class level)");}
 //                helperpad = new HelperPad(kortste_route, doolhofMap, (LEVEL_FRAME_SIZE/current_maze_size));
-        LinkedList<Integer> kortste_route = new LinkedList<Integer>();
-        kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
-        g.setColor(new Color(159,255,255,124));
-        for (int i = 0; i < kortste_route.size(); i++) {
-            //System.out.println(i);
-            //System.out.println("#:" + kortste_route.get(i));
-            //System.out.println("#:" + doolhofMap.get(kortste_route.get(i)));
-            Vak vak = doolhofMap.get(kortste_route.get(i));
-            g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+        if(toonOptimaleRoute){
+            LinkedList<Integer> kortste_route = new LinkedList<Integer>();
+            kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
+            g.setColor(new Color(159,255,255,124));
+            for (int i = 0; i < kortste_route.size(); i++) {
+                //System.out.println(i);
+                //System.out.println("#:" + kortste_route.get(i));
+                //System.out.println("#:" + doolhofMap.get(kortste_route.get(i)));
+                Vak vak = doolhofMap.get(kortste_route.get(i));
+                g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels-5, vak_size_pixels-5);
+            }
+            kortste_route.clear();
+            toonOptimaleRoute = false;
         }
     }
     public ArrayList<Vak> getcurrentMap() {

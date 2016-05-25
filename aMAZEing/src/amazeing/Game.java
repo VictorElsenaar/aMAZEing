@@ -200,7 +200,7 @@ public class Game extends JFrame{
         }
     }
     private void keyS() {
-        queue.add(new QueueHandler("no direction","optimal_route"));
+        queue.add(new QueueHandler("None","optimal_route"));
         repaint(); // voorlopig nodig
     }
     private void keyLeft() {
@@ -258,13 +258,13 @@ public class Game extends JFrame{
     public void executeQueue() {
         QueueHandler next = queue.remove();
         level.action(next.getDirection(),next.getType());    
-        if (next.getType().equals("optimal_route")) {
-            HelperPad helperpad = level.getHelperPad();
-            helperpad.setBounds(10, 10, 520, 520);
-            helperPanel.setBackground(new Color(0,0,0,124));
-            helperPanel.add(helperpad);
-            helperPanel.setVisible(true);
-        }
+//        if (next.getType().equals("optimal_route")) {
+//            HelperPad helperpad = level.getHelperPad();
+//            helperpad.setBounds(10, 10, 520, 520);
+//            helperPanel.setBackground(new Color(0,0,0,124));
+//            helperPanel.add(helperpad);
+//            helperPanel.setVisible(true);
+//        }
         // Check if game ends
         endGame();
     }

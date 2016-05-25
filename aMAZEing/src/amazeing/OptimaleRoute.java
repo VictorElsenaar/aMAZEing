@@ -31,8 +31,9 @@ public class OptimaleRoute {
     private static LinkedList<Integer> huidige_route = new LinkedList<Integer>();
     
     public static LinkedList<Integer> vindRoute(ArrayList<Vak> doolhofMap, int current_maze_size, Vak startVak, Vak eindVak) {
-        // current_maze_size * current_maze_size = dus max indexnummer;
-        
+
+        initialiseren();
+        System.out.println("Start Optimale Route zoeken");
         vul_richtingen(current_maze_size);
 //        Begin van beginvak
         int start_vak = doolhofMap.indexOf(startVak);
@@ -183,7 +184,14 @@ public class OptimaleRoute {
     
     
     }
-    
+    private static void initialiseren() {
+        te_verwerken_routes.clear();
+        alternatieve_route.clear();
+        gevonden_routes.clear();
+        kortste_route.clear();
+        huidige_route.clear();
+        richtingen.clear();        
+    }
     private static boolean is_gebruikt_vak (int indexnummer) {
         for (int vak : huidige_route) {
             if(indexnummer == vak) {
