@@ -14,7 +14,7 @@ public class Helper extends Figuur{
     public Helper() {
         super(Color.ORANGE);
         aantal = 0;
-        if(debug) {aantal = 1;}
+        if(debug) {aantal = 99;}
     }
     public int getAantal() {
         return aantal;

@@ -4,6 +4,8 @@ import static amazeing.AMAZEing.debug;
 import java.awt.Color;
 //import static amazeing.AMAZEing.speler;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -131,14 +133,14 @@ public class Level extends JComponent{
 //            g.fillRect((vak.gety()*vak_size_pixels)+change, (vak.getx()*vak_size_pixels)+change, vak_size_pixels-change*2, vak_size_pixels-change*2);
 //            g.setColor(figuur.getkleur2());
 //            g.fillRect((vak.gety()*vak_size_pixels)+change2, (vak.getx()*vak_size_pixels)+change2, vak_size_pixels-change2*2, vak_size_pixels-change2*2);
-            
+
             if (figuur instanceof Muur) {
                 Muur muur = (Muur)vak.getFiguur();
                 if (muur.getBorderMuur()) {
                     try {
                         //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\buitenmuur.jpg"));
-                        g.drawImage(buitenmuurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
-                        //g.drawImage(buitenmuurImage, (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null);
+                        //g.drawImage(buitenmuurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+                        g.drawImage(buitenmuurImage, (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null);
                     }
                     catch (Exception e) {                    
                         g.setColor(muur.getkleur());
@@ -521,25 +523,44 @@ public class Level extends JComponent{
         }
         try {
             leegImage = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\leeg.jpg"));
+//            BufferedImage temp = new BufferedImage(50,50,BufferedImage.TYPE_INT_RGB);
+//            Graphics2D g2d = (Graphics2D)temp.createGraphics();
+//            g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
+//            boolean b = g2d.drawImage(leegImage,0,0,50,50,null);
+//            System.out.println("BOOOL"+ b);
+//            ImageIO.write(temp, "jpg", new File("../aMAZEing/src/amazeing/theme/minecraft/le.jpg"));            
         }
         catch (Exception e) {
         }
         try {
             muurImage = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\muur.jpg"));
+//            BufferedImage temp = new BufferedImage(50,50,BufferedImage.TYPE_INT_RGB);
+//            Graphics2D g2d = (Graphics2D)temp.createGraphics();
+//            g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
+//            boolean b = g2d.drawImage(muurImage,0,0,50,50,null);
+//            System.out.println("BOOOL"+ b);
+//            ImageIO.write(temp, "jpg", new File("../aMAZEing/src/amazeing/theme/minecraft/mu.jpg"));                        
         }
         catch (Exception e) {
         }        
         try {
             //buitenmuurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0)
-           // bazookaImage = (BufferedImage) (ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\bazooka.jpeg"))).getScaledInstance(vak_size_pixels, vak_size_pixels, 0);
+           //bazookaImage = (BufferedImage) (ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\bazooka.jpeg"))).getScaledInstance(vak_size_pixels, vak_size_pixels, 0);
              bazookaImage = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\bazooka.jpg"));
             
         }
         catch (Exception e) {
         }        
         try {
-           // buitenmuurImage = (BufferedImage) (ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\buitenmuur.jpg"))).getScaledInstance(vak_size_pixels, vak_size_pixels, 0);
-            buitenmuurImage = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\buitenmuur.jpg"));
+            buitenmuurImage = (BufferedImage) (ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\buitenmuur.jpg"))).getScaledInstance(50, 50, 0);
+            //buitenmuurImage = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\buitenmuur.jpg"));
+            
+//            BufferedImage temp = new BufferedImage(50,50,BufferedImage.TYPE_INT_RGB);
+//            Graphics2D g2d = (Graphics2D)temp.createGraphics();
+//            g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
+//            boolean b = g2d.drawImage(buitenmuurImage,0,0,50,50,null);
+//            System.out.println("BOOOL"+ b);
+//            ImageIO.write(temp, "jpg", new File("../aMAZEing/src/amazeing/theme/minecraft/buitenste.jpg"));
         }
         catch (Exception e) {
         }        
