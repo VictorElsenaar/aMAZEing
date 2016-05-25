@@ -262,6 +262,7 @@ public class Game extends JFrame{
         if (next.getDirection().equals("optimal_route")) {
             HelperPad helperpad = level.getHelperPad();
             helperpad.setBounds(10, 10, 520, 520);
+            helperPanel.setBackground(new Color(0,0,0,124));
             helperPanel.add(helperpad);
             helperPanel.setVisible(true);
         }
