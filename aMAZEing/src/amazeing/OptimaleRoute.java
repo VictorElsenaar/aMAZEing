@@ -40,6 +40,7 @@ public class OptimaleRoute {
 
         while(true){
             nog_opties_teller = 0;
+            int nieuwe_stap = 0;
             ga_alternatieve = false;
             if(optdebug){System.out.println(richtingen);}
             for(int richting : richtingen) {
@@ -68,12 +69,14 @@ public class OptimaleRoute {
                         } else {
                             ga_alternatieve = true;
                             // huidige route verder aanvullen.
-                            huidige_route.add(huidige_stap_positie);
+                            ///////huidige_route.add(huidige_stap_positie);
+                            nieuwe_stap = huidige_stap_positie;
                             //start_vak = huidige_stap_positie;
                             // Controleer of dit toevallig de vriend is die je zoekt!
                             Vak eind_vak_huidige_route = doolhofMap.get(huidige_stap_positie);
                             if(eind_vak_huidige_route == eindVak){
                                 // sla huidige_route op
+                                huidige_route.add(huidige_stap_positie);
                                 if(optdebug){System.out.println("route gevonden------------------------------------------------------");}
                                 LinkedList<Integer> route_gevonden = (LinkedList<Integer>) huidige_route.clone();
                                 gevonden_routes.add(route_gevonden);
@@ -100,6 +103,7 @@ public class OptimaleRoute {
                     }
                 }  
             } // Dit is einde FOR!!!!
+            huidige_route.add(nieuwe_stap);
             // Alle richtingen zijn bepaald dus nu met huidige route verder.
             start_vak = huidige_route.getLast();
             if(optdebug){System.out.println("uit de hele route bepaling afhankelijk van nog opties teller doorgaan, als 0 is dan stoppen : " + nog_opties_teller);}
