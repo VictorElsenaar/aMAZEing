@@ -283,8 +283,7 @@ public class Level extends JComponent{
         // Bepaal aantal pixels voor de map, zodat hij netjes het frame vult.
         vak_size_pixels = LEVEL_FRAME_SIZE / current_maze_size;
         
-        if(debug){System.out.println(level);}
-        
+        if(debug){System.out.println(level);}        
 
         Muur muur = new Muur();
         Muur buitenmuur = new Muur(true);
@@ -376,7 +375,7 @@ public class Level extends JComponent{
                             +  "10202020202000220201"                
                             +  "16200020002020000001"                
                             +  "11111111111111111111";
-        
+                                
         String level_four =    "1111111111111111111111111111111111111111"
                             +  "1000002000200002000000000224222222000001"
                             +  "1020202020202222022222020020000000022201"

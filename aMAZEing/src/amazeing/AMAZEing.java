@@ -32,6 +32,7 @@ public class AMAZEing {
         game.setVisible(true);
         game.setTitle("aMAZEing");
         game.setSize(WIDTH, HEIGHT);
+        game.setResizable(false);
         
         thread.start();
         while(true) 
