@@ -58,26 +58,13 @@ public class OptimaleRoute {
                         // Als we meer dan richtingen vinden in onze huidige route
                         // dan vinden we een splitsing, dus dan moeten we de huidige volledige route 
                         // KOPIEREN !!! en de nieuwe stap daar in opslaan ipv in de huidige_route!
-                       // if(nog_opties_teller > 1) {
                         if(ga_alternatieve) {
+                            if(optdebug){System.out.println("alternatieve route toegevoegd nog_opties_teller groter dan 1 = " + nog_opties_teller);}                            
                             LinkedList<Integer> alternatieve_route = (LinkedList<Integer>) huidige_route.clone();
-                            if(optdebug){System.out.println("alternatieve route toegevoegd nog_opties_teller groter dan 1 = " + nog_opties_teller);}
-                            //alternatieve_route.clear();
-                            //alternatieve_route.addAll(huidige_route);
-                            
-//                            LinkedList<Integer> alternatieve_route = new LinkedList<Integer>();
-//                            for(int pad : huidige_route) {
-//                                int copy = pad;
-//                                alternatieve_route.add(copy);
-//                            }
                             alternatieve_route.add(huidige_stap_positie);
                             te_verwerken_routes.add(alternatieve_route);
                             if(optdebug){System.out.println("Alternatieve_route is dus gevonden en deze is zo lang: " + alternatieve_route.size());}
-                            if(optdebug){System.out.println("te verwerken routes 1 toegevoegd, stand is nu " + te_verwerken_routes.size());}
-                            //for(int pad : alternatieve_route) {
-                            //    System.out.println("ALTERNATIEVE_ROUTE " + pad);
-                           // }
-                            
+                            if(optdebug){System.out.println("te verwerken routes 1 toegevoegd, stand is nu " + te_verwerken_routes.size());}                          
                         } else {
                             ga_alternatieve = true;
                             // huidige route verder aanvullen.
@@ -96,7 +83,7 @@ public class OptimaleRoute {
                                 if(!kortste_route.isEmpty() && huidige_route.size() < kortste_route.size()) {
                                     kortste_route = (LinkedList<Integer>) huidige_route.clone();
                                 }
-                              //  nog_opties_teller = 0;
+                                nog_opties_teller = 0;
                                 break;
                             }
                         }
@@ -111,7 +98,7 @@ public class OptimaleRoute {
                             break;
                         }
                     }
-                }                
+                }  
             } // Dit is einde FOR!!!!
             // Alle richtingen zijn bepaald dus nu met huidige route verder.
             start_vak = huidige_route.getLast();
@@ -137,7 +124,7 @@ public class OptimaleRoute {
 //                }
             }
  
-        }
+        }// DIT IS EINDE WHILE
         
         if(optdebug){System.out.println("te verwerken routes" + te_verwerken_routes.size());}
        // for(int pad : huidige_route){
