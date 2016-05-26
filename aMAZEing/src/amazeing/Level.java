@@ -139,8 +139,8 @@ public class Level extends JComponent{
                 if (muur.getBorderMuur()) {
                     try {
                         //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\buitenmuur.jpg"));
-                        //g.drawImage(buitenmuurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
-                        g.drawImage(buitenmuurImage, (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null);
+                        g.drawImage(buitenmuurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+                        //g.drawImage(buitenmuurImage, (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null);
                     }
                     catch (Exception e) {                    
                         g.setColor(muur.getkleur());
@@ -228,25 +228,25 @@ public class Level extends JComponent{
                 }
             }
             if (figuur instanceof Leeg) {
-                try {
-                    //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\leeg.jpg"));
-                    g.drawImage(leegImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
-                }
-                catch (Exception e) {
-                }
+//                try {
+//                    //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\leeg.jpg"));
+//                    g.drawImage(leegImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+//                }
+//                catch (Exception e) {
+//                }
             }            
         }
         // Indien speler de optimale route te zien moet krijgen dan onderstaande uitvoeren.
         if(toonOptimaleRoute){      
             LinkedList<Integer> kortste_route = new LinkedList<Integer>();
             kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
-            g.setColor(new Color(159,255,255,124));
-            for (int i = 0; i < kortste_route.size(); i++) {
+            g.setColor(new Color(20,220,255,124));
+            for (int i = 1; i < kortste_route.size()-1; i++) {
                 //System.out.println(i);
                 //System.out.println("#:" + kortste_route.get(i));
                 //System.out.println("#:" + doolhofMap.get(kortste_route.get(i)));
                 Vak vak = doolhofMap.get(kortste_route.get(i));
-                g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels-5, vak_size_pixels-5);
+                g.fillRect((vak.gety()*vak_size_pixels)+vak_size_pixels/4, (vak.getx()*vak_size_pixels)+vak_size_pixels/4, vak_size_pixels-(vak_size_pixels/2), vak_size_pixels-(vak_size_pixels/2));
             }
             kortste_route.clear();
             toonOptimaleRoute = false;
@@ -552,8 +552,8 @@ public class Level extends JComponent{
         catch (Exception e) {
         }        
         try {
-            buitenmuurImage = (BufferedImage) (ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\buitenmuur.jpg"))).getScaledInstance(50, 50, 0);
-            //buitenmuurImage = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\buitenmuur.jpg"));
+           // buitenmuurImage = (BufferedImage) (ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\buitenmuur.jpg"))).getScaledInstance(50, 50, 0);
+            buitenmuurImage = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\buitenmuur.jpg"));
             
 //            BufferedImage temp = new BufferedImage(50,50,BufferedImage.TYPE_INT_RGB);
 //            Graphics2D g2d = (Graphics2D)temp.createGraphics();
