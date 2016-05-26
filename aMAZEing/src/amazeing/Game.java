@@ -86,7 +86,7 @@ public class Game extends JFrame{
         gamePanel.setBorder(border);
         gamePanel.setLayout(null);
         gamePanel.setBackground(Color.WHITE);
-        level = new Level();
+        level = new Level(0);
         level.setBounds(10, 10, 501, 501);
         gamePanel.add(level);
         add(gamePanel);
@@ -126,6 +126,11 @@ public class Game extends JFrame{
                     keyS();
                     }
                 }
+                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    if(debug){System.out.println("Space pressed, only works on end game");
+                    keySPACE();
+                    }
+                }
             } 
             public void keyTyped(KeyEvent e) { } 
         }); 
@@ -158,16 +163,16 @@ public class Game extends JFrame{
                 String selectedLevel = (String) levelLijst.getSelectedItem();
                 switch (selectedLevel) {
                     case "level 1":
-                        level.setLevel(level.levelOne());
+                        level.setLevel(0);
                         break;
                     case "level 2":
-                        level.setLevel(level.levelTwo());
+                        level.setLevel(1);
                         break;
                     case "level 3":
-                        level.setLevel(level.levelThree());
+                        level.setLevel(2);
                         break;
                     case "level 4":
-                        level.setLevel(level.levelFour());
+                        level.setLevel(3);
                         break;
                 }
                 repaint();
@@ -219,6 +224,16 @@ public class Game extends JFrame{
             queue.add(new QueueHandler("up", "move"));
         }        
     }
+    private void keySPACE() {
+        System.out.println("current ");
+        int temp = level.getCurrentLevel();
+        temp++;
+        System.out.println("current" + temp);
+        level.setLevel(temp);
+        setInformationPanel(false);
+        repaint();
+        requestFocusInWindow();
+    }
     
     public void setListenersAanButtons() {
         ActionListener listener = new ClickListener();
@@ -234,7 +249,7 @@ public class Game extends JFrame{
     public void executeQueue() {
         QueueHandler next = queue.remove();
         level.action(next.getDirection(),next.getType());    
-        System.out.println("@@@@@"+next.getDirection());
+        if(debug){System.out.println("@@@@@"+next.getDirection());}
         // Check if game ends
         endGame();
     }
