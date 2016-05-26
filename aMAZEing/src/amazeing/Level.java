@@ -80,7 +80,6 @@ public class Level extends JComponent{
                 doolhofMap = huidigeSpeler.fire(direction, doolhofMap, current_maze_size, spelersVak );
                 break;
             case "optimal_route":
-                
                 toonOptimaleRoute = huidigeSpeler.activeerOptimaleRoute();
                 break;
             default:
