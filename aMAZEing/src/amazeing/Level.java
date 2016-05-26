@@ -26,7 +26,7 @@ public class Level extends JComponent{
      * Options : - default
      *           - minecraft
      */
-    private final String THEME = "minecraft";
+    private final String THEME = "mario";
     
     private BufferedImage spelerImage;
     private BufferedImage vriendImage;
@@ -35,6 +35,7 @@ public class Level extends JComponent{
     private BufferedImage bazookaImage;
     private BufferedImage buitenmuurImage;
     private BufferedImage helperImage;
+    private BufferedImage helperPathImage;
     
     /**
      * maximaal aantal vakken op 1 lijn. (altijd vierkant) Max aantal blokken totaal zou zijn MAX_MAZE_SIZE * MAX_MAZE_SIZE
@@ -242,12 +243,13 @@ public class Level extends JComponent{
             kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
             g.setColor(new Color(20,220,255,124));
             for (int i = 1; i < kortste_route.size()-1; i++) {
-                //System.out.println(i);
-                //System.out.println("#:" + kortste_route.get(i));
-                //System.out.println("#:" + doolhofMap.get(kortste_route.get(i)));
                 Vak vak = doolhofMap.get(kortste_route.get(i));
-                g.fillRect((vak.gety()*vak_size_pixels)+vak_size_pixels/4, (vak.getx()*vak_size_pixels)+vak_size_pixels/4, vak_size_pixels-(vak_size_pixels/2), vak_size_pixels-(vak_size_pixels/2));
-            }
+              //  try {
+              //      g.drawImage(helperPathImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+              //  }
+              //  catch (Exception e) {
+                    g.fillRect((vak.gety()*vak_size_pixels)+vak_size_pixels/4, (vak.getx()*vak_size_pixels)+vak_size_pixels/4, vak_size_pixels-(vak_size_pixels/2), vak_size_pixels-(vak_size_pixels/2));                }                 
+               // }
             kortste_route.clear();
             toonOptimaleRoute = false;
         }
@@ -569,8 +571,13 @@ public class Level extends JComponent{
             
         }
         catch (Exception e) {
-        }        
-        
+        }             
+        try {
+            helperPathImage = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\helperpath.jpg"));
+            
+        }
+        catch (Exception e) {
+        } 
         
         
     }
