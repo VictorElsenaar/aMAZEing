@@ -26,7 +26,7 @@ public class Level extends JComponent{
      * Options : - default
      *           - minecraft
      */
-    private final String THEME = "mario";
+    private final String THEME = "default";
     
     private BufferedImage spelerImage;
     private BufferedImage vriendImage;
@@ -271,11 +271,26 @@ public class Level extends JComponent{
     public int getCurrentLevel() {
         return currentLevel;
     }  
+    public String getLevel(int nr) {
+        System.out.println("getLevel " + nr);
+        String level = levels.get(nr);
+        System.out.println(level);
+        return level;
+    }    
+    public void setNextLevel() {
+        this.currentLevel++;
+        if(currentLevel <= levels.size()-1) {
+            this.setLevel(currentLevel);
+        } else {
+            this.currentLevel--;
+        }
+    }
     public void setCurrentLevel(int nr) {
         this.currentLevel = currentLevel;
     }
     public void setLevel(int nr) {
         String level = getLevel(nr);
+        System.out.println("setcurrentlevel " + nr);
         setCurrentLevel(nr);
         // Bepaal de breedte en hoogte
         for (int i = 1; i < MAX_MAZE_SIZE; i++) {
@@ -335,10 +350,7 @@ public class Level extends JComponent{
             
         }
     }    
-    public String getLevel(int nr) {
-        String level = levels.get(nr);
-        return level;
-    }
+
     public void addLevels() {
         String level_one ="1111111111"
                         + "1320200001"

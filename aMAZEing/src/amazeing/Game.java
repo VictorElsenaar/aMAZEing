@@ -225,11 +225,7 @@ public class Game extends JFrame{
         }        
     }
     private void keySPACE() {
-        System.out.println("current ");
-        int temp = level.getCurrentLevel();
-        temp++;
-        System.out.println("current" + temp);
-        level.setLevel(temp);
+        this.level.setNextLevel();
         setInformationPanel(false);
         repaint();
         requestFocusInWindow();
