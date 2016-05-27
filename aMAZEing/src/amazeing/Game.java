@@ -35,13 +35,18 @@ public class Game extends JFrame{
     
     private JLabel infoLabel;
     
-    // Bouw Queue
+    /**
+     * gameState
+     * 0 = menu afhandeling
+     * 1 = spelen
+     * 8 = endlevel
+     * 9 = endgame
+     */
+    private int gameState = 0;
     
-    // Vul queue met acties vanuit Game (want keylistener)
-    
-    // Timer checkt queue voor nieuwe actie of bestaande actie
-    
-    // Actie > Level > speler > level > game > queue method (ik ben klaar)
+    /**
+     * Synchroon afhandelen van input van de speler door middel van een queue
+     */
     private Queue<QueueHandler> queue = new LinkedList<QueueHandler>();
     
     
@@ -101,19 +106,21 @@ public class Game extends JFrame{
         
         addKeyListener(new KeyListener() { 
             @Override
-            public void keyPressed(KeyEvent e) { 
-                if (e.getKeyCode() == KeyEvent.VK_LEFT ) {
-                    keyLeft();
+            public void keyPressed(KeyEvent e) {
+                if(gameState == 1){
+                    if (e.getKeyCode() == KeyEvent.VK_LEFT ) {
+                        keyLeft();
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_RIGHT ) {
+                        keyRight();
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_DOWN ) {
+                        keyDown();
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_UP ) {
+                        keyUp();
+                    }                 
                 }
-                if (e.getKeyCode() == KeyEvent.VK_RIGHT ) {
-                    keyRight();
-                }
-                if (e.getKeyCode() == KeyEvent.VK_DOWN ) {
-                    keyDown();
-                }
-                if (e.getKeyCode() == KeyEvent.VK_UP ) {
-                    keyUp();
-                }                 
             } 
             @Override
             public void keyReleased(KeyEvent e) { 
@@ -127,8 +134,9 @@ public class Game extends JFrame{
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    if(debug){System.out.println("Space pressed, only works on end game");
-                    keySPACE();
+                    if(debug){System.out.println("Space pressed, only works on end level");}
+                    if (gameState == 8) {
+                        keySPACE();
                     }
                 }
             } 
@@ -145,12 +153,14 @@ public class Game extends JFrame{
                 if(level.getSpelersVak() == level.getVriendVak()) {
                     setInformationPanel(true, "Vriend al gevonden! Druk op restart of kies een nieuw level.");
                 } else {
+                    gameState = 1;
                     setInformationPanel(false);
                     requestFocusInWindow();
                 }
             }
             if (e.getActionCommand().equals("Restart")) {
                 level.setLevel(level.getCurrentLevel());
+                gameState = 1;
                 setInformationPanel(false);
                 repaint();
                 requestFocusInWindow();
@@ -176,6 +186,7 @@ public class Game extends JFrame{
                         break;
                 }
                 repaint();
+                gameState = 1;
                 setInformationPanel(false);
                 requestFocusInWindow();
             }
@@ -225,10 +236,11 @@ public class Game extends JFrame{
         }        
     }
     private void keySPACE() {
-        this.level.setNextLevel();
+        this.level.setNextLevel();        
+        gameState = 1;
         setInformationPanel(false);
         repaint();
-        requestFocusInWindow();
+        requestFocusInWindow();            
     }
     
     public void setListenersAanButtons() {
@@ -246,15 +258,25 @@ public class Game extends JFrame{
         QueueHandler next = queue.remove();
         level.action(next.getDirection(),next.getType());    
         if(debug){System.out.println("@@@@@"+next.getDirection());}
-        // Check if game ends
-        endGame();
     }
-    public void endGame() {
+    public void checkEndLevel() {
         if (level.getVriendVak() == level.getSpelersVak()) {
             if(debug){System.out.println("Vriend gevonden");}
             setInformationPanel(true, "Gefeliciteerd! Vriend gevonden.");   
-            menuPanel.requestFocusInWindow();
+           // menuPanel.requestFocusInWindow();
+            setgameState(8);
+            System.out.println("currentlevel " + level.getCurrentLevel() + " == " + level.getLevelsSize() + " level.getLevelsSize()");
+            if(level.getCurrentLevel()+1 == level.getLevelsSize()) {
+                System.out.println("Einde game, laatste map gespeeld, WELLICHT NOG AANPASSEN NAAR beter bericht");
+                setgameState(9);
+            }
         }
+    }
+    public void setgameState(int state) {
+        this.gameState = state;
+    }
+    public int getgameState(){
+        return this.gameState;
     }
     
     public void setInformationPanel(boolean b, String text) {

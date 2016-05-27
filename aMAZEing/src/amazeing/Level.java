@@ -271,6 +271,9 @@ public class Level extends JComponent{
     public int getCurrentLevel() {
         return currentLevel;
     }  
+    public int getLevelsSize(){
+        return levels.size();
+    }
     public String getLevel(int nr) {
         System.out.println("getLevel " + nr);
         String level = levels.get(nr);

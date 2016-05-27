@@ -40,6 +40,7 @@ public class AMAZEing {
             try {
                 //Thread.sleep(25);
                 game.executeQueue();
+                game.checkEndLevel();
             } catch (Exception ex) {  
                 // do something with the exception
             }
