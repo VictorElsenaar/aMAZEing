@@ -26,8 +26,9 @@ public class Level extends JComponent{
      * Plaatjes thema folder 
      * Options : - default
      *           - minecraft
+     *           - mario
      */
-    private final String THEME = "default";
+    private final String THEME = "mario";
     
     private BufferedImage spelerImage;
     private BufferedImage vriendImage;
