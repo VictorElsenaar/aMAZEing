@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 /**
  *
@@ -61,7 +62,9 @@ public class Level extends JComponent{
     public Level(int level) {
         //InitialiseerImages();
         //setLevel(levelOne());
-
+        
+        setLayout(null);
+        
         addLevels();
         setLevel(level);
         InitialiseerImages();
@@ -88,9 +91,17 @@ public class Level extends JComponent{
             default:
                 break;
         }
-       // revalidate();
-        repaint();
+        //revalidate();
+        //repaint();
+        
         spelersVak = huidigeSpeler.getVak();
+        System.out.println(huidigeSpeler.getVak());
+//        JPanel panel = spelersVak.getPanel();
+//        panel.removeAll();
+//        panel.add(huidigeSpeler);
+//        revalidate();
+//        repaint();
+        
         if(debug){System.out.println(spelersVak.toString());}
         if(debug){System.out.println(vriendVak.toString());}
         
@@ -104,158 +115,182 @@ public class Level extends JComponent{
         }
         
     }
-    
-    public void paint(Graphics g) {
-        ListIterator<Vak> iterator = doolhofMap.listIterator();
-        BufferedImage image;
-        while(iterator.hasNext()) {
-            Vak vak = iterator.next();
-            Figuur figuur = vak.getFiguur();
-// TESTING
-//            Graphics2D g2d = (Graphics2D) g;
-//            Color color1 = figuur.getkleur();
-//            Color color2 = color1.brighter();
-//            color2 = color2.brighter();
-//            GradientPaint gp = new GradientPaint(
-//                    0, 0, color1,
-//                    0, (vak.getx()*vak_size_pixels), color2);
-//            g2d.setPaint(gp);
-//            g2d.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
-// TESTING  
-            
-// DEFAULT //           
-//            g.setColor(figuur.getkleur());
-//            // x en y as lijken omgedraaid te moeten...
-//            g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
-//            g.setColor(figuur.getkleur1());
-//            //g.fillRect((vak.gety()*vak_size_pixels)+5, (vak.getx()*vak_size_pixels)+5, vak_size_pixels-10, vak_size_pixels-10);
-//            //g.setColor(figuur.getkleur2());
-//            //g.fillRect((vak.gety()*vak_size_pixels)+10, (vak.getx()*vak_size_pixels)+10, vak_size_pixels-20, vak_size_pixels-20);
-//            int change = MAX_MAZE_SIZE/10;
-//            int change2 = change*2;
-//            g.fillRect((vak.gety()*vak_size_pixels)+change, (vak.getx()*vak_size_pixels)+change, vak_size_pixels-change*2, vak_size_pixels-change*2);
-//            g.setColor(figuur.getkleur2());
-//            g.fillRect((vak.gety()*vak_size_pixels)+change2, (vak.getx()*vak_size_pixels)+change2, vak_size_pixels-change2*2, vak_size_pixels-change2*2);
-
-            if (figuur instanceof Muur) {
-                Muur muur = (Muur)vak.getFiguur();
-                if (muur.getBorderMuur()) {
-                    try {
-                        //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\buitenmuur.jpg"));
-                        g.drawImage(buitenmuurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
-                        //g.drawImage(buitenmuurImage, (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null);
-                    }
-                    catch (Exception e) {                    
-                        g.setColor(muur.getkleur());
-                        g.drawRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels); // vierkant
-                        g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+vak_size_pixels, (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)); // derde (middelste) diagonale lijn
-                        g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/3), (vak.gety()*vak_size_pixels)+(vak_size_pixels/3), (vak.getx()*vak_size_pixels)); // eerste diagonale lijn
-                        g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.gety()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.getx()*vak_size_pixels)); // tweede diagonale lijn
-                        g.drawLine((vak.gety()*vak_size_pixels)+(vak_size_pixels/3), (vak.getx()*vak_size_pixels)+vak_size_pixels, (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)); // vierde diagonale lijn
-                        g.drawLine((vak.gety()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.getx()*vak_size_pixels)+vak_size_pixels, (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)*2); // vijfde diagonale lijn
-                    }
-                } else {
-                    try {
-                        //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\muur.jpg"));
-                        g.drawImage(muurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
-                    }
-                    catch (Exception e) {                    
-                        g.setColor(muur.getkleur());
-                        g.drawRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels); // vierkant
-                        g.drawLine((vak.gety()*vak_size_pixels)+(vak_size_pixels/3), (vak.getx()*vak_size_pixels), (vak.gety()*vak_size_pixels)+(vak_size_pixels/3), (vak.getx()*vak_size_pixels)+vak_size_pixels); // eerste verticale lijn
-                        //g.drawLine((vak.gety()*vak_size_pixels)+(vak_size_pixels/2), (vak.getx()*vak_size_pixels), (vak.gety()*vak_size_pixels)+(vak_size_pixels/2), (vak.getx()*vak_size_pixels)+vak_size_pixels); // tweede (middelste) verticale lijn
-                        g.drawLine((vak.gety()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.getx()*vak_size_pixels), (vak.gety()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.getx()*vak_size_pixels)+vak_size_pixels); // derde verticale lijn
-                        g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/3), (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)); // eerste horizontale lijn
-                        //g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/2), (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/2)); // tweede (middelste) horizontale lijn
-                        g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)*2); // derde horizontale lijn
-                    }
-                }
-            }
-            if(figuur instanceof Helper){
-                try {
-                    //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\helper.jpg"));
-                    g.drawImage(helperImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
-                }
-                catch (Exception e) {
-                    g.setColor(figuur.getkleur());
-                    g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
-                }                
-            }
-//            g.setColor(figuur.getkleur());
-//            // x en y as lijken omgedraaid te moeten...
-//            g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
-//            g.setColor(figuur.getkleur1());
-//            //g.fillRect((vak.gety()*vak_size_pixels)+5, (vak.getx()*vak_size_pixels)+5, vak_size_pixels-10, vak_size_pixels-10);
-//            //g.setColor(figuur.getkleur2());
-//            //g.fillRect((vak.gety()*vak_size_pixels)+10, (vak.getx()*vak_size_pixels)+10, vak_size_pixels-20, vak_size_pixels-20);
-//            int change = MAX_MAZE_SIZE/10;
-//            int change2 = change*2;
-//            g.fillRect((vak.gety()*vak_size_pixels)+change, (vak.getx()*vak_size_pixels)+change, vak_size_pixels-change*2, vak_size_pixels-change*2);
-//            g.setColor(figuur.getkleur2());
-//            g.fillRect((vak.gety()*vak_size_pixels)+change2, (vak.getx()*vak_size_pixels)+change2, vak_size_pixels-change2*2, vak_size_pixels-change2*2);
-// DEFAULT //
-            
-            
-            // Temp uitvogel ding
-////            g.setColor(Color.GRAY);
-////            g.fillRect((vak.gety()*VAKGROOTTE)+2, (vak.getx()*VAKGROOTTE)+2, VAKGROOTTE-4, VAKGROOTTE-4);
-////            g.setColor(Color.LIGHT_GRAY);
-////            g.fillRect((vak.gety()*VAKGROOTTE)+4, (vak.getx()*VAKGROOTTE)+4, VAKGROOTTE-8, VAKGROOTTE-8);
-            
-            if(figuur instanceof Bazooka) {
-                try {
-                    //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\bazooka.jpeg"));
-                    g.drawImage(bazookaImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
-                    //g.drawImage(bazookaImage, (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null);
-                }
-                catch (Exception e) {
-                }
-            }
-            // Speler locatie globaal opslaan
-            if(figuur instanceof Speler){
-                // dan het vakje van de speler opslaan globaal, zodat we weten waar de speler is.
-                spelersVak = vak;
-                try {
-                    //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\speler.jpg"));
-                    g.drawImage(spelerImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
-                }
-                catch (Exception e) {
-                }
-            }
-            if (figuur instanceof Vriend) {
-                try {
-                    //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\vriend.jpg"));
-                    g.drawImage(vriendImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
-                }
-                catch (Exception e) {
-                }
-            }
-            if (figuur instanceof Leeg) {
+//    
+//    public void paint(Graphics g) {
+//        ListIterator<Vak> iterator = doolhofMap.listIterator();
+//        BufferedImage image;
+//        while(iterator.hasNext()) {
+//            Vak vak = iterator.next();
+//            Figuur figuur = vak.getFiguur();
+//// TESTING
+////            Graphics2D g2d = (Graphics2D) g;
+////            Color color1 = figuur.getkleur();
+////            Color color2 = color1.brighter();
+////            color2 = color2.brighter();
+////            GradientPaint gp = new GradientPaint(
+////                    0, 0, color1,
+////                    0, (vak.getx()*vak_size_pixels), color2);
+////            g2d.setPaint(gp);
+////            g2d.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+//// TESTING  
+//            
+//// DEFAULT //           
+////            g.setColor(figuur.getkleur());
+////            // x en y as lijken omgedraaid te moeten...
+////            g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+////            g.setColor(figuur.getkleur1());
+////            //g.fillRect((vak.gety()*vak_size_pixels)+5, (vak.getx()*vak_size_pixels)+5, vak_size_pixels-10, vak_size_pixels-10);
+////            //g.setColor(figuur.getkleur2());
+////            //g.fillRect((vak.gety()*vak_size_pixels)+10, (vak.getx()*vak_size_pixels)+10, vak_size_pixels-20, vak_size_pixels-20);
+////            int change = MAX_MAZE_SIZE/10;
+////            int change2 = change*2;
+////            g.fillRect((vak.gety()*vak_size_pixels)+change, (vak.getx()*vak_size_pixels)+change, vak_size_pixels-change*2, vak_size_pixels-change*2);
+////            g.setColor(figuur.getkleur2());
+////            g.fillRect((vak.gety()*vak_size_pixels)+change2, (vak.getx()*vak_size_pixels)+change2, vak_size_pixels-change2*2, vak_size_pixels-change2*2);
+//
+//            if (figuur instanceof Muur) {
+//                Muur muur = (Muur)vak.getFiguur();
+//                if (muur.getBorderMuur()) {
+//                    
+//                    
+//                    JPanel paneel = new JPanel();
+//                    paneel.setSize(vak_size_pixels, vak_size_pixels);
+//                    paneel.setBounds((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+//                    //g.drawRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+//                    System.out.println("XXXXXXXXXXXXXXXXXXXX" + vak.getx() + "," + vak.gety());
+//                    add(paneel);
+//                    
+//                    
+//                    /*
+//                    try {
+//                        //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\buitenmuur.jpg"));
+//                        g.drawImage(buitenmuurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+//                        //g.drawImage(buitenmuurImage, (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null);
+//                    }
+//                    catch (Exception e) {                    
+//                        g.setColor(muur.getkleur());
+//                        g.drawRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels); // vierkant
+//                        g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+vak_size_pixels, (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)); // derde (middelste) diagonale lijn
+//                        g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/3), (vak.gety()*vak_size_pixels)+(vak_size_pixels/3), (vak.getx()*vak_size_pixels)); // eerste diagonale lijn
+//                        g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.gety()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.getx()*vak_size_pixels)); // tweede diagonale lijn
+//                        g.drawLine((vak.gety()*vak_size_pixels)+(vak_size_pixels/3), (vak.getx()*vak_size_pixels)+vak_size_pixels, (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)); // vierde diagonale lijn
+//                        g.drawLine((vak.gety()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.getx()*vak_size_pixels)+vak_size_pixels, (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)*2); // vijfde diagonale lijn
+//                    } */
+//                } else {
+//                    try {
+//                        //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\muur.jpg"));
+//                        g.drawImage(muurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+//                    }
+//                    catch (Exception e) {                    
+//                        g.setColor(muur.getkleur());
+//                        g.drawRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels); // vierkant
+//                        g.drawLine((vak.gety()*vak_size_pixels)+(vak_size_pixels/3), (vak.getx()*vak_size_pixels), (vak.gety()*vak_size_pixels)+(vak_size_pixels/3), (vak.getx()*vak_size_pixels)+vak_size_pixels); // eerste verticale lijn
+//                        //g.drawLine((vak.gety()*vak_size_pixels)+(vak_size_pixels/2), (vak.getx()*vak_size_pixels), (vak.gety()*vak_size_pixels)+(vak_size_pixels/2), (vak.getx()*vak_size_pixels)+vak_size_pixels); // tweede (middelste) verticale lijn
+//                        g.drawLine((vak.gety()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.getx()*vak_size_pixels), (vak.gety()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.getx()*vak_size_pixels)+vak_size_pixels); // derde verticale lijn
+//                        g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/3), (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)); // eerste horizontale lijn
+//                        //g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/2), (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/2)); // tweede (middelste) horizontale lijn
+//                        g.drawLine((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)*2, (vak.gety()*vak_size_pixels)+vak_size_pixels, (vak.getx()*vak_size_pixels)+(vak_size_pixels/3)*2); // derde horizontale lijn
+//                    }
+//                }
+//            }
+//            if(figuur instanceof Helper){
 //                try {
-//                    //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\leeg.jpg"));
-//                    g.drawImage(leegImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+//                    //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\helper.jpg"));
+//                    g.drawImage(helperImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+//                }
+//                catch (Exception e) {
+//                    g.setColor(figuur.getkleur());
+//                    g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+//                }                
+//            }
+////            g.setColor(figuur.getkleur());
+////            // x en y as lijken omgedraaid te moeten...
+////            g.fillRect((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+////            g.setColor(figuur.getkleur1());
+////            //g.fillRect((vak.gety()*vak_size_pixels)+5, (vak.getx()*vak_size_pixels)+5, vak_size_pixels-10, vak_size_pixels-10);
+////            //g.setColor(figuur.getkleur2());
+////            //g.fillRect((vak.gety()*vak_size_pixels)+10, (vak.getx()*vak_size_pixels)+10, vak_size_pixels-20, vak_size_pixels-20);
+////            int change = MAX_MAZE_SIZE/10;
+////            int change2 = change*2;
+////            g.fillRect((vak.gety()*vak_size_pixels)+change, (vak.getx()*vak_size_pixels)+change, vak_size_pixels-change*2, vak_size_pixels-change*2);
+////            g.setColor(figuur.getkleur2());
+////            g.fillRect((vak.gety()*vak_size_pixels)+change2, (vak.getx()*vak_size_pixels)+change2, vak_size_pixels-change2*2, vak_size_pixels-change2*2);
+//// DEFAULT //
+//            
+//            
+//            // Temp uitvogel ding
+//////            g.setColor(Color.GRAY);
+//////            g.fillRect((vak.gety()*VAKGROOTTE)+2, (vak.getx()*VAKGROOTTE)+2, VAKGROOTTE-4, VAKGROOTTE-4);
+//////            g.setColor(Color.LIGHT_GRAY);
+//////            g.fillRect((vak.gety()*VAKGROOTTE)+4, (vak.getx()*VAKGROOTTE)+4, VAKGROOTTE-8, VAKGROOTTE-8);
+//            
+//            if(figuur instanceof Bazooka) {
+//                try {
+//                    //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\bazooka.jpeg"));
+//                    g.drawImage(bazookaImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+//                    //g.drawImage(bazookaImage, (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null);
 //                }
 //                catch (Exception e) {
 //                }
-            }            
-        }
-        // Indien speler de optimale route te zien moet krijgen dan onderstaande uitvoeren.
-        if(toonOptimaleRoute){      
-            LinkedList<Integer> kortste_route = new LinkedList<Integer>();
-            kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
-            g.setColor(new Color(20,220,255,124));
-            for (int i = 1; i < kortste_route.size()-1; i++) {
-                Vak vak = doolhofMap.get(kortste_route.get(i));
-              //  try {
-              //      g.drawImage(helperPathImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
-              //  }
-              //  catch (Exception e) {
-                    g.fillRect((vak.gety()*vak_size_pixels)+vak_size_pixels/4, (vak.getx()*vak_size_pixels)+vak_size_pixels/4, vak_size_pixels-(vak_size_pixels/2), vak_size_pixels-(vak_size_pixels/2));                }                 
-               // }
-            kortste_route.clear();
-            toonOptimaleRoute = false;
-        }
-    }
+//            }
+//            // Speler locatie globaal opslaan
+//            if(figuur instanceof Speler){
+//                // dan het vakje van de speler opslaan globaal, zodat we weten waar de speler is.
+//                spelersVak = vak;
+//             
+//                
+//                Speler speler = (Speler)vak.getFiguur();
+//                JPanel paneel = new JPanel();
+//                paneel.setLayout(null);
+//                paneel.setSize(vak_size_pixels, vak_size_pixels);
+//                paneel.setBounds((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+//                paneel.add(speler);
+//                System.out.println("@@@@@@@@@@@@@@@@@@" + paneel.getComponentCount() + paneel.getBounds());
+//                System.out.println(vak.getx() + ":" + vak.gety());
+//                add(paneel);
+//                
+//                /*
+//                try {
+//                    //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\speler.jpg"));
+//                    g.drawImage(spelerImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+//                }
+//                catch (Exception e) {
+//                } */
+//            }
+//            if (figuur instanceof Vriend) {
+//                try {
+//                    //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\vriend.jpg"));
+//                    g.drawImage(vriendImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+//                }
+//                catch (Exception e) {
+//                }
+//            }
+//            if (figuur instanceof Leeg) {
+////                try {
+////                    //image = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\" + THEME + "\\leeg.jpg"));
+////                    g.drawImage(leegImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+////                }
+////                catch (Exception e) {
+////                }
+//            }            
+//        }
+//        // Indien speler de optimale route te zien moet krijgen dan onderstaande uitvoeren.
+//        if(toonOptimaleRoute){      
+//            LinkedList<Integer> kortste_route = new LinkedList<Integer>();
+//            kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
+//            g.setColor(new Color(20,220,255,124));
+//            for (int i = 1; i < kortste_route.size()-1; i++) {
+//                Vak vak = doolhofMap.get(kortste_route.get(i));
+//              //  try {
+//              //      g.drawImage(helperPathImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), (vak.gety()*vak_size_pixels)+1, (vak.getx()*vak_size_pixels)+1, null); // +1 om overlapping te voorkomen
+//              //  }
+//              //  catch (Exception e) {
+//                    g.fillRect((vak.gety()*vak_size_pixels)+vak_size_pixels/4, (vak.getx()*vak_size_pixels)+vak_size_pixels/4, vak_size_pixels-(vak_size_pixels/2), vak_size_pixels-(vak_size_pixels/2));                }                 
+//               // }
+//            kortste_route.clear();
+//            toonOptimaleRoute = false;
+//        }
+//    } 
     public ArrayList<Vak> getcurrentMap() {
         return doolhofMap;
     }
@@ -288,13 +323,13 @@ public class Level extends JComponent{
         
         if(debug){System.out.println(level);}        
 
-        Muur muur = new Muur();
-        Muur buitenmuur = new Muur(true);
-        Figuur empty = new Leeg();
-        Speler speler = new Speler();
-        Vriend vriend = new Vriend();
-        Bazooka bazooka = new Bazooka();
-        Helper helper = new Helper();
+//        Muur muur = new Muur();
+//        Muur buitenmuur = new Muur(true);
+//        Figuur empty = new Leeg();
+//        Speler speler = new Speler(vak_size_pixels);
+//        Vriend vriend = new Vriend(vak_size_pixels);
+//        Bazooka bazooka = new Bazooka(vak_size_pixels);
+//        Helper helper = new Helper(vak_size_pixels);
         
         doolhofMap = new ArrayList<Vak>();
          
@@ -306,29 +341,119 @@ public class Level extends JComponent{
                 if(debug){System.out.println("columns " + y);}
                 String typeOnPosition = level.substring(counter, counter+1);
                 if(debug){System.out.println(typeOnPosition);}
-                // Als het een 1 is, dan een buitenmuur plaatsen
-                if(Integer.parseInt(typeOnPosition) == 1) {
-                    vak = new Vak(x,y,buitenmuur);
-                // Als het een 2 is dan een binnenmuur plaatsen
-                } else if (Integer.parseInt(typeOnPosition) == 2) {
-                    vak = new Vak(x,y,muur);
-                // Als het een 3 is dan een speler plaatsen
-                } else if (Integer.parseInt(typeOnPosition) == 3) {
-                    vak = new Vak(x,y,speler);
-                    spelersVak = vak;
-                // Als het een 4 is dan een vriend plaatsen
-                } else if (Integer.parseInt(typeOnPosition) == 4) {
-                    vak = new Vak(x,y,vriend);
-                    vriendVak = vak;
-                // Als het een 5 is dan een bazooka plaatsen
-                } else if (Integer.parseInt(typeOnPosition) == 5) {
-                    vak = new Vak(x,y,bazooka);                    
-                } else if (Integer.parseInt(typeOnPosition) == 6) {
-                    vak = new Vak(x,y,helper);                    
-                } else // ANDERS is het een leeg vak
-                {
-                    vak = new Vak(x,y,empty);
+                
+                Figuur figuur = null;
+                switch(Integer.parseInt(typeOnPosition)) {
+                    case 1: // Als het een 1 is, dan een buitenmuur plaatsen
+                        figuur = new Muur(true, vak_size_pixels, THEME);
+                        break;
+                    case 2: //Als het een 2 is dan een binnenmuur plaatsen
+                        figuur = new Muur(vak_size_pixels, THEME);
+                        break;
+                    case 3: // Als het een 3 is dan een speler plaatsen
+                        figuur = new Speler(vak_size_pixels, THEME);
+                        break;
+                    case 4: // Als het een 4 is dan een vriend plaatsen
+                        figuur = new Vriend(vak_size_pixels, THEME);
+                        break; 
+                    case 5: // Als het een 5 is dan een bazooka plaatsen
+                        figuur = new Bazooka(vak_size_pixels, THEME);
+                        break;
+                    case 6: // Als het een 6 is dan een helper plaatsen
+                        figuur = new Helper(vak_size_pixels, THEME);
+                        break;
+                    case 0: // Als het een 0 is dan een empty plaatsen
+                        figuur = new Leeg(vak_size_pixels, THEME);
                 }
+                    vak = new Vak(x,y,figuur);
+                    if (Integer.parseInt(typeOnPosition) == 3) {
+                        spelersVak = vak;
+                    }
+                    if (Integer.parseInt(typeOnPosition) == 4) {
+                        vriendVak = vak;
+                    }
+                    JPanel panel = vak.getPanel();
+                    panel.setBounds((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+                    panel.add(figuur);
+                    add(panel);
+                
+                // Als het een 1 is, dan een buitenmuur plaatsen
+//                if(Integer.parseInt(typeOnPosition) == 1) {
+//                    Muur buitenmuur = new Muur(true, vak_size_pixels);
+//                    vak = new Vak(x,y,buitenmuur);
+//                    
+//                    JPanel panel = vak.getPanel();
+//                    panel.setBounds((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+//                    panel.add(buitenmuur);
+//                    add(panel);
+//                    
+//                // Als het een 2 is dan een binnenmuur plaatsen
+//                } else if (Integer.parseInt(typeOnPosition) == 2) {
+//                    Muur muur = new Muur(vak_size_pixels);
+//                    vak = new Vak(x,y,muur);
+//                    
+//                    JPanel panel = vak.getPanel();
+//                    panel.setBounds((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+//                    panel.add(muur);
+//                    add(panel);
+//                    
+//                    
+//                // Als het een 3 is dan een speler plaatsen
+//                } else if (Integer.parseInt(typeOnPosition) == 3) {
+//                    vak = new Vak(x,y,speler);
+//                    spelersVak = vak;
+//                    
+//               
+//                    
+//                    JPanel panel = vak.getPanel();
+//                    panel.setBounds((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+//                    panel.add(speler);
+//                    add(panel);
+//             
+//                    
+//                // Als het een 4 is dan een vriend plaatsen
+//                } else if (Integer.parseInt(typeOnPosition) == 4) {
+//                    vak = new Vak(x,y,vriend);
+//                    vriendVak = vak;
+//                    
+//                    
+//                    JPanel panel = vak.getPanel();
+//                    panel.setBounds((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+//                    panel.add(vriend);
+//                    add(panel);
+//                    
+//                    
+//                // Als het een 5 is dan een bazooka plaatsen
+//                } else if (Integer.parseInt(typeOnPosition) == 5) {
+//                    Bazooka bazooka = new Bazooka(vak_size_pixels);
+//                    vak = new Vak(x,y,bazooka); 
+//                    
+//                    JPanel panel = vak.getPanel();
+//                    panel.setBounds((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+//                    panel.add(bazooka);
+//                    add(panel);
+//                    
+//                    
+//                } else if (Integer.parseInt(typeOnPosition) == 6) {
+//                    vak = new Vak(x,y,helper);       
+//                    
+//                    JPanel panel = vak.getPanel();
+//                    panel.setBounds((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+//                    panel.add(helper);
+//                    add(panel);
+//                    
+//                    
+//                } else // ANDERS is het een leeg vak
+//                {
+//                    Figuur empty = new Leeg(vak_size_pixels);
+//                    vak = new Vak(x,y,empty);
+//                    
+//                    JPanel panel = vak.getPanel();
+//                    panel.setBounds((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
+//                    panel.add(empty);
+//                    add(panel);
+//                    
+//                }
                 doolhofMap.add(vak); 
                 counter++;
             }

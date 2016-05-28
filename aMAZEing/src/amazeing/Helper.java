@@ -2,6 +2,10 @@ package amazeing;
 
 import static amazeing.AMAZEing.debug;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -11,10 +15,17 @@ public class Helper extends Figuur{
     
     private int aantal;
     
-    public Helper() {
+    private BufferedImage helperImage;
+    
+    public Helper(int vak_size_pixels, String theme) {
         super(Color.ORANGE);
         aantal = 0;
         if(debug) {aantal = 99;}
+        setLayout(null);
+        setSize(vak_size_pixels, vak_size_pixels); 
+        setVakSizePixels(vak_size_pixels);
+        setTheme(theme);
+        InitialiseerImage();
     }
     public int getAantal() {
         return aantal;
@@ -26,4 +37,16 @@ public class Helper extends Figuur{
         this.aantal --;
         if (debug){System.out.println("Helper - Optimale Route aantal over : " + aantal);}
     }    
+    
+    public void paint(Graphics g) {
+        g.drawImage(helperImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null); 
+    }
+    
+    public void InitialiseerImage() {
+        try {
+            helperImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\helper.jpg")); 
+        }
+        catch (Exception e) {
+        }
+    }
 }

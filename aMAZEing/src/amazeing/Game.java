@@ -150,6 +150,7 @@ public class Game extends JFrame{
                 }
             }
             if (e.getActionCommand().equals("Restart")) {
+                level.removeAll();
                 level.setLevel(level.getCurrentLevel());
                 setInformationPanel(false);
                 repaint();

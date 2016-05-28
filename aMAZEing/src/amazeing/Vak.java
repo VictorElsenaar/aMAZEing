@@ -1,18 +1,28 @@
 package amazeing;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Kahoo
  */
-public class Vak {
+public class Vak extends JComponent{
     private Figuur figuur;
     private int x;
     private int y;
 
+    private int vak_size_pixels;
+    private JPanel panel;
+    
     // Constructor
     public Vak(int x, int y, Figuur figuur) {
         this.x = x;
         this.y = y;
         this.figuur = figuur;
+        
+        initPanel();
+        add(panel);
     }
     
     public boolean isBazooka(Vak vak) {
@@ -67,5 +77,23 @@ public class Vak {
     }
     public void setY(int y) {
         this.y = y;
+    }
+    
+    public void setVakSizePixels(int vak_size_pixels) {
+        this.vak_size_pixels = vak_size_pixels;
+    }
+    
+    public void initPanel() {
+        panel = new JPanel();
+        panel.setLayout(null);
+        panel.setSize(vak_size_pixels, vak_size_pixels); 
+    }
+    
+    public JPanel getPanel() {
+        return panel;
+    }
+    
+    public void setPanel(JPanel panel) {
+        this.panel = panel;
     }
 }
