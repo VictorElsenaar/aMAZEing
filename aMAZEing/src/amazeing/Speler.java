@@ -147,4 +147,10 @@ public class Speler extends Figuur {
     public void addaantalStappen() {
         this.aantalStappen++;
     }
+    public int getKogels() {
+        return this.bazooka.getAmmo();
+    }
+    public int getHelper() {
+        return this.helper.getAantal();
+    }
 }

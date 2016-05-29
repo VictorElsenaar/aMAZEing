@@ -83,6 +83,14 @@ public class Level extends JComponent{
         Speler huidigeSpeler = (Speler) spelersVak.getFiguur();
         return huidigeSpeler.getaantalStappen();
     }
+    public int getKogels() {
+        Speler huidigeSpeler = (Speler) spelersVak.getFiguur();
+        return huidigeSpeler.getKogels();
+    }
+    public int getHelper() {
+        Speler huidigeSpeler = (Speler) spelersVak.getFiguur();
+        return huidigeSpeler.getHelper();
+    }
     public void action(String direction, String type) {
         Speler huidigeSpeler = (Speler) spelersVak.getFiguur();
         switch(type) {

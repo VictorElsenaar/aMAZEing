@@ -133,8 +133,8 @@ public class Game extends JFrame{
         statsPanel.add(aantalHelperLabel);
         menuPanel.add(statsPanel);
         stappenLabel.setText(level.getStappen() + " stappen");
-        aantalBazookaLabel.setText("5 kogel(s)");
-        aantalHelperLabel.setText("2 toon optimale route");
+        aantalBazookaLabel.setText("0 kogel(s)");
+        aantalHelperLabel.setText("0 toon optimale route");
         
         /*
             private JLabel stappenLabel;
@@ -307,10 +307,13 @@ public class Game extends JFrame{
     public void executeQueue() {
         QueueHandler next = queue.remove();
         level.action(next.getDirection(),next.getType());
-        if(next.getType().equals("move")){
-            stappenLabel.setText(level.getStappen() + " stappen");
-        }
         if(debug){System.out.println("@@@@@"+next.getDirection());}
+        
+    }
+    public void updateStatistics() {
+        stappenLabel.setText(level.getStappen() + " stappen");
+        aantalBazookaLabel.setText(level.getKogels() +" kogel(s)");
+        aantalHelperLabel.setText(level.getHelper() + " helper(s)");
         
     }
     public void checkEndLevel() {
