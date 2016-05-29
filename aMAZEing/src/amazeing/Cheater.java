@@ -21,7 +21,7 @@ public class Cheater extends Figuur{
      */
     private final int waarde = 5;
     
-    private BufferedImage cheaterImage;
+   // private BufferedImage cheaterImage;
     //Constructor
     public Cheater(int vak_size_pixels, String theme) {
         super(Color.RED);
@@ -30,25 +30,25 @@ public class Cheater extends Figuur{
         this.vak_size_pixels = vak_size_pixels;
         setVakSizePixels(vak_size_pixels);
         this.theme = theme;
-        InitialiseerImage();
+        InitialiseerImage("cheater");
     }
     
-    public void paint(Graphics g) {
-        if(cheaterImage == null) {
-            g.setColor(kleur); 
-            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
-        } else {        
-            g.drawImage(cheaterImage.getScaledInstance(vak_size_pixels, vak_size_pixels, 0), 0, 0, null);
-        }
-    }
-    
-    public void InitialiseerImage() {
-        try {
-            cheaterImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\cheater.jpg"));
-        } catch (Exception e) {
-            cheaterImage = null;
-        }
-    }
+//    public void paint(Graphics g) {
+//        if(cheaterImage == null) {
+//            g.setColor(kleur); 
+//            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
+//        } else {        
+//            g.drawImage(cheaterImage.getScaledInstance(vak_size_pixels, vak_size_pixels, 0), 0, 0, null);
+//        }
+//    }
+//    
+//    public void InitialiseerImage() {
+//        try {
+//            cheaterImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\cheater.jpg"));
+//        } catch (Exception e) {
+//            cheaterImage = null;
+//        }
+//    }
     public int getWaarde(){
         return this.waarde;
     }

@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
  */
 public class Vriend extends Figuur {
     
-    private BufferedImage vriendImage;
+    //private BufferedImage vriendImage;
     
     public Vriend(int vak_size_pixels, String theme) {
         super(Color.MAGENTA); //Color(255,0,255)
@@ -20,25 +20,25 @@ public class Vriend extends Figuur {
         setSize(vak_size_pixels, vak_size_pixels); 
         this.vak_size_pixels = vak_size_pixels;
         this.theme = theme;
-        InitialiseerImage();
+        InitialiseerImage("vriend");
     }
     
-    public void paint(Graphics g) {
-        if(vriendImage == null) {
-            g.setColor(kleur); 
-            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
-        } else {        
-            g.drawImage(vriendImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null); 
-        }
-    }
-    
-    public void InitialiseerImage() {
-        try {
-            vriendImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\vriend.jpg")); //hardcoded voorlopig
-        }
-        catch (Exception e) {
-            vriendImage = null;
-        }
-    }
+//    public void paint(Graphics g) {
+//        if(vriendImage == null) {
+//            g.setColor(kleur); 
+//            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
+//        } else {        
+//            g.drawImage(vriendImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null); 
+//        }
+//    }
+//    
+//    public void InitialiseerImage() {
+//        try {
+//            vriendImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\vriend.jpg")); //hardcoded voorlopig
+//        }
+//        catch (Exception e) {
+//            vriendImage = null;
+//        }
+//    }
     
 }

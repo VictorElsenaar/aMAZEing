@@ -13,8 +13,8 @@ import javax.imageio.ImageIO;
 public class Muur extends Figuur {
     private boolean borderMuur;
     
-    private BufferedImage buitenmuurImage;
-    private BufferedImage muurImage;
+//    private BufferedImage buitenmuurImage;
+//    private BufferedImage muurImage;
     
     public Muur(int vak_size_pixels, String theme) {
         super(Color.DARK_GRAY); // Color(64,64,64)
@@ -23,7 +23,7 @@ public class Muur extends Figuur {
         setSize(vak_size_pixels, vak_size_pixels);
         this.vak_size_pixels = vak_size_pixels;
         this.theme = theme;
-        InitialiseerImage();
+        InitialiseerImage("muur");
     }
     public Muur(boolean borderMuur, int vak_size_pixels, String theme) {
         super(Color.BLACK);
@@ -32,7 +32,7 @@ public class Muur extends Figuur {
         setSize(vak_size_pixels, vak_size_pixels); 
         this.vak_size_pixels = vak_size_pixels;
         this.theme = theme;
-        InitialiseerImage();
+        InitialiseerImage("buitenmuur");
     }
     
     public boolean getBorderMuur() {
@@ -40,39 +40,39 @@ public class Muur extends Figuur {
     }
     
     
-    @Override
-    public void paint(Graphics g) {
-        if (borderMuur) {
-            if(buitenmuurImage == null) {
-                g.setColor(kleur); 
-                g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
-            } else {            
-                g.drawImage(buitenmuurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null);
-            }
-        } else {
-            if(muurImage == null) {
-                g.setColor(kleur); 
-                g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
-            } else {             
-                g.drawImage(muurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null);
-            }
-        }
-        
-    }
-    
-    public void InitialiseerImage() {
-        try {
-            buitenmuurImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\buitenmuur.jpg")); 
-        }
-        catch (Exception e) {
-            buitenmuurImage = null;
-        }
-        try {
-            muurImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\muur.jpg")); 
-        }
-        catch (Exception e) {
-            muurImage = null;
-        }
-    }
+//    @Override
+//    public void paint(Graphics g) {
+//        if (borderMuur) {
+//            if(buitenmuurImage == null) {
+//                g.setColor(kleur); 
+//                g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
+//            } else {            
+//                g.drawImage(buitenmuurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null);
+//            }
+//        } else {
+//            if(muurImage == null) {
+//                g.setColor(kleur); 
+//                g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
+//            } else {             
+//                g.drawImage(muurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null);
+//            }
+//        }
+//        
+//    }
+//    
+//    public void InitialiseerImage() {
+//        try {
+//            buitenmuurImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\buitenmuur.jpg")); 
+//        }
+//        catch (Exception e) {
+//            buitenmuurImage = null;
+//        }
+//        try {
+//            muurImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\muur.jpg")); 
+//        }
+//        catch (Exception e) {
+//            muurImage = null;
+//        }
+//    }
     
 }

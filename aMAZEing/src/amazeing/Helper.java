@@ -15,7 +15,7 @@ public class Helper extends Figuur{
     
     private int aantal;
     
-    private BufferedImage helperImage;
+//    private BufferedImage helperImage;
     
     public Helper(int vak_size_pixels, String theme) {
         super(Color.ORANGE);
@@ -25,7 +25,7 @@ public class Helper extends Figuur{
         setSize(vak_size_pixels, vak_size_pixels); 
         this.vak_size_pixels = vak_size_pixels;
         this.theme = theme;
-        InitialiseerImage();
+        InitialiseerImage("helper");
     }
     public int getAantal() {
         return aantal;
@@ -37,22 +37,22 @@ public class Helper extends Figuur{
         this.aantal --;
         if (debug){System.out.println("Helper - Optimale Route aantal over : " + aantal);}
     }    
-    
-    public void paint(Graphics g) {
-        if(helperImage == null) {
-            g.setColor(kleur); 
-            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
-        } else {        
-            g.drawImage(helperImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null); 
-        }
-    }
-    
-    public void InitialiseerImage() {
-        try {
-            helperImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\helper.jpg")); 
-        }
-        catch (Exception e) {
-            helperImage = null;
-        }
-    }
+//    
+//    public void paint(Graphics g) {
+//        if(helperImage == null) {
+//            g.setColor(kleur); 
+//            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
+//        } else {        
+//            g.drawImage(helperImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null); 
+//        }
+//    }
+//    
+//    public void InitialiseerImage() {
+//        try {
+//            helperImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\helper.jpg")); 
+//        }
+//        catch (Exception e) {
+//            helperImage = null;
+//        }
+//    }
 }

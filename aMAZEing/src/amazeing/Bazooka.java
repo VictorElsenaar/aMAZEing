@@ -17,7 +17,7 @@ import javax.swing.JPanel;
  */
 public class Bazooka extends Figuur{    
     private int ammo;
-    private BufferedImage bazookaImage;
+    //private BufferedImage bazookaImage;
     
     // Constructor
     public Bazooka(int vak_size_pixels, String theme) {
@@ -29,7 +29,7 @@ public class Bazooka extends Figuur{
         this.vak_size_pixels = vak_size_pixels;
         setVakSizePixels(vak_size_pixels);
         this.theme = theme;
-        InitialiseerImage();
+        InitialiseerImage("bazooka");
     }
     public int getAmmo() {
         return ammo;
@@ -99,21 +99,21 @@ public class Bazooka extends Figuur{
         return doolhofMap;
     }
     
-    public void paint(Graphics g) {
-        if(bazookaImage == null) {
-            g.setColor(kleur); 
-            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
-        } else {
-            g.drawImage(bazookaImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null); 
-        }
-    }
-    
-    public void InitialiseerImage() {
-        try {
-            bazookaImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\bazooka.jpg")); 
-        }
-        catch (Exception e) {
-            bazookaImage = null;
-        }
-    }
+//    public void paint(Graphics g) {
+//        if(bazookaImage == null) {
+//            g.setColor(kleur); 
+//            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
+//        } else {
+//            g.drawImage(bazookaImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null); 
+//        }
+//    }
+//    
+//    public void InitialiseerImage() {
+//        try {
+//            bazookaImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\bazooka.jpg")); 
+//        }
+//        catch (Exception e) {
+//            bazookaImage = null;
+//        }
+//    }
 }

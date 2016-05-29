@@ -21,7 +21,7 @@ public class Speler extends Figuur {
     private Vak huidigeVak;
     private int aantalStappen = 0;
     
-    private BufferedImage spelerImage;
+    //private BufferedImage spelerImage;
 
     // Constructor
     public Speler(int vak_size_pixels, String theme) {
@@ -33,26 +33,26 @@ public class Speler extends Figuur {
         bazooka = new Bazooka(vak_size_pixels, theme);
         helper = new Helper(vak_size_pixels, theme);
         cheater = new Cheater(vak_size_pixels, theme);
-        InitialiseerImage();
+        InitialiseerImage("speler");
     }
     
-    public void paint(Graphics g) {
-        if(spelerImage == null) {
-            g.setColor(kleur); 
-            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
-        } else {        
-            g.drawImage(spelerImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null);
-        }
-    }
-    
-    public void InitialiseerImage() {
-        try {
-            spelerImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\speler.jpg"));
-        }
-        catch (Exception e) {
-            spelerImage = null;
-        }
-    }
+//    public void paint(Graphics g) {
+//        if(spelerImage == null) {
+//            g.setColor(kleur); 
+//            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
+//        } else {        
+//            g.drawImage(spelerImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null);
+//        }
+//    }
+//    
+//    public void InitialiseerImage() {
+//        try {
+//            spelerImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\speler.jpg"));
+//        }
+//        catch (Exception e) {
+//            spelerImage = null;
+//        }
+//    }
     
     // Let op richting bepaling staat ook in OptimaleRoute!
     public int positionchange(String richting, int current_maze_size) {
