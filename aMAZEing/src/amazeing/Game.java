@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
@@ -45,6 +46,19 @@ public class Game extends JFrame{
     private JLabel stappenLabel;
     private JLabel aantalBazookaLabel;
     private JLabel aantalHelperLabel;
+    
+    /**
+     * Knoppen informatie
+     */
+    private JPanel knoppenPanel;
+    private JTextArea infoTextArea;
+    
+    
+    /**
+     * Ingame informatie
+     */
+    private JPanel ingamePanel;
+    private JLabel ingameLabel;
     
     /**
      * gameState
@@ -109,10 +123,9 @@ public class Game extends JFrame{
         gamePanel.add(level);
         add(gamePanel);
         
-
-
-        
-        
+        /*
+        Menu Panel met spel knoppen
+        */
         menuPanel = new MenuPanel();
         menuPanel.setSize(130, 520);
         menuPanel.setBounds(540, 10, 130, 520);
@@ -120,36 +133,45 @@ public class Game extends JFrame{
         setListenersAanButtons();
         add(menuPanel);
         
+        /*
+        In Menu Panel statistieken
+        */
         
         statsPanel = new JPanel();
-        GridLayout gridLayout = new GridLayout(3,1);
+        GridLayout gridLayout = new GridLayout(3,0);
         statsPanel.setLayout(gridLayout);
-        
         stappenLabel = new JLabel();
         aantalBazookaLabel = new JLabel();
         aantalHelperLabel = new JLabel();
-        statsPanel.add(stappenLabel);//, BorderLayout.CENTER);        
+        statsPanel.add(stappenLabel);       
         statsPanel.add(aantalBazookaLabel);
         statsPanel.add(aantalHelperLabel);
+        statsPanel.setBorder(border);
         menuPanel.add(statsPanel);
-        stappenLabel.setText(level.getStappen() + " stappen");
-        aantalBazookaLabel.setText("0 kogel(s)");
-        aantalHelperLabel.setText("0 toon optimale route");
+        updateStatistics();
         
         /*
-            private JLabel stappenLabel;
-            private JLabel aantalBazookaLabel;
-            private JLabel aantalHelperLabel;
-        statsPanel
-        informationPanel = new JPanel();
-        informationPanel.setSize(420, 32);
-        informationPanel.setBounds(60,200, 420,32); //moet dus op basis van gamepanel zijn
-        informationPanel.setBackground(Color.GREEN.brighter().brighter());
-        infoLabel = new JLabel();
-        informationPanel.add(infoLabel, BorderLayout.CENTER);        
-        add(informationPanel);
+        Knoppen informatie
         */
-
+        knoppenPanel = new JPanel();
+        infoTextArea = new JTextArea();
+        knoppenPanel.add(infoTextArea);
+        knoppenPanel.setBorder(border);
+        menuPanel.add(knoppenPanel);
+        infoKnoppen();
+        
+        /*
+        Ingame informatie
+        */
+//        private JPanel ingamePanel;
+//          private JLabel ingameLabel;
+        ingamePanel = new JPanel();
+        ingameLabel = new JLabel();
+        ingamePanel.add(ingameLabel);
+        ingamePanel.setBorder(border);
+        ingamePanel.setBackground(Color.red);
+        menuPanel.add(ingamePanel);
+        ingamePanel.setVisible(false);
         
         addKeyListener(new KeyListener() { 
             @Override
@@ -174,6 +196,7 @@ public class Game extends JFrame{
                 if (e.getKeyCode() == KeyEvent.VK_F) {
                     if(debug){System.out.println("(F)IRE - pick a direction");}
                     fireing = true;
+                    setingamePanel(fireing, "Welke richting?");
                 }
                 if (e.getKeyCode() == KeyEvent.VK_S) {
                     if(debug){System.out.println("(S)how optimal route");}
@@ -249,7 +272,7 @@ public class Game extends JFrame{
         if(fireing){
             if(debug) {System.out.println("FIRE LEFT"); }
             queue.add(new QueueHandler("left", "fire"));
-            fireing = false;
+            handleFire();
         } else { // move character       
             queue.add(new QueueHandler("left", "move"));
         }            
@@ -259,7 +282,7 @@ public class Game extends JFrame{
          if(fireing){
             if(debug) {System.out.println("FIRE RIGHT"); }
             queue.add(new QueueHandler("right", "fire"));
-            fireing = false;
+            handleFire();
         } else { // move character
             queue.add(new QueueHandler("right", "move"));
         }        
@@ -269,7 +292,7 @@ public class Game extends JFrame{
         if(fireing){
             if(debug) {System.out.println("FIRE DOWN"); }
             queue.add(new QueueHandler("down", "fire"));
-            fireing = false;
+            handleFire();
         } else { // move character
             queue.add(new QueueHandler("down", "move"));
         }        
@@ -279,7 +302,7 @@ public class Game extends JFrame{
         if(fireing){
             if(debug) {System.out.println("FIRE UP"); }
             queue.add(new QueueHandler("up", "fire"));
-            fireing = false;
+            handleFire();
         } else { // move character        
             queue.add(new QueueHandler("up", "move"));
         }        
@@ -292,7 +315,10 @@ public class Game extends JFrame{
         repaint();
         requestFocusInWindow();            
     }
-    
+    public void handleFire() {
+        fireing = false;
+        setingamePanel(false, "");
+    }
     public void setListenersAanButtons() {
         ActionListener listener = new ClickListener();
         JButton startButton = menuPanel.getStartButton();
@@ -308,12 +334,6 @@ public class Game extends JFrame{
         QueueHandler next = queue.remove();
         level.action(next.getDirection(),next.getType());
         if(debug){System.out.println("@@@@@"+next.getDirection());}
-        
-    }
-    public void updateStatistics() {
-        stappenLabel.setText(level.getStappen() + " stappen");
-        aantalBazookaLabel.setText(level.getKogels() +" kogel(s)");
-        aantalHelperLabel.setText(level.getHelper() + " helper(s)");
         
     }
     public void checkEndLevel() {
@@ -344,5 +364,27 @@ public class Game extends JFrame{
         informationPanel.setVisible(b);
         shadow_informationPanel.setVisible(b);
         blackborder_informationPanel.setVisible(b);
+    }
+    public void updateStatistics() {
+        stappenLabel.setText(level.getStappen() + " stappen");
+        aantalBazookaLabel.setText(level.getKogels() +" kogel(s)");
+        aantalHelperLabel.setText(level.getHelper() + " helper(s)");
+        
+    }    
+    public void infoKnoppen() {
+        infoTextArea.setText("˄ omhoog \n"
+                           + "˅ beneden\n"
+                           + "< links\n"
+                           + "> rechts\n"
+                           + "S toon route\n"
+                           + "F schiet");
+    }
+    /**
+     * @param b = true is aan false is uit
+     * @param text  = welke tekst het label erin moet tonen
+     */
+    public void setingamePanel(boolean b, String text) {
+        ingameLabel.setText(text);
+        ingamePanel.setVisible(b);
     }
 }
