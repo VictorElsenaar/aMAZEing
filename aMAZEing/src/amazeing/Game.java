@@ -261,6 +261,7 @@ public class Game extends JFrame{
         QueueHandler next = queue.remove();
         level.action(next.getDirection(),next.getType());    
         if(debug){System.out.println("@@@@@"+next.getDirection());}
+        
     }
     public void checkEndLevel() {
         if (level.getVriendVak() == level.getSpelersVak()) {

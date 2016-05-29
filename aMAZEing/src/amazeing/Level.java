@@ -79,7 +79,7 @@ public class Level extends JComponent{
     }
     
     public void action(String direction, String type) {
-        Speler huidigeSpeler = (Speler) spelersVak.getFiguur();  
+        Speler huidigeSpeler = (Speler) spelersVak.getFiguur();          
         switch(type) {
             case "move":
                 doolhofMap = huidigeSpeler.move(direction, doolhofMap, current_maze_size, spelersVak );
@@ -96,18 +96,15 @@ public class Level extends JComponent{
         }
         //revalidate();
         //repaint();
-        
         spelersVak = huidigeSpeler.getVak();
-        System.out.println(huidigeSpeler.getVak());
+        //System.out.println(huidigeSpeler.getVak());
 //        JPanel panel = spelersVak.getPanel();
 //        panel.removeAll();
 //        panel.add(huidigeSpeler);
 //        revalidate();
 //        repaint();
-        
         if(debug){System.out.println(spelersVak.toString());}
-        if(debug){System.out.println(vriendVak.toString());}
-        
+        if(debug){System.out.println(vriendVak.toString());}       
     }
 
     public void readLevel() {
@@ -389,6 +386,8 @@ public class Level extends JComponent{
                         break;
                     case 3: // Als het een 3 is dan een speler plaatsen
                         figuur = new Speler(vak_size_pixels, THEME);
+
+                        
                         break;
                     case 4: // Als het een 4 is dan een vriend plaatsen
                         figuur = new Vriend(vak_size_pixels, THEME);
@@ -405,7 +404,10 @@ public class Level extends JComponent{
                 }
                     vak = new Vak(x,y,figuur);
                     if (Integer.parseInt(typeOnPosition) == 3) {
+                        // Plaats de referentie van het vak ook in de speler, zodat de speler weet waar hij is. (niet gebruiker!)
                         spelersVak = vak;
+                        Speler speler = (Speler) figuur;
+                        speler.setVak(vak);
                     }
                     if (Integer.parseInt(typeOnPosition) == 4) {
                         vriendVak = vak;

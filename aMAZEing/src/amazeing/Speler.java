@@ -99,8 +99,9 @@ public class Speler extends Figuur {
             }
             nieuweVak.setFiguur(huidigeSpeler);
             doolhofMap.set(tempindex+position_change_amount,nieuweVak);
-            huidigeVak = doolhofMap.get(tempindex+position_change_amount);
-            
+            // Is verhuisd naar eigen methode setVak
+            //huidigeVak = doolhofMap.get(tempindex+position_change_amount);
+            setVak(doolhofMap.get(tempindex+position_change_amount));
             JPanel panel = huidigeVak.getPanel();
             panel.removeAll();
             panel.add(huidigeSpeler);
@@ -119,6 +120,9 @@ public class Speler extends Figuur {
         }
         return doolhofMap;
     }   
+    public void setVak(Vak vak) {
+        this.huidigeVak = vak;
+    }
     public Vak getVak(){
         return huidigeVak;
     }
