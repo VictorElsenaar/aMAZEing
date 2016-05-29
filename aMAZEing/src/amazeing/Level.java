@@ -87,12 +87,7 @@ public class Level extends JComponent{
     }
     
     public void action(String direction, String type) {
-<<<<<<< HEAD
-        Speler huidigeSpeler = (Speler) spelersVak.getFiguur(); 
-        
-=======
-        Speler huidigeSpeler = (Speler) spelersVak.getFiguur();          
->>>>>>> 95c0a862fd8bed42fa60f052585908dabd45ebb7
+        Speler huidigeSpeler = (Speler) spelersVak.getFiguur();
         switch(type) {
             case "move":
                 doolhofMap = huidigeSpeler.move(direction, doolhofMap, current_maze_size, spelersVak );
@@ -109,17 +104,6 @@ public class Level extends JComponent{
         }
 
         spelersVak = huidigeSpeler.getVak();
-<<<<<<< HEAD
-        System.out.println("test"+huidigeSpeler.getVak());
-//        JPanel panel = spelersVak.getPanel();
-//        panel.removeAll();
-//        panel.add(huidigeSpeler);
-//        revalidate();
-//        repaint();
-        
-=======
-
->>>>>>> 95c0a862fd8bed42fa60f052585908dabd45ebb7
         if(debug){System.out.println(spelersVak.toString());}
         if(debug){System.out.println(vriendVak.toString());}       
     }

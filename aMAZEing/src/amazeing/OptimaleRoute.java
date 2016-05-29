@@ -203,17 +203,12 @@ public class OptimaleRoute extends JComponent{
         richtingen.add(current_maze_size);
     }
     public void paint(Graphics g) {
-<<<<<<< HEAD
-        g.setColor(new Color(20,220,255,124));
-        g.fillRect(0, 0, Level.global_vak_size_pixels, Level.global_vak_size_pixels);
-=======
         if(turnon) {
             g.setColor(new Color(20,220,255,124));
         } else{
             g.setColor(new Color(255,255,255,100));
         }
-        g.fillRect(0, 0, Level.temp_vak_size_pixels, Level.temp_vak_size_pixels);
->>>>>>> 95c0a862fd8bed42fa60f052585908dabd45ebb7
+        g.fillRect(0, 0, Level.global_vak_size_pixels, Level.global_vak_size_pixels);
         //g.fillRect((vak.gety()*vak_size_pixels)+vak_size_pixels/4, (vak.getx()*vak_size_pixels)+vak_size_pixels/4, vak_size_pixels-(vak_size_pixels/2), vak_size_pixels-(vak_size_pixels/2));
     }
     
