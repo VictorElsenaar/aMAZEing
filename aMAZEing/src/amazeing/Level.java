@@ -118,6 +118,7 @@ public class Level extends JComponent{
         for (int i = 1; i < kortste_route.size()-1; i++) {
             Vak vak = doolhofMap.get(kortste_route.get(i));
             OptimaleRoute route = new OptimaleRoute(true);
+            route.setName("OptimaleRoute");
             JPanel panel = vak.getPanel();
             panel.add(route);
             panel.setComponentZOrder(route, 0);
@@ -134,8 +135,10 @@ public class Level extends JComponent{
      */
     public void toonOptimaleRoute(ArrayList<JPanel> kortste_route_panels){
         for (JPanel panel : kortste_route_panels) {         
-            panel.remove(panel.getComponent(0));
-            panel.repaint();
+            if (panel.getComponent(0).getName()!= null && panel.getComponent(0).getName().equals("OptimaleRoute")) {
+                panel.remove(panel.getComponent(0));
+                panel.repaint();
+            }
         }
 //        for (int i = 1; i < kortste_route.size()-1; i++) {
 //            Vak vak = doolhofMap.get(kortste_route.get(i));
