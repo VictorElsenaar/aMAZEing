@@ -27,12 +27,14 @@ public class Game extends JFrame{
     private JPanel gamePanel;
     private MenuPanel menuPanel;
     
+    
+    /**
+     * Start en einde spel label in het midden.
+     */
     private JPanel informationPanel;
     private JPanel shadow_informationPanel;
     private JPanel blackborder_informationPanel;
-    
     private JPanel helperPanel;
-    
     private JLabel infoLabel;
     
     /**
@@ -266,13 +268,13 @@ public class Game extends JFrame{
     public void checkEndLevel() {
         if (level.getVriendVak() == level.getSpelersVak()) {
             if(debug){System.out.println("Vriend gevonden");}
-            setInformationPanel(true, "Gefeliciteerd! Vriend gevonden.");   
-           // menuPanel.requestFocusInWindow();
-            setgameState(8);
-            System.out.println("currentlevel " + level.getCurrentLevel() + " == " + level.getLevelsSize() + " level.getLevelsSize()");
+            if(debug){System.out.println("currentlevel " + level.getCurrentLevel() + " == " + level.getLevelsSize() + " level.getLevelsSize()");}
             if(level.getCurrentLevel()+1 == level.getLevelsSize()) {
-                System.out.println("Einde game, laatste map gespeeld, WELLICHT NOG AANPASSEN NAAR beter bericht");
+                setInformationPanel(true, "Gefeliciteerd! Spel uitgespeeld!");   
                 setgameState(9);
+            } else {
+                setgameState(8);
+                setInformationPanel(true, "Gefeliciteerd! vriend gevonden. Druk op <spatie> om door te gaan.");   
             }
         }
     }
