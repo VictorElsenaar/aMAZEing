@@ -8,7 +8,7 @@ import javax.swing.JFrame;
  */
 public class AMAZEing {
 
-    public static boolean debug = true;
+    public static boolean debug = false;
     
     /**
      * @param args the command line arguments

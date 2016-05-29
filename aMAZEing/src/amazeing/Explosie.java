@@ -15,11 +15,11 @@ public class Explosie extends JComponent {
     
     public Explosie() {
         setLayout(null);
-        setSize(Level.temp_vak_size_pixels, Level.temp_vak_size_pixels); // maakt gebruik van public static temp_vak_size_pixels voorlopig
+        setSize(Level.global_vak_size_pixels, Level.global_vak_size_pixels); // maakt gebruik van public static global_vak_size_pixels voorlopig
         InitialiseerImage();
     }    
     public void paint(Graphics g) {
-        g.drawImage(explosieImage.getScaledInstance(Level.temp_vak_size_pixels,Level.temp_vak_size_pixels,0), 0, 0, null); // maakt gebruik van public static temp_vak_size_pixels voorlopig
+        g.drawImage(explosieImage.getScaledInstance(Level.global_vak_size_pixels,Level.global_vak_size_pixels,0), 0, 0, null); // maakt gebruik van public static global_vak_size_pixels voorlopig
     }
     
     public void InitialiseerImage() {

@@ -96,6 +96,7 @@ public class Speler extends Figuur {
             }
             if(nieuweVak.isHelper(nieuweVak)) {
                 helper.toevoegenAantal();
+                System.out.println("Aantal helper over: " + helper.getAantal());
             }
             nieuweVak.setFiguur(huidigeSpeler);
             doolhofMap.set(tempindex+position_change_amount,nieuweVak);

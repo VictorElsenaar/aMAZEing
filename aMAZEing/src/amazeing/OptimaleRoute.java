@@ -14,7 +14,7 @@ public class OptimaleRoute extends JComponent{
     
     public OptimaleRoute() {
         setLayout(null);
-        setSize(Level.temp_vak_size_pixels, Level.temp_vak_size_pixels); // maakt gebruik van public static temp_vak_size_pixels voorlopig
+        setSize(Level.global_vak_size_pixels, Level.global_vak_size_pixels); // maakt gebruik van public static global_vak_size_pixels voorlopig
     }
     
     // TODO
@@ -203,7 +203,7 @@ public class OptimaleRoute extends JComponent{
     }
     public void paint(Graphics g) {
         g.setColor(new Color(20,220,255,124));
-        g.fillRect(0, 0, Level.temp_vak_size_pixels, Level.temp_vak_size_pixels);
+        g.fillRect(0, 0, Level.global_vak_size_pixels, Level.global_vak_size_pixels);
         //g.fillRect((vak.gety()*vak_size_pixels)+vak_size_pixels/4, (vak.getx()*vak_size_pixels)+vak_size_pixels/4, vak_size_pixels-(vak_size_pixels/2), vak_size_pixels-(vak_size_pixels/2));
     }
     

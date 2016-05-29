@@ -23,7 +23,7 @@ import javax.swing.JPanel;
 public class Level extends JComponent{
     private final int LEVEL_FRAME_SIZE = 500;
     
-    public static int temp_vak_size_pixels;
+    public static int global_vak_size_pixels;
     
     /**
      * Plaatjes thema folder 
@@ -79,7 +79,8 @@ public class Level extends JComponent{
     }
     
     public void action(String direction, String type) {
-        Speler huidigeSpeler = (Speler) spelersVak.getFiguur();  
+        Speler huidigeSpeler = (Speler) spelersVak.getFiguur(); 
+        
         switch(type) {
             case "move":
                 doolhofMap = huidigeSpeler.move(direction, doolhofMap, current_maze_size, spelersVak );
@@ -98,7 +99,7 @@ public class Level extends JComponent{
         //repaint();
         
         spelersVak = huidigeSpeler.getVak();
-        System.out.println(huidigeSpeler.getVak());
+        System.out.println("test"+huidigeSpeler.getVak());
 //        JPanel panel = spelersVak.getPanel();
 //        panel.removeAll();
 //        panel.add(huidigeSpeler);
@@ -356,7 +357,7 @@ public class Level extends JComponent{
         }
         // Bepaal aantal pixels voor de map, zodat hij netjes het frame vult.
         vak_size_pixels = LEVEL_FRAME_SIZE / current_maze_size;
-        temp_vak_size_pixels = vak_size_pixels;  // voorlopig nodig voor Bom en Explosie
+        global_vak_size_pixels = vak_size_pixels;  // voorlopig nodig voor Bom en Explosie
         
         if(debug){System.out.println(level);}        
 

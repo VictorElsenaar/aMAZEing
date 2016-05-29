@@ -129,9 +129,9 @@ public class Game extends JFrame{
                     fireing = true;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_S) {
-                    if(debug){System.out.println("(S)how optimal route");
+                    if(debug){System.out.println("(S)how optimal route");}
                     keyS();
-                    }
+                    
                 }
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                     if(debug){System.out.println("Space pressed, only works on end level");}
