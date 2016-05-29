@@ -22,7 +22,7 @@ public class Level extends JComponent{
      *           - minecraft
      *           - mario
      */
-    private final String THEME = "minecraft";
+    private final String THEME = "mario";
     
 //    private BufferedImage spelerImage;
 //    private BufferedImage vriendImage;
@@ -62,11 +62,9 @@ public class Level extends JComponent{
             }
             public void run() {
                 try {
-                    System.out.println("Start optimale route uitzetten");
-                    Thread.sleep(5000);
-                    System.out.println("begin optimale route uitzetten");
+                    Thread.sleep(2000);
                     toonOptimaleRoute(kortste_route_panels);
-                    System.out.println("Optimale route uitgezet");
+                    if(debug){System.out.println("Optimale route uitgezet");}
                 } catch (Exception e) {}
 
             }
@@ -119,7 +117,7 @@ public class Level extends JComponent{
         kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
         for (int i = 1; i < kortste_route.size()-1; i++) {
             Vak vak = doolhofMap.get(kortste_route.get(i));
-            OptimaleRoute route = new OptimaleRoute(true);
+            OptimaleRoute route = new OptimaleRoute();
             route.setName("OptimaleRoute");
             JPanel panel = vak.getPanel();
             panel.add(route);
@@ -132,29 +130,16 @@ public class Level extends JComponent{
         new Thread(r).start();
     }
     /**
-     * Deze methode gaat langs alle panels en verwijdert daarin het component van de korte route.
+     * Deze methode gaat langs alle panels en verwijdert daarin het component van de optimale route.
      * @param kortste_route_panels 
      */
     public void toonOptimaleRoute(ArrayList<JPanel> kortste_route_panels){
-        JPanel checkpanel = new JPanel();
-        checkpanel = kortste_route_panels.get(0);
-        System.out.println(checkpanel.getComponent(0));
         for (JPanel panel : kortste_route_panels) {         
             if (panel.getComponent(0).getName()!= null && panel.getComponent(0).getName().equals("OptimaleRoute")) {
                 panel.remove(panel.getComponent(0));
                 panel.repaint();
             }
-        }
-//        for (int i = 1; i < kortste_route.size()-1; i++) {
-//            Vak vak = doolhofMap.get(kortste_route.get(i));
-//            OptimaleRoute route = new OptimaleRoute(false);
-//            JPanel panel = vak.getPanel();
-//            panel.add(route);
-//            panel.setComponentZOrder(route, 0);
-//            panel.revalidate();
-//            panel.repaint();
-//        }
-        
+        }       
     }
     
     public ArrayList<Vak> getcurrentMap() {

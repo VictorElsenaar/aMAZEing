@@ -11,9 +11,7 @@ import javax.swing.JComponent;
  * @author vic
  */
 public class OptimaleRoute extends JComponent{
-    boolean turnon = true;
-    public OptimaleRoute(boolean turnon) {
-        this.turnon = turnon;
+    public OptimaleRoute() {
         setLayout(null);
         setSize(Level.global_vak_size_pixels, Level.global_vak_size_pixels); // maakt gebruik van public static global_vak_size_pixels voorlopig
     }
@@ -173,11 +171,6 @@ public class OptimaleRoute extends JComponent{
 //        Indien er geen leeg vlak meer dan verwijder huidige route en historie en pak volgende route optie uit de lijst OF als vriend gevonden dan opslaan in potientele routes OF het vakje is al gebruikt in de huidige route!
 //        Indien alle routes geweest zijn en er zijn geen afslagen meer dan bepalen welke korste route had.
 
-        
-    
-    
-    
-    
     }
     private static void initialiseren() {
         te_verwerken_routes.clear();
@@ -203,11 +196,7 @@ public class OptimaleRoute extends JComponent{
         richtingen.add(current_maze_size);
     }
     public void paint(Graphics g) {
-        if(turnon) {
-            g.setColor(new Color(20,220,255,124));
-        } else{
-            g.setColor(new Color(255,255,255,100));
-        }
+        g.setColor(new Color(20,220,255,124));
         g.fillRect(0, 0, Level.global_vak_size_pixels, Level.global_vak_size_pixels);
         //g.fillRect((vak.gety()*vak_size_pixels)+vak_size_pixels/4, (vak.getx()*vak_size_pixels)+vak_size_pixels/4, vak_size_pixels-(vak_size_pixels/2), vak_size_pixels-(vak_size_pixels/2));
     }
