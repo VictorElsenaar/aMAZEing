@@ -34,14 +34,19 @@ public class Cheater extends Figuur{
     }
     
     public void paint(Graphics g) {
-        g.drawImage(cheaterImage.getScaledInstance(vak_size_pixels, vak_size_pixels, 0), 0, 0, null);
+        if(cheaterImage == null) {
+            g.setColor(kleur); 
+            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
+        } else {        
+            g.drawImage(cheaterImage.getScaledInstance(vak_size_pixels, vak_size_pixels, 0), 0, 0, null);
+        }
     }
     
     public void InitialiseerImage() {
         try {
             cheaterImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\cheater.jpg"));
         } catch (Exception e) {
-            
+            cheaterImage = null;
         }
     }
     public int getWaarde(){

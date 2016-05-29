@@ -24,7 +24,12 @@ public class Vriend extends Figuur {
     }
     
     public void paint(Graphics g) {
-        g.drawImage(vriendImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null); 
+        if(vriendImage == null) {
+            g.setColor(kleur); 
+            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
+        } else {        
+            g.drawImage(vriendImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null); 
+        }
     }
     
     public void InitialiseerImage() {
@@ -32,6 +37,7 @@ public class Vriend extends Figuur {
             vriendImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\vriend.jpg")); //hardcoded voorlopig
         }
         catch (Exception e) {
+            vriendImage = null;
         }
     }
     

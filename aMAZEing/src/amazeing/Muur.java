@@ -43,9 +43,19 @@ public class Muur extends Figuur {
     @Override
     public void paint(Graphics g) {
         if (borderMuur) {
-            g.drawImage(buitenmuurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null);
+            if(buitenmuurImage == null) {
+                g.setColor(kleur); 
+                g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
+            } else {            
+                g.drawImage(buitenmuurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null);
+            }
         } else {
-            g.drawImage(muurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null);
+            if(muurImage == null) {
+                g.setColor(kleur); 
+                g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
+            } else {             
+                g.drawImage(muurImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null);
+            }
         }
         
     }
@@ -55,11 +65,13 @@ public class Muur extends Figuur {
             buitenmuurImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\buitenmuur.jpg")); 
         }
         catch (Exception e) {
+            buitenmuurImage = null;
         }
         try {
             muurImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\muur.jpg")); 
         }
         catch (Exception e) {
+            muurImage = null;
         }
     }
     

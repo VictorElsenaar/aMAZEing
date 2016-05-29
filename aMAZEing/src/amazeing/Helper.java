@@ -39,7 +39,12 @@ public class Helper extends Figuur{
     }    
     
     public void paint(Graphics g) {
-        g.drawImage(helperImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null); 
+        if(helperImage == null) {
+            g.setColor(kleur); 
+            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
+        } else {        
+            g.drawImage(helperImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null); 
+        }
     }
     
     public void InitialiseerImage() {
@@ -47,6 +52,7 @@ public class Helper extends Figuur{
             helperImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\helper.jpg")); 
         }
         catch (Exception e) {
+            helperImage = null;
         }
     }
 }

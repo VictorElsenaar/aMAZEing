@@ -37,7 +37,12 @@ public class Speler extends Figuur {
     }
     
     public void paint(Graphics g) {
-        g.drawImage(spelerImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null);
+        if(spelerImage == null) {
+            g.setColor(kleur); 
+            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
+        } else {        
+            g.drawImage(spelerImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null);
+        }
     }
     
     public void InitialiseerImage() {
@@ -45,6 +50,7 @@ public class Speler extends Figuur {
             spelerImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\speler.jpg"));
         }
         catch (Exception e) {
+            spelerImage = null;
         }
     }
     

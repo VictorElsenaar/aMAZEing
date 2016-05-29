@@ -9,7 +9,7 @@ import javax.swing.JFrame;
  * @author vic
  */
 public class AMAZEing {
-    public static final String THEME = "default";
+    public static final String THEME = "mario"; // default, mario, minecraft
     public static boolean debug = true;
     
     /**
