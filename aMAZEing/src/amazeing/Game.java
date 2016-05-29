@@ -193,18 +193,18 @@ public class Game extends JFrame{
             } 
             @Override
             public void keyReleased(KeyEvent e) { 
-                if (e.getKeyCode() == KeyEvent.VK_F) {
-                    if(debug){System.out.println("(F)IRE - pick a direction");}
+                if (e.getKeyCode() == KeyEvent.VK_S) {
+                    if(debug){System.out.println("(S) Welke richting?");}
                     fireing = true;
                     setingamePanel(fireing, "Welke richting?");
                 }
-                if (e.getKeyCode() == KeyEvent.VK_S) {
-                    if(debug){System.out.println("(S)how optimal route");}
-                    keyS();
+                if (e.getKeyCode() == KeyEvent.VK_O) {
+                    if(debug){System.out.println("(O) toon optimal route");}
+                    keyO();
                     
                 }
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    if(debug){System.out.println("Space pressed, only works on end level");}
+                    if(debug){System.out.println("Spatie werkt alleen aan het einde van een level");}
                     if (gameState == 8) {
                         keySPACE();
                     }
@@ -264,7 +264,7 @@ public class Game extends JFrame{
             }
         }
     }
-    private void keyS() {
+    private void keyO() {
         queue.add(new QueueHandler("None","optimal_route"));
     }
     private void keyLeft() {
@@ -376,8 +376,8 @@ public class Game extends JFrame{
                            + "˅ beneden\n"
                            + "< links\n"
                            + "> rechts\n"
-                           + "S toon route\n"
-                           + "F schiet");
+                           + "O toon route\n"
+                           + "S schiet");
     }
     /**
      * @param b = true is aan false is uit
