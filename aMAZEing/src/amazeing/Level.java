@@ -79,12 +79,16 @@ public class Level extends JComponent{
         setLevel(level);
         if(debug){readLevel();} // controleer het level    
     }
-    
+    public int getStappen() {
+        Speler huidigeSpeler = (Speler) spelersVak.getFiguur();
+        return huidigeSpeler.getaantalStappen();
+    }
     public void action(String direction, String type) {
         Speler huidigeSpeler = (Speler) spelersVak.getFiguur();
         switch(type) {
             case "move":
                 doolhofMap = huidigeSpeler.move(direction, doolhofMap, current_maze_size, spelersVak );
+                huidigeSpeler.addaantalStappen();
                 break;
             case "fire":
                 doolhofMap = huidigeSpeler.fire(direction, doolhofMap, current_maze_size, spelersVak );

@@ -26,28 +26,19 @@ public class Vak extends JComponent{
     }
     
     public boolean isBazooka(Vak vak) {
-        if(vak.getFiguur() instanceof Bazooka){
-            return true;
-        }
-        return false;
+        return vak.getFiguur() instanceof Bazooka;
     }
     public boolean isMuur(Vak vak){
-        if(vak.getFiguur() instanceof Muur) {
-            return true;
-        }
-        return false;
+        return vak.getFiguur() instanceof Muur;
     }
     public boolean isVriend(Vak vak) {
-        if(vak.getFiguur() instanceof Vriend) {
-            return true;
-        }
-        return false;
+        return vak.getFiguur() instanceof Vriend;
     }
     public boolean isHelper(Vak vak) {
-        if(vak.getFiguur() instanceof Helper) {
-            return true;
-        }
-        return false;
+        return vak.getFiguur() instanceof Helper;
+    }
+    public boolean isCheater(Vak vak) {
+        return vak.getFiguur() instanceof Cheater;
     }
 
     

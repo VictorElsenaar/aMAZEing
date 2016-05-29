@@ -16,6 +16,11 @@ import javax.imageio.ImageIO;
  * @author vic
  */
 public class Cheater extends Figuur{
+    /**
+     * Hoeveel stappen eraf gaan
+     */
+    private final int waarde = 5;
+    
     private BufferedImage cheaterImage;
     //Constructor
     public Cheater(int vak_size_pixels, String theme) {
@@ -38,5 +43,8 @@ public class Cheater extends Figuur{
         } catch (Exception e) {
             
         }
+    }
+    public int getWaarde(){
+        return this.waarde;
     }
 }

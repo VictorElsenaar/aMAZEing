@@ -2,6 +2,7 @@ package amazeing;
 import static amazeing.AMAZEing.debug;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -38,6 +39,14 @@ public class Game extends JFrame{
     private JLabel infoLabel;
     
     /**
+     * Speler statistieken
+     */
+    private JPanel statsPanel;
+    private JLabel stappenLabel;
+    private JLabel aantalBazookaLabel;
+    private JLabel aantalHelperLabel;
+    
+    /**
      * gameState
      * 0 = menu afhandeling
      * 1 = spelen
@@ -55,6 +64,8 @@ public class Game extends JFrame{
     public Game() {
         setLayout(null);
         setFocusTraversalKeysEnabled(false); // TAB disable
+        
+
         
         helperPanel = new JPanel();
         helperPanel.setSize(520,520);
@@ -99,12 +110,46 @@ public class Game extends JFrame{
         add(gamePanel);
         
 
+
+        
+        
         menuPanel = new MenuPanel();
         menuPanel.setSize(130, 520);
         menuPanel.setBounds(540, 10, 130, 520);
         menuPanel.setBorder(border);
         setListenersAanButtons();
         add(menuPanel);
+        
+        
+        statsPanel = new JPanel();
+        GridLayout gridLayout = new GridLayout(3,1);
+        statsPanel.setLayout(gridLayout);
+        
+        stappenLabel = new JLabel();
+        aantalBazookaLabel = new JLabel();
+        aantalHelperLabel = new JLabel();
+        statsPanel.add(stappenLabel);//, BorderLayout.CENTER);        
+        statsPanel.add(aantalBazookaLabel);
+        statsPanel.add(aantalHelperLabel);
+        menuPanel.add(statsPanel);
+        stappenLabel.setText(level.getStappen() + " stappen");
+        aantalBazookaLabel.setText("5 kogel(s)");
+        aantalHelperLabel.setText("2 toon optimale route");
+        
+        /*
+            private JLabel stappenLabel;
+            private JLabel aantalBazookaLabel;
+            private JLabel aantalHelperLabel;
+        statsPanel
+        informationPanel = new JPanel();
+        informationPanel.setSize(420, 32);
+        informationPanel.setBounds(60,200, 420,32); //moet dus op basis van gamepanel zijn
+        informationPanel.setBackground(Color.GREEN.brighter().brighter());
+        infoLabel = new JLabel();
+        informationPanel.add(infoLabel, BorderLayout.CENTER);        
+        add(informationPanel);
+        */
+
         
         addKeyListener(new KeyListener() { 
             @Override
@@ -121,7 +166,7 @@ public class Game extends JFrame{
                     }
                     if (e.getKeyCode() == KeyEvent.VK_UP ) {
                         keyUp();
-                    }                 
+                    }  
                 }
             } 
             @Override
@@ -261,7 +306,10 @@ public class Game extends JFrame{
     }
     public void executeQueue() {
         QueueHandler next = queue.remove();
-        level.action(next.getDirection(),next.getType());    
+        level.action(next.getDirection(),next.getType());
+        if(next.getType().equals("move")){
+            stappenLabel.setText(level.getStappen() + " stappen");
+        }
         if(debug){System.out.println("@@@@@"+next.getDirection());}
         
     }

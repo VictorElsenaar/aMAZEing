@@ -17,7 +17,9 @@ public class Speler extends Figuur {
 
     private Bazooka bazooka;
     private Helper helper;
+    private Cheater cheater;
     private Vak huidigeVak;
+    private int aantalStappen = 0;
     
     private BufferedImage spelerImage;
 
@@ -30,6 +32,7 @@ public class Speler extends Figuur {
         this.theme = theme;
         bazooka = new Bazooka(vak_size_pixels, theme);
         helper = new Helper(vak_size_pixels, theme);
+        cheater = new Cheater(vak_size_pixels, theme);
         InitialiseerImage();
     }
     
@@ -92,11 +95,15 @@ public class Speler extends Figuur {
 
             if(nieuweVak.isBazooka(nieuweVak)) {
                 bazooka.toevoegenAmmo();
-                System.out.println("Aantal raketten over van bazooka: " + bazooka.getAmmo());
+                if(debug){System.out.println("Aantal raketten over van bazooka: " + bazooka.getAmmo());}
             }
             if(nieuweVak.isHelper(nieuweVak)) {
                 helper.toevoegenAantal();
-                System.out.println("Aantal helper over: " + helper.getAantal());
+                if(debug){System.out.println("Aantal helper over: " + helper.getAantal());}
+            }
+            if(nieuweVak.isCheater(nieuweVak)){
+                aantalStappen = aantalStappen - cheater.getWaarde();
+                if(debug){System.out.println("Cheater opgepakt!");}
             }
             nieuweVak.setFiguur(huidigeSpeler);
             doolhofMap.set(tempindex+position_change_amount,nieuweVak);
@@ -133,5 +140,11 @@ public class Speler extends Figuur {
             return true;
         }
         return false;
+    }
+    public int getaantalStappen() {
+        return this.aantalStappen;
+    }
+    public void addaantalStappen() {
+        this.aantalStappen++;
     }
 }
