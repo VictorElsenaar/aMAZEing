@@ -100,7 +100,12 @@ public class Bazooka extends Figuur{
     }
     
     public void paint(Graphics g) {
-        g.drawImage(bazookaImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null); 
+        if(bazookaImage == null) {
+            g.setColor(kleur); 
+            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
+        } else {
+            g.drawImage(bazookaImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null); 
+        }
     }
     
     public void InitialiseerImage() {
@@ -108,6 +113,7 @@ public class Bazooka extends Figuur{
             bazookaImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\bazooka.jpg")); 
         }
         catch (Exception e) {
+            bazookaImage = null;
         }
     }
 }

@@ -1,5 +1,6 @@
 package amazeing;
 
+import static amazeing.AMAZEing.THEME;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -24,7 +25,7 @@ public class Explosie extends JComponent {
     
     public void InitialiseerImage() {
         try {
-            explosieImage = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\mario\\explosie.jpg")); //hardcoded voorlopig
+            explosieImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + THEME + "\\\\explosie.jpg")); //hardcoded voorlopig
         }
         catch (Exception e) {
         }

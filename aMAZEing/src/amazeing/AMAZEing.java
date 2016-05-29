@@ -9,7 +9,7 @@ import javax.swing.JFrame;
  * @author vic
  */
 public class AMAZEing {
-
+    public static final String THEME = "default";
     public static boolean debug = true;
     
     /**
@@ -18,14 +18,7 @@ public class AMAZEing {
     private static final int WIDTH = 700;
     private static final int HEIGHT = 600;
     
-    public static void main(String[] args) {
-        // Teken globale panel
-        // midden links is het level gebied (toont een dummy plaatje van een doolhof
-        // rechts is het menu
-        
-        // Bij keuze starten van level
-        // bouw in het level gebied een level op
-        
+    public static void main(String[] args) {       
         Game game = new Game();
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.setVisible(true);
@@ -33,16 +26,13 @@ public class AMAZEing {
         game.setSize(WIDTH, HEIGHT);
         game.setResizable(false);
         
-        
         while(true) 
         {
             try {
-                //Thread.sleep(25);
                 game.executeQueue();
                 game.updateStatistics();
                 game.checkEndLevel();
             } catch (Exception ex) {  
-                // do something with the exception
             }
         }          
     }

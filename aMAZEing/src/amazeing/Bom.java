@@ -1,6 +1,7 @@
 
 package amazeing;
 
+import static amazeing.AMAZEing.THEME;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -25,7 +26,7 @@ public class Bom extends JComponent{
     
     public void InitialiseerImage() {
         try {
-            bomImage = ImageIO.read(new File("..\\aMAZEing\\src\\amazeing\\theme\\mario\\bom.jpg")); //hardcoded voorlopig
+            bomImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + THEME + "\\\\bom.jpg")); //hardcoded voorlopig
         }
         catch (Exception e) {
         }

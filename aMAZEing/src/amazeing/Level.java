@@ -1,5 +1,6 @@
 package amazeing;
 
+import static amazeing.AMAZEing.THEME;
 import static amazeing.AMAZEing.debug;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -22,7 +23,7 @@ public class Level extends JComponent{
      *           - minecraft
      *           - mario
      */
-    private final String THEME = "mario";
+    
     
 //    private BufferedImage spelerImage;
 //    private BufferedImage vriendImage;
