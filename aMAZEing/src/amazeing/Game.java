@@ -84,7 +84,7 @@ public class Game extends JFrame{
         blackborder_informationPanel.setBackground(Color.BLACK);
         add(blackborder_informationPanel);
         
-        setInformationPanel(true);
+        setInformationPanel(true, "Druk op start of <spatie> om het spel te starten.");
                 
         gamePanel = new JPanel();
         gamePanel.setSize(520, 520);
@@ -156,7 +156,7 @@ public class Game extends JFrame{
                     setInformationPanel(true, "Vriend al gevonden! Druk op restart of kies een nieuw level.");
                 } else {
                     gameState = 1;
-                    setInformationPanel(false);
+                    setInformationPanel(false, "");
                     requestFocusInWindow();
                 }
             }
@@ -164,7 +164,7 @@ public class Game extends JFrame{
                 level.removeAll();
                 level.setLevel(level.getCurrentLevel());
                 gameState = 1;
-                setInformationPanel(false);
+                setInformationPanel(false, "");
                 repaint();
                 requestFocusInWindow();
             }
@@ -191,7 +191,7 @@ public class Game extends JFrame{
                 }
                 repaint();
                 gameState = 1;
-                setInformationPanel(false);
+                setInformationPanel(false, "");
                 requestFocusInWindow();
             }
         }
@@ -243,7 +243,7 @@ public class Game extends JFrame{
         level.removeAll();
         this.level.setNextLevel();        
         gameState = 1;
-        setInformationPanel(false);
+        setInformationPanel(false, "");
         repaint();
         requestFocusInWindow();            
     }
@@ -287,10 +287,6 @@ public class Game extends JFrame{
     
     public void setInformationPanel(boolean b, String text) {
         infoLabel.setText(text);
-        setCombinedInformationPanel(b);
-    }
-    public void setInformationPanel(boolean b) {
-        infoLabel.setText("Druk op start om het spel te starten.");
         setCombinedInformationPanel(b);
     }
     public void setCombinedInformationPanel(boolean b) {
