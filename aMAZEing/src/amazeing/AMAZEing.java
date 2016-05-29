@@ -10,7 +10,7 @@ import javax.swing.JFrame;
  */
 public class AMAZEing {
 
-    public static boolean debug = false;
+    public static boolean debug = true;
     
     /**
      * @param args the command line arguments

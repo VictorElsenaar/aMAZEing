@@ -22,7 +22,7 @@ public class Level extends JComponent{
      *           - minecraft
      *           - mario
      */
-    private final String THEME = "mario";
+    private final String THEME = "minecraft";
     
 //    private BufferedImage spelerImage;
 //    private BufferedImage vriendImage;
@@ -62,7 +62,9 @@ public class Level extends JComponent{
             }
             public void run() {
                 try {
-                    Thread.sleep(5000);
+                    System.out.println("Start optimale route uitzetten");
+                    Thread.sleep(500);
+                    System.out.println("begin optimale route uitzetten");
                     toonOptimaleRoute(kortste_route_panels);
                     System.out.println("Optimale route uitgezet");
                 } catch (Exception e) {}
@@ -133,8 +135,16 @@ public class Level extends JComponent{
      * @param kortste_route_panels 
      */
     public void toonOptimaleRoute(ArrayList<JPanel> kortste_route_panels){
+        JPanel checkpanel = new JPanel();
+        checkpanel = kortste_route_panels.get(0);
+        System.out.println(checkpanel.getComponent(0));
         for (JPanel panel : kortste_route_panels) {         
-            panel.remove(panel.getComponent(0));
+            System.out.println(panel.getComponent(0));
+            
+            if(panel.getComponent(0) != (checkpanel.getComponent(0))){
+                panel.remove(panel.getComponent(0));
+            }
+            
             panel.repaint();
         }
 //        for (int i = 1; i < kortste_route.size()-1; i++) {
