@@ -177,30 +177,30 @@ public class Game extends JFrame{
             @Override
             public void keyPressed(KeyEvent e) {
                 if(gameState == 1){
-                    if (e.getKeyCode() == KeyEvent.VK_LEFT ) {
+                    if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A ) {
                         keyLeft();
                     }
-                    if (e.getKeyCode() == KeyEvent.VK_RIGHT ) {
+                    if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
                         keyRight();
                     }
-                    if (e.getKeyCode() == KeyEvent.VK_DOWN ) {
+                    if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
                         keyDown();
                     }
-                    if (e.getKeyCode() == KeyEvent.VK_UP ) {
+                    if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
                         keyUp();
                     }  
                 }
             } 
             @Override
             public void keyReleased(KeyEvent e) { 
-                if (e.getKeyCode() == KeyEvent.VK_S) {
-                    if(debug){System.out.println("(S) Welke richting?");}
+                if (e.getKeyCode() == KeyEvent.VK_E) {
+                    if(debug){System.out.println("(E) Welke richting?");}
                     fireing = true;
                     setingamePanel(fireing, "Welke richting?");
                 }
-                if (e.getKeyCode() == KeyEvent.VK_O) {
-                    if(debug){System.out.println("(O) toon optimal route");}
-                    keyO();
+                if (e.getKeyCode() == KeyEvent.VK_Q) {
+                    if(debug){System.out.println("(Q) toon optimal route");}
+                    keyQ();
                     
                 }
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -264,7 +264,7 @@ public class Game extends JFrame{
             }
         }
     }
-    private void keyO() {
+    private void keyQ() {
         queue.add(new QueueHandler("None","optimal_route"));
     }
     private void keyLeft() {
@@ -372,12 +372,12 @@ public class Game extends JFrame{
         
     }    
     public void infoKnoppen() {
-        infoTextArea.setText("˄ omhoog \n"
-                           + "˅ beneden\n"
-                           + "< links\n"
-                           + "> rechts\n"
-                           + "O toon route\n"
-                           + "S schiet");
+        infoTextArea.setText("˄/W omhoog \n"
+                           + "˅/S beneden\n"
+                           + "</A links\n"
+                           + ">/D rechts\n"
+                           + "Q toon route\n"
+                           + "E schiet");
     }
     /**
      * @param b = true is aan false is uit
