@@ -1,5 +1,7 @@
 package amazeing;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -15,8 +17,6 @@ public class AMAZEing {
      */
     private static final int WIDTH = 700;
     private static final int HEIGHT = 600;
-    //public static Speler speler;
-    private static Thread thread = new Thread();
     
     public static void main(String[] args) {
         // Teken globale panel
@@ -33,7 +33,7 @@ public class AMAZEing {
         game.setSize(WIDTH, HEIGHT);
         game.setResizable(false);
         
-        thread.start();
+        
         while(true) 
         {
             try {
@@ -43,8 +43,6 @@ public class AMAZEing {
             } catch (Exception ex) {  
                 // do something with the exception
             }
-        }             
-        
-    
+        }          
     }
 }
