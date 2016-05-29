@@ -63,7 +63,7 @@ public class Level extends JComponent{
             public void run() {
                 try {
                     System.out.println("Start optimale route uitzetten");
-                    Thread.sleep(500);
+                    Thread.sleep(5000);
                     System.out.println("begin optimale route uitzetten");
                     toonOptimaleRoute(kortste_route_panels);
                     System.out.println("Optimale route uitgezet");
@@ -120,6 +120,7 @@ public class Level extends JComponent{
         for (int i = 1; i < kortste_route.size()-1; i++) {
             Vak vak = doolhofMap.get(kortste_route.get(i));
             OptimaleRoute route = new OptimaleRoute(true);
+            route.setName("OptimaleRoute");
             JPanel panel = vak.getPanel();
             panel.add(route);
             panel.setComponentZOrder(route, 0);
@@ -139,13 +140,10 @@ public class Level extends JComponent{
         checkpanel = kortste_route_panels.get(0);
         System.out.println(checkpanel.getComponent(0));
         for (JPanel panel : kortste_route_panels) {         
-            System.out.println(panel.getComponent(0));
-            
-            if(panel.getComponent(0) != (checkpanel.getComponent(0))){
+            if (panel.getComponent(0).getName()!= null && panel.getComponent(0).getName().equals("OptimaleRoute")) {
                 panel.remove(panel.getComponent(0));
+                panel.repaint();
             }
-            
-            panel.repaint();
         }
 //        for (int i = 1; i < kortste_route.size()-1; i++) {
 //            Vak vak = doolhofMap.get(kortste_route.get(i));

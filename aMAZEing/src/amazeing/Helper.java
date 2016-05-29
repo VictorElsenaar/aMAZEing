@@ -19,7 +19,7 @@ public class Helper extends Figuur{
     
     public Helper(int vak_size_pixels, String theme) {
         super(Color.ORANGE);
-        aantal = 1;
+        aantal = 0;
         if(debug) {aantal = 99;}
         setLayout(null);
         setSize(vak_size_pixels, vak_size_pixels); 
