@@ -11,6 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -21,6 +22,8 @@ import javax.swing.JPanel;
  */
 public class Level extends JComponent{
     private final int LEVEL_FRAME_SIZE = 500;
+    
+    public static int temp_vak_size_pixels;
     
     /**
      * Plaatjes thema folder 
@@ -43,10 +46,9 @@ public class Level extends JComponent{
      * maximaal aantal vakken op 1 lijn. (altijd vierkant) Max aantal blokken totaal zou zijn MAX_MAZE_SIZE * MAX_MAZE_SIZE
      */
     private final int MAX_MAZE_SIZE = 50; 
-    
-    
     // Bij het inladen van het level wordt deze maat bewaard van de huidige maze.
     private int current_maze_size;
+    
     // en de maat in pixels van een vak
     private int vak_size_pixels;
     private ArrayList<String> levels = new ArrayList<String>();
@@ -63,12 +65,11 @@ public class Level extends JComponent{
     public Level(int level) {
         //InitialiseerImages();
         //setLevel(levelOne());
-        
         setLayout(null);
         
         addLevels();
         setLevel(level);
-        InitialiseerImages();
+        //InitialiseerImages();
         if(debug){readLevel();} // controleer het level    
 //        System.out.println("spelersVak " + spelersVak.toString());
 //        System.out.println("vriendVak " + vriendVak.toString());
@@ -88,6 +89,7 @@ public class Level extends JComponent{
                 break;
             case "optimal_route":
                 toonOptimaleRoute = huidigeSpeler.activeerOptimaleRoute();
+                toonOptimaleRoute();
                 break;
             default:
                 break;
@@ -292,6 +294,21 @@ public class Level extends JComponent{
 //            toonOptimaleRoute = false;
 //        }
 //    } 
+    public void toonOptimaleRoute() {
+        LinkedList<Integer> kortste_route = new LinkedList<Integer>();
+        kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
+        for (int i = 1; i < kortste_route.size()-1; i++) {
+            Vak vak = doolhofMap.get(kortste_route.get(i));
+            OptimaleRoute route = new OptimaleRoute();
+            JPanel panel = vak.getPanel();
+            panel.add(route);
+            panel.setComponentZOrder(route, 0);
+            panel.repaint();
+        }                 
+        kortste_route.clear();
+        toonOptimaleRoute = false;
+    }
+    
     public ArrayList<Vak> getcurrentMap() {
         return doolhofMap;
     }
@@ -324,7 +341,7 @@ public class Level extends JComponent{
             this.currentLevel--;
         }
     }
-    public void setCurrentLevel(int nr) {
+    public void setCurrentLevel(int currentLevel) {
         this.currentLevel = currentLevel;
     }
     public void setLevel(int nr) {
@@ -339,6 +356,7 @@ public class Level extends JComponent{
         }
         // Bepaal aantal pixels voor de map, zodat hij netjes het frame vult.
         vak_size_pixels = LEVEL_FRAME_SIZE / current_maze_size;
+        temp_vak_size_pixels = vak_size_pixels;  // voorlopig nodig voor Bom en Explosie
         
         if(debug){System.out.println(level);}        
 
@@ -383,6 +401,7 @@ public class Level extends JComponent{
                         break;
                     case 0: // Als het een 0 is dan een empty plaatsen
                         figuur = new Leeg(vak_size_pixels, THEME);
+                        break;
                 }
                     vak = new Vak(x,y,figuur);
                     if (Integer.parseInt(typeOnPosition) == 3) {

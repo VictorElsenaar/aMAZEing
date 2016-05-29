@@ -15,8 +15,8 @@ import javax.swing.JPanel;
  */
 public class Speler extends Figuur {
 
-    private Bazooka bazooka = new Bazooka(vak_size_pixels, theme);
-    private Helper helper = new Helper(vak_size_pixels, theme);
+    private Bazooka bazooka;
+    private Helper helper;
     private Vak huidigeVak;
     
     private BufferedImage spelerImage;
@@ -26,8 +26,10 @@ public class Speler extends Figuur {
         super(Color.BLUE); //Color(0,0,255)
         setLayout(null);
         setSize(vak_size_pixels, vak_size_pixels);
-        setVakSizePixels(vak_size_pixels);
-        setTheme(theme);
+        this.vak_size_pixels = vak_size_pixels;
+        this.theme = theme;
+        bazooka = new Bazooka(vak_size_pixels, theme);
+        helper = new Helper(vak_size_pixels, theme);
         InitialiseerImage();
     }
     
@@ -99,8 +101,6 @@ public class Speler extends Figuur {
             doolhofMap.set(tempindex+position_change_amount,nieuweVak);
             huidigeVak = doolhofMap.get(tempindex+position_change_amount);
             
-            //spelersVak = huidigeSpeler.getVak();
-        
             JPanel panel = huidigeVak.getPanel();
             panel.removeAll();
             panel.add(huidigeSpeler);

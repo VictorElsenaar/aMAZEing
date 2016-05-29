@@ -1,13 +1,21 @@
 package amazeing;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import javax.swing.JComponent;
 
 /**
  * Helper classen voor het vinden van de snelste route
  * @author vic
  */
-public class OptimaleRoute {
+public class OptimaleRoute extends JComponent{
+    
+    public OptimaleRoute() {
+        setLayout(null);
+        setSize(Level.temp_vak_size_pixels, Level.temp_vak_size_pixels); // maakt gebruik van public static temp_vak_size_pixels voorlopig
+    }
     
     // TODO
     // wanneer een nieuwe route al langer is dan een reeds gevonden route, dan gelijk afkappen.
@@ -192,6 +200,11 @@ public class OptimaleRoute {
         richtingen.add(-1);
         richtingen.add(-current_maze_size);
         richtingen.add(current_maze_size);
+    }
+    public void paint(Graphics g) {
+        g.setColor(new Color(20,220,255,124));
+        g.fillRect(0, 0, Level.temp_vak_size_pixels, Level.temp_vak_size_pixels);
+        //g.fillRect((vak.gety()*vak_size_pixels)+vak_size_pixels/4, (vak.getx()*vak_size_pixels)+vak_size_pixels/4, vak_size_pixels-(vak_size_pixels/2), vak_size_pixels-(vak_size_pixels/2));
     }
     
     /*public int positionchange(String richting, int current_maze_size) {

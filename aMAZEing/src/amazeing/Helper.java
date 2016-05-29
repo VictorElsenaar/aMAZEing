@@ -23,8 +23,8 @@ public class Helper extends Figuur{
         if(debug) {aantal = 99;}
         setLayout(null);
         setSize(vak_size_pixels, vak_size_pixels); 
-        setVakSizePixels(vak_size_pixels);
-        setTheme(theme);
+        this.vak_size_pixels = vak_size_pixels;
+        this.theme = theme;
         InitialiseerImage();
     }
     public int getAantal() {

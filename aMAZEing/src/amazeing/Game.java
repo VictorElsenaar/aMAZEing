@@ -172,6 +172,7 @@ public class Game extends JFrame{
             if (e.getActionCommand().equals("Go")) {
                 JComboBox<String> levelLijst = menuPanel.getLevelLijst();
                 String selectedLevel = (String) levelLijst.getSelectedItem();
+                level.removeAll();
                 switch (selectedLevel) {
                     case "level 1":
                         level.setLevel(0);
@@ -237,6 +238,7 @@ public class Game extends JFrame{
         }        
     }
     private void keySPACE() {
+        level.removeAll();
         this.level.setNextLevel();        
         gameState = 1;
         setInformationPanel(false);

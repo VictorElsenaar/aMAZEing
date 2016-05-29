@@ -18,8 +18,8 @@ public class Vriend extends Figuur {
         super(Color.MAGENTA); //Color(255,0,255)
         setLayout(null);
         setSize(vak_size_pixels, vak_size_pixels); 
-        setVakSizePixels(vak_size_pixels);
-        setTheme(theme);
+        this.vak_size_pixels = vak_size_pixels;
+        this.theme = theme;
         InitialiseerImage();
     }
     

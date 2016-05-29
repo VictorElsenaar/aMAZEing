@@ -12,8 +12,9 @@ public class Leeg extends Figuur{
         super(Color.WHITE);
         
         setLayout(null);
-        setSize(vak_size_pixels, vak_size_pixels); 
-        setTheme(theme);
+        setSize(vak_size_pixels, vak_size_pixels);
+        this.vak_size_pixels = vak_size_pixels;
+        this.theme = theme;
     }
     public void paint(Graphics g) {
         g.setColor(kleur); 

@@ -21,8 +21,8 @@ public class Muur extends Figuur {
         borderMuur = false;
         setLayout(null);
         setSize(vak_size_pixels, vak_size_pixels);
-        setVakSizePixels(vak_size_pixels);
-        setTheme(theme);
+        this.vak_size_pixels = vak_size_pixels;
+        this.theme = theme;
         InitialiseerImage();
     }
     public Muur(boolean borderMuur, int vak_size_pixels, String theme) {
@@ -30,8 +30,8 @@ public class Muur extends Figuur {
         this.borderMuur = borderMuur;
         setLayout(null);
         setSize(vak_size_pixels, vak_size_pixels); 
-        setVakSizePixels(vak_size_pixels);
-        setTheme(theme);
+        this.vak_size_pixels = vak_size_pixels;
+        this.theme = theme;
         InitialiseerImage();
     }
     

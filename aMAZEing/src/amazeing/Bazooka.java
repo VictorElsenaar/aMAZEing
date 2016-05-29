@@ -29,8 +29,9 @@ public class Bazooka extends Figuur{
         if(debug) {ammo = 99;}
         setLayout(null);
         setSize(vak_size_pixels, vak_size_pixels);
+        this.vak_size_pixels = vak_size_pixels;
         setVakSizePixels(vak_size_pixels);
-        setTheme(theme);
+        this.theme = theme;
         InitialiseerImage();
     }
     public int getAmmo() {
@@ -47,7 +48,6 @@ public class Bazooka extends Figuur{
         Vak schietvak = doolhofMap.get(currentLocationIndex+position_change_amount);
         int i = 1;
         while(!schietvak.isMuur(schietvak)) {
-            
             
             JPanel panel = schietvak.getPanel();
             Bom bom = new Bom();
