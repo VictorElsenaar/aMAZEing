@@ -119,7 +119,7 @@ public class Level extends JComponent{
         kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
         for (int i = 1; i < kortste_route.size()-1; i++) {
             Vak vak = doolhofMap.get(kortste_route.get(i));
-            OptimaleRoute route = new OptimaleRoute();
+            OptimaleRoute route = new OptimaleRoute(vak_size_pixels, THEME);
             route.setName("OptimaleRoute");
             JPanel panel = vak.getPanel();
             panel.add(route);

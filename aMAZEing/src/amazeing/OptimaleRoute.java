@@ -2,8 +2,11 @@ package amazeing;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 /**
@@ -11,9 +14,14 @@ import javax.swing.JComponent;
  * @author vic
  */
 public class OptimaleRoute extends JComponent{
-    public OptimaleRoute() {
+    protected String theme;
+    private BufferedImage optimalerouteImage;
+    public OptimaleRoute(int vak_size_pixels, String theme) {
         setLayout(null);
         setSize(Level.global_vak_size_pixels, Level.global_vak_size_pixels); // maakt gebruik van public static global_vak_size_pixels voorlopig
+        //this.vak_size_pixels = vak_size_pixels;
+        this.theme = theme;        
+        InitialiseerImage();
     }
     
     // TODO
@@ -196,10 +204,23 @@ public class OptimaleRoute extends JComponent{
         richtingen.add(current_maze_size);
     }
     public void paint(Graphics g) {
-        g.setColor(new Color(20,220,255,124));
-        g.fillRect(0, 0, Level.global_vak_size_pixels, Level.global_vak_size_pixels);
+        if (optimalerouteImage == null) {
+            g.setColor(new Color(20,220,255,124));
+            g.fillRect(0, 0, Level.global_vak_size_pixels, Level.global_vak_size_pixels);
+        } else {
+            g.drawImage(optimalerouteImage.getScaledInstance(Level.global_vak_size_pixels,Level.global_vak_size_pixels,0), 0, 0, null);
+        }
         //g.fillRect((vak.gety()*vak_size_pixels)+vak_size_pixels/4, (vak.getx()*vak_size_pixels)+vak_size_pixels/4, vak_size_pixels-(vak_size_pixels/2), vak_size_pixels-(vak_size_pixels/2));
     }
+    public void InitialiseerImage() {
+        try {
+            optimalerouteImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\optimaleroute.jpg")); 
+        }
+        catch (Exception e) {
+            optimalerouteImage = null;
+        }
+    }    
+    
     
     /*public int positionchange(String richting, int current_maze_size) {
         int position_change_amount = 0;
