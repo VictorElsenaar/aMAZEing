@@ -222,8 +222,6 @@ public class Level extends JComponent{
                         break;
                     case 3: // Als het een 3 is dan een speler plaatsen
                         figuur = new Speler(vak_size_pixels, THEME);
-
-                        
                         break;
                     case 4: // Als het een 4 is dan een vriend plaatsen
                         figuur = new Vriend(vak_size_pixels, THEME);
@@ -233,6 +231,9 @@ public class Level extends JComponent{
                         break;
                     case 6: // Als het een 6 is dan een helper plaatsen
                         figuur = new Helper(vak_size_pixels, THEME);
+                        break;
+                    case 7: // Als het een 7 is dan een cheater plaatsen
+                        figuur = new Cheater(vak_size_pixels, THEME);
                         break;
                     case 0: // Als het een 0 is dan een empty plaatsen
                         figuur = new Leeg(vak_size_pixels, THEME);
@@ -339,7 +340,7 @@ public class Level extends JComponent{
 
     public void addLevels() {
         String level_one ="1111111111"
-                        + "1320200001"
+                        + "1327200071"
                         + "1026202021"
                         + "1020202001"
                         + "1020052201"
@@ -352,16 +353,16 @@ public class Level extends JComponent{
         String level_two ="1111111111"
                         + "1230000001"
                         + "1020202201"
-                        + "1020260001"
+                        + "1020260071"
                         + "1020222221"
-                        + "1000220001"
+                        + "1007220001"
                         + "1022000201"
                         + "1020022201"
                         + "1000224001"
                         + "1111111111";
         
         String level_three =   "11111111111111111111" 
-                            +  "10000020002000000031" 
+                            +  "10000020702000000031" 
                             +  "10222020262022222221"
                             +  "10200020202020002401"                
                             +  "10202220000020202201"                
@@ -378,7 +379,7 @@ public class Level extends JComponent{
                             +  "10002000202000000201"                
                             +  "10202020202022220201"                
                             +  "10202020202000220201"                
-                            +  "16200020002020000001"                
+                            +  "16200720002020000001"                
                             +  "11111111111111111111";
                                 
         String level_four =    "1111111111111111111111111111111111111111"
@@ -387,7 +388,7 @@ public class Level extends JComponent{
                             +  "1023202020000000026000020222222222020201"
                             +  "1022202022222222222222020020000000020201" 
                             +  "1020202000000000000000022220222202220201"
-                            +  "1020202022222222002220002020000202000201"
+                            +  "1020202022222222002220002020007202000201"
                             +  "1020200000000002000022202020222200020001"
                             +  "1020222222202222222000200020200002222221"   
                             +  "1020000000200000002020222220222022200001"
@@ -404,7 +405,7 @@ public class Level extends JComponent{
                             +  "1020202025202020202020200000222226200201" 
                             +  "1020202020202020000020222222200000220201"
                             +  "1020202000202020222020000000002222200201"
-                            +  "1020202222202020200022222222222020002201"
+                            +  "1020272222202020200022222222222020002201"
                             +  "1020200000002020202020002000200022200201"
                             +  "1020222222222020202020200020002002222201"
                             +  "1020000000000020002020222222222200000001" 

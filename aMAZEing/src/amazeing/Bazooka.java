@@ -15,11 +15,8 @@ import javax.swing.JPanel;
  *
  * @author Victor
  */
-public class Bazooka extends Figuur{
-    
+public class Bazooka extends Figuur{    
     private int ammo;
-    
-    
     private BufferedImage bazookaImage;
     
     // Constructor
@@ -57,7 +54,7 @@ public class Bazooka extends Figuur{
             revalidate();
             panel.repaint();
             try {
-                Thread.sleep(200);
+                Thread.sleep(100);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Bazooka.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -86,7 +83,7 @@ public class Bazooka extends Figuur{
                 revalidate();
                 panel.repaint();
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(100);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Bazooka.class.getName()).log(Level.SEVERE, null, ex);
                 }
