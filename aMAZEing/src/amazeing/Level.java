@@ -1,18 +1,9 @@
 package amazeing;
 
 import static amazeing.AMAZEing.debug;
-import java.awt.Color;
-//import static amazeing.AMAZEing.speler;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ListIterator;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
@@ -61,15 +52,18 @@ public class Level extends JComponent{
     private int currentLevel;
     
     private boolean toonOptimaleRoute = false;
+    /**
+     * Na 5 seconden wordt de optimale route uitgezet.
+     */
     class MyThread implements Runnable {
-        private LinkedList<Integer> kortste_route;
-            public MyThread(LinkedList<Integer> kortste_route) {
-                this.kortste_route = kortste_route;
+        private ArrayList<JPanel> kortste_route_panels;
+            public MyThread(ArrayList<JPanel> kortste_route_panels) {
+                this.kortste_route_panels = kortste_route_panels;
             }
             public void run() {
                 try {
-                    Thread.sleep(2000);
-                    toonOptimaleRoute(kortste_route);
+                    Thread.sleep(5000);
+                    toonOptimaleRoute(kortste_route_panels);
                     System.out.println("Optimale route uitgezet");
                 } catch (Exception e) {}
 
@@ -96,7 +90,7 @@ public class Level extends JComponent{
                 doolhofMap = huidigeSpeler.fire(direction, doolhofMap, current_maze_size, spelersVak );
                 break;
             case "optimal_route":
-                toonOptimaleRoute = huidigeSpeler.activeerOptimaleRoute();
+                //toonOptimaleRoute = huidigeSpeler.activeerOptimaleRoute();
                 toonOptimaleRoute();
                 break;
             default:
@@ -119,6 +113,7 @@ public class Level extends JComponent{
     }
 
     public void toonOptimaleRoute() {
+        ArrayList<JPanel> kortste_route_panels = new ArrayList<JPanel>();
         LinkedList<Integer> kortste_route = new LinkedList<Integer>();
         kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
         for (int i = 1; i < kortste_route.size()-1; i++) {
@@ -128,24 +123,31 @@ public class Level extends JComponent{
             panel.add(route);
             panel.setComponentZOrder(route, 0);
             panel.repaint();
+            kortste_route_panels.add(panel);
         }                 
-        //threadOptimal.start(kortste_route);
-        //kortste_route.clear();
-        //toonOptimaleRoute = false;
-        //threadOptimal.start(kortste_route);
-        Runnable r = new MyThread(kortste_route);
+        // Thread starten om na 2 seconden de optimale route niet meer te tonen.
+        Runnable r = new MyThread(kortste_route_panels);
         new Thread(r).start();
     }
-    public void toonOptimaleRoute(LinkedList<Integer> kortste_route){
-        for (int i = 1; i < kortste_route.size()-1; i++) {
-            Vak vak = doolhofMap.get(kortste_route.get(i));
-            OptimaleRoute route = new OptimaleRoute(false);
-            JPanel panel = vak.getPanel();
-            panel.add(route);
-            panel.setComponentZOrder(route, 0);
-            panel.revalidate();
+    /**
+     * Deze methode gaat langs alle panels en verwijdert daarin het component van de korte route.
+     * @param kortste_route_panels 
+     */
+    public void toonOptimaleRoute(ArrayList<JPanel> kortste_route_panels){
+        for (JPanel panel : kortste_route_panels) {         
+            panel.remove(panel.getComponent(0));
             panel.repaint();
-        }                 
+        }
+//        for (int i = 1; i < kortste_route.size()-1; i++) {
+//            Vak vak = doolhofMap.get(kortste_route.get(i));
+//            OptimaleRoute route = new OptimaleRoute(false);
+//            JPanel panel = vak.getPanel();
+//            panel.add(route);
+//            panel.setComponentZOrder(route, 0);
+//            panel.revalidate();
+//            panel.repaint();
+//        }
+        
     }
     
     public ArrayList<Vak> getcurrentMap() {
