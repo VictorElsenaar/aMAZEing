@@ -104,7 +104,6 @@ public class Level extends JComponent{
                 break;
             case "optimal_route":
                 if (huidigeSpeler.activeerOptimaleRoute()) {
-                    System.out.println("test");
                     toonOptimaleRoute();
                 }
                 break;

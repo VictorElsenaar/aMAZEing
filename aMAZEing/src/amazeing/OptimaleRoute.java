@@ -165,8 +165,8 @@ public class OptimaleRoute extends JComponent{
             if(optdebug){System.out.println("Er zijn geen routes gevonden!");}
         }
         if(optdebug){System.out.println("Toon eind lijst");}
-             if(optdebug){System.out.println(huidige_route.size());}
-        while(gevonden_routes.size() > 0) {
+        if(optdebug){System.out.println(huidige_route.size());}
+        if(gevonden_routes.size() > 0) {
             if(optdebug){System.out.println(huidige_route.size());}
             huidige_route.clear();
             huidige_route.addAll(gevonden_routes.pop());
