@@ -2,11 +2,7 @@ package amazeing;
 
 import static amazeing.AMAZEing.debug;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
@@ -95,6 +91,7 @@ public class Speler extends Figuur {
             oudeVak.setFiguur(empty);
             doolhofMap.set(tempindex, oudeVak);
             
+            // Haal het panel op van het oude vak. Gooi de componenten weg die op dat panel staan en voeg object Leeg toe op het panel.
             JPanel oudpanel = oudeVak.getPanel();
             oudpanel.removeAll();
             oudpanel.add(empty);
@@ -113,15 +110,16 @@ public class Speler extends Figuur {
             }
             nieuweVak.setFiguur(huidigeSpeler);
             doolhofMap.set(tempindex+position_change_amount,nieuweVak);
-            // Is verhuisd naar eigen methode setVak
-            //huidigeVak = doolhofMap.get(tempindex+position_change_amount);
             setVak(doolhofMap.get(tempindex+position_change_amount));
+            
+            // Haal het panel op van het nieuwe vak. Gooi de componenten weg die op dat panel staan en voeg object Speler toe op het panel.
             JPanel panel = huidigeVak.getPanel();
             panel.removeAll();
             panel.add(huidigeSpeler);
             revalidate();
             panel.repaint();
             oudpanel.repaint();
+            addaantalStappen();
         }
         return doolhofMap;
     }

@@ -67,15 +67,11 @@ public class Level extends JComponent{
                     toonOptimaleRoute(kortste_route_panels);
                     if(debug){System.out.println("Optimale route uitgezet");}
                 } catch (Exception e) {}
-
             }
     }  
     
     public Level(int level) {
-        //InitialiseerImages();
-        //setLevel(levelOne());
         setLayout(null);
-        
         addLevels();
         setLevel(level);
         if(debug){readLevel();} // controleer het level    
@@ -97,7 +93,6 @@ public class Level extends JComponent{
         switch(type) {
             case "move":
                 doolhofMap = huidigeSpeler.move(direction, doolhofMap, current_maze_size, spelersVak );
-                huidigeSpeler.addaantalStappen();
                 break;
             case "fire":
                 doolhofMap = huidigeSpeler.fire(direction, doolhofMap, current_maze_size, spelersVak );
@@ -122,7 +117,6 @@ public class Level extends JComponent{
             Vak vak = iterator.next();
             if(debug){System.out.println(vak.toString());}
         }
-        
     }
 
     public void toonOptimaleRoute() {
@@ -348,7 +342,6 @@ public class Level extends JComponent{
                 doolhofMap.add(vak); 
                 counter++;
             }
-            
         }
     }    
 
