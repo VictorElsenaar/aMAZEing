@@ -28,7 +28,6 @@ public class Speler extends Figuur {
         this.theme = theme;
         bazooka = new Bazooka(vak_size_pixels, theme);
         helper = new Helper(vak_size_pixels, theme);
-        cheater = new Cheater(vak_size_pixels, theme);
         InitialiseerImage("speler");
     }
     
@@ -105,8 +104,9 @@ public class Speler extends Figuur {
                 if(debug){System.out.println("Aantal helper over: " + helper.getAantal());}
             }
             if(nieuweVak.isCheater(nieuweVak)){
-                aantalStappen = aantalStappen - cheater.getWaarde();
-                if(debug){System.out.println("Cheater opgepakt!");}
+                cheater = (Cheater)nieuweVak.getFiguur();
+                aantalStappen -= cheater.getWaarde();
+                if(debug){System.out.println("Cheater opgepakt met waarde: " + cheater.getWaarde());}
             }
             nieuweVak.setFiguur(huidigeSpeler);
             doolhofMap.set(tempindex+position_change_amount,nieuweVak);
