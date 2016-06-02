@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Kahoo
+ * @author Victor Elsenaar en Kahoo Wu
  */
 public class Vak extends JComponent{
     private Figuur figuur;
@@ -20,7 +20,6 @@ public class Vak extends JComponent{
         this.x = x;
         this.y = y;
         this.figuur = figuur;
-        
         initPanel();
         add(panel);
     }
@@ -41,7 +40,6 @@ public class Vak extends JComponent{
         return vak.getFiguur() instanceof Cheater;
     }
 
-    
     public String toString() {
         String x = Integer.toString(getx());
         String y = Integer.toString(gety());
@@ -79,11 +77,9 @@ public class Vak extends JComponent{
         panel.setLayout(null);
         panel.setSize(vak_size_pixels, vak_size_pixels); 
     }
-    
     public JPanel getPanel() {
         return panel;
     }
-    
     public void setPanel(JPanel panel) {
         this.panel = panel;
     }

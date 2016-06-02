@@ -1,4 +1,5 @@
 package amazeing;
+
 import static amazeing.AMAZEing.debug;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,15 +21,13 @@ import javax.swing.border.LineBorder;
 
 /**
  *
- * @author Kahoo
+ * @author Victor Elsenaar en Kahoo Wu
  */
 public class Game extends JFrame{
-
     private boolean fireing = false;
     private Level level;
     private JPanel gamePanel;
     private MenuPanel menuPanel;
-    
     
     /**
      * Start en einde spel label in het midden.
@@ -74,12 +73,10 @@ public class Game extends JFrame{
      */
     private Queue<QueueHandler> queue = new LinkedList<QueueHandler>();
     
-    
+    //Constructor
     public Game() {
         setLayout(null);
         setFocusTraversalKeysEnabled(false); // TAB disable
-        
-
         
         helperPanel = new JPanel();
         helperPanel.setSize(520,520);
@@ -196,7 +193,7 @@ public class Game extends JFrame{
                 if (e.getKeyCode() == KeyEvent.VK_E) {
                     if(debug){System.out.println("(E) Welke richting?");}
                     fireing = true;
-                    setingamePanel(fireing, "Welke richting?");
+                    setIngamePanel(fireing, "Welke richting?");
                 }
                 if (e.getKeyCode() == KeyEvent.VK_Q) {
                     if(debug){System.out.println("(Q) toon optimal route");}
@@ -317,7 +314,7 @@ public class Game extends JFrame{
     }
     public void handleFire() {
         fireing = false;
-        setingamePanel(false, "");
+        setIngamePanel(false, "");
     }
     public void setListenersAanButtons() {
         ActionListener listener = new ClickListener();
@@ -383,7 +380,7 @@ public class Game extends JFrame{
      * @param b = true is aan false is uit
      * @param text  = welke tekst het label erin moet tonen
      */
-    public void setingamePanel(boolean b, String text) {
+    public void setIngamePanel(boolean b, String text) {
         ingameLabel.setText(text);
         ingamePanel.setVisible(b);
     }

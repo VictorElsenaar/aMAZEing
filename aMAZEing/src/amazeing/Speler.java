@@ -7,47 +7,26 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author vic
+ * @author Victor Elsenaar en Kahoo Wu
  */
 public class Speler extends Figuur {
-
     private Bazooka bazooka;
     private Helper helper;
     private Cheater cheater;
     private Vak huidigeVak;
     private int aantalStappen = 0;
-    
-    //private BufferedImage spelerImage;
 
     // Constructor
     public Speler(int vak_size_pixels, String theme) {
-        super(Color.BLUE); //Color(0,0,255)
+        super(Color.BLUE);
         setLayout(null);
         setSize(vak_size_pixels, vak_size_pixels);
         this.vak_size_pixels = vak_size_pixels;
         this.theme = theme;
         bazooka = new Bazooka(vak_size_pixels, theme);
         helper = new Helper(vak_size_pixels, theme);
-        InitialiseerImage("speler");
+        initialiseerImage("speler");
     }
-    
-//    public void paint(Graphics g) {
-//        if(spelerImage == null) {
-//            g.setColor(kleur); 
-//            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
-//        } else {        
-//            g.drawImage(spelerImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null);
-//        }
-//    }
-//    
-//    public void InitialiseerImage() {
-//        try {
-//            spelerImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\speler.jpg"));
-//        }
-//        catch (Exception e) {
-//            spelerImage = null;
-//        }
-//    }
     
     // Let op richting bepaling staat ook in OptimaleRoute!
     public int positionchange(String richting, int current_maze_size) {
@@ -71,16 +50,10 @@ public class Speler extends Figuur {
     
     public ArrayList<Vak> move(String richting, ArrayList<Vak> doolhofMap, int current_maze_size, Vak spelersVak) {
         int position_change_amount = positionchange(richting, current_maze_size);
-        int tempindex=0;
-//        int x = 0;
-//        int y = 0;
-        tempindex = doolhofMap.indexOf(spelersVak);
+        int tempindex = doolhofMap.indexOf(spelersVak);
         Vak oudeVak = doolhofMap.get(tempindex);
         Vak nieuweVak = doolhofMap.get(tempindex+position_change_amount);
-//        if (nieuweVak.isVriend(nieuweVak)) {
-//             JOptionPane.showMessageDialog(null, "Vriend gevonden! gefeliciteerd!");
-//        }
-//        
+        
         if(!nieuweVak.isMuur(nieuweVak)) {
             // Oude vak speler ophalen
             Speler huidigeSpeler = (Speler) oudeVak.getFiguur();
@@ -95,6 +68,7 @@ public class Speler extends Figuur {
             oudpanel.removeAll();
             oudpanel.add(empty);
 
+            addaantalStappen();
             if(nieuweVak.isBazooka(nieuweVak)) {
                 bazooka.toevoegenAmmo();
                 if(debug){System.out.println("Aantal raketten over van bazooka: " + bazooka.getAmmo());}
@@ -105,7 +79,11 @@ public class Speler extends Figuur {
             }
             if(nieuweVak.isCheater(nieuweVak)){
                 cheater = (Cheater)nieuweVak.getFiguur();
-                aantalStappen -= cheater.getWaarde();
+                if(aantalStappen-cheater.getWaarde() < 0) {
+                    aantalStappen = 0;
+                } else {
+                    aantalStappen -= cheater.getWaarde();
+                }
                 if(debug){System.out.println("Cheater opgepakt met waarde: " + cheater.getWaarde());}
             }
             nieuweVak.setFiguur(huidigeSpeler);
@@ -119,14 +97,13 @@ public class Speler extends Figuur {
             revalidate();
             panel.repaint();
             oudpanel.repaint();
-            addaantalStappen();
         }
         return doolhofMap;
     }
     public ArrayList<Vak> fire(String richting, ArrayList<Vak> doolhofMap, int current_maze_size, Vak spelersVak) {
         int position_change_amount = positionchange(richting, current_maze_size);
         if (bazooka.getAmmo() > 0) {
-            this.bazooka.fire(richting, doolhofMap, current_maze_size, spelersVak, position_change_amount);
+            this.bazooka.fire(richting, doolhofMap, spelersVak, position_change_amount);
         } else {
             if (debug) {System.out.println("Geen ammo.");}
         }
@@ -138,6 +115,10 @@ public class Speler extends Figuur {
     public Vak getVak(){
         return huidigeVak;
     }
+    /**
+     * Checkt of je de helper kan gebruiken. 
+     * @return true als aantal van helper > 0 is, anders return false.
+     */
     public boolean activeerOptimaleRoute() {
         if(helper.getAantal() > 0) {
             helper.gebruik();
@@ -148,6 +129,9 @@ public class Speler extends Figuur {
     public int getaantalStappen() {
         return this.aantalStappen;
     }
+    /**
+     * Wanneer een speler een stap maakt, wordt er een stap opgeteld. 
+     */
     public void addaantalStappen() {
         this.aantalStappen++;
     }

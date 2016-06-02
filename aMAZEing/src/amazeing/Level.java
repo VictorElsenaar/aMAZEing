@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author vic
+ * @author Victor Elsenaar en Kahoo Wu
  */
 public class Level extends JComponent{
     private final int LEVEL_FRAME_SIZE = 500;
@@ -70,6 +70,7 @@ public class Level extends JComponent{
             }
     }  
     
+    //Constructor
     public Level(int level) {
         setLayout(null);
         addLevels();

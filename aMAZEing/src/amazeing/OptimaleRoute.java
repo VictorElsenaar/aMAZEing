@@ -11,18 +11,11 @@ import javax.swing.JComponent;
 
 /**
  * Helper classen voor het vinden van de snelste route
- * @author vic
+ * @author Victor Elsenaar en Kahoo Wu
  */
 public class OptimaleRoute extends JComponent{
-    protected String theme;
+    private String theme;
     private BufferedImage optimalerouteImage;
-    public OptimaleRoute(int vak_size_pixels, String theme) {
-        setLayout(null);
-        setSize(Level.global_vak_size_pixels, Level.global_vak_size_pixels); // maakt gebruik van public static global_vak_size_pixels voorlopig
-        //this.vak_size_pixels = vak_size_pixels;
-        this.theme = theme;        
-        InitialiseerImage();
-    }
     
     private static boolean optdebug = false;
     
@@ -32,6 +25,15 @@ public class OptimaleRoute extends JComponent{
     private static LinkedList<Integer> kortste_route = new LinkedList<Integer>();   
     private static ArrayList<Integer> richtingen = new ArrayList<Integer>();
     private static LinkedList<Integer> huidige_route = new LinkedList<Integer>();
+    
+    //Constructor
+    public OptimaleRoute(int vak_size_pixels, String theme) {
+        setLayout(null);
+        setSize(Level.global_vak_size_pixels, Level.global_vak_size_pixels); // maakt gebruik van public static global_vak_size_pixels 
+        this.theme = theme;        
+        initialiseerImage();
+    }
+    
     /**
      * Vraag de optimale route op van de doolhof op basis van een start en eind vak.
      * @param doolhofMap
@@ -189,7 +191,7 @@ public class OptimaleRoute extends JComponent{
         }
         //g.fillRect((vak.gety()*vak_size_pixels)+vak_size_pixels/4, (vak.getx()*vak_size_pixels)+vak_size_pixels/4, vak_size_pixels-(vak_size_pixels/2), vak_size_pixels-(vak_size_pixels/2));
     }
-    public void InitialiseerImage() {
+    public void initialiseerImage() {
         try {
             optimalerouteImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\optimaleroute.jpg")); 
         }

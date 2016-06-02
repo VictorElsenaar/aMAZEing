@@ -2,26 +2,21 @@ package amazeing;
 
 import static amazeing.AMAZEing.debug;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
  *
- * @author Victor
+ * @author Victor Elsenaar en Kahoo Wu
  */
 public class Bazooka extends Figuur{    
     private int ammo;
-    //private BufferedImage bazookaImage;
     
     // Constructor
     public Bazooka(int vak_size_pixels, String theme) {
-        super(Color.CYAN); //Color(0,255,255)
+        super(Color.CYAN);
         ammo = 0;
         if(debug) {ammo = 99;}
         setLayout(null);
@@ -29,7 +24,7 @@ public class Bazooka extends Figuur{
         this.vak_size_pixels = vak_size_pixels;
         setVakSizePixels(vak_size_pixels);
         this.theme = theme;
-        InitialiseerImage("bazooka");
+        initialiseerImage("bazooka");
     }
     public int getAmmo() {
         return ammo;
@@ -37,18 +32,20 @@ public class Bazooka extends Figuur{
     public void setAmmo(int ammo) {
         this.ammo = ammo;
     }
+    /**
+     * Bazooka wordt opgepakt dus wordt ammo met 1 verhoogd.
+     */
     public void toevoegenAmmo() {
         ammo++;
     }
-    public ArrayList<Vak> fire(String richting, ArrayList<Vak> doolhofMap, int current_maze_size, Vak spelersVak, int position_change_amount) {
+    
+    public ArrayList<Vak> fire(String richting, ArrayList<Vak> doolhofMap, Vak spelersVak, int position_change_amount) {
         int currentLocationIndex = doolhofMap.indexOf(spelersVak);
         Vak schietvak = doolhofMap.get(currentLocationIndex+position_change_amount);
         int i = 1;
         while(!schietvak.isMuur(schietvak)) {
-            
             JPanel panel = schietvak.getPanel();
             Bom bom = new Bom();
-            
             panel.add(bom);
             panel.setComponentZOrder(bom, 0);
             revalidate();
@@ -98,22 +95,4 @@ public class Bazooka extends Figuur{
         if (debug){System.out.println("Ammo nog over: " + ammo);}
         return doolhofMap;
     }
-    
-//    public void paint(Graphics g) {
-//        if(bazookaImage == null) {
-//            g.setColor(kleur); 
-//            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
-//        } else {
-//            g.drawImage(bazookaImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null); 
-//        }
-//    }
-//    
-//    public void InitialiseerImage() {
-//        try {
-//            bazookaImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\bazooka.jpg")); 
-//        }
-//        catch (Exception e) {
-//            bazookaImage = null;
-//        }
-//    }
 }

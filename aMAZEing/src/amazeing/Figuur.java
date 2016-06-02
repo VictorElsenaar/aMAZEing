@@ -1,4 +1,5 @@
 package amazeing;
+
 import static amazeing.AMAZEing.THEME;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,15 +10,15 @@ import javax.swing.JComponent;
 
 /**
  *
- * @author Kahoo
+ * @author Victor Elsenaar en Kahoo Wu
  */
 public abstract class Figuur extends JComponent {
-
     protected Color kleur;
     protected int vak_size_pixels;
     protected String theme;
     protected BufferedImage image;
     
+    //Constructor
     public Figuur(Color kleur) {       
         this.kleur = kleur;
     }
@@ -39,7 +40,7 @@ public abstract class Figuur extends JComponent {
             g.drawImage(image.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null); 
         }
     }    
-    public void InitialiseerImage(String naam) {
+    public void initialiseerImage(String naam) {
         try {
             image = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + THEME + "\\\\"+ naam +".jpg")); 
         }

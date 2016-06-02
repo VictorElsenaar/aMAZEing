@@ -2,21 +2,15 @@ package amazeing;
 
 import static amazeing.AMAZEing.debug;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
 
 /**
  *
- * @author vfelsenaar
+ * @author Victor Elsenaar en Kahoo Wu
  */
 public class Helper extends Figuur{
-    
     private int aantal;
     
-//    private BufferedImage helperImage;
-    
+    //Constructor
     public Helper(int vak_size_pixels, String theme) {
         super(Color.ORANGE);
         aantal = 0;
@@ -25,34 +19,22 @@ public class Helper extends Figuur{
         setSize(vak_size_pixels, vak_size_pixels); 
         this.vak_size_pixels = vak_size_pixels;
         this.theme = theme;
-        InitialiseerImage("helper");
+        initialiseerImage("helper");
     }
     public int getAantal() {
         return aantal;
     }
+    /**
+     * Helper wordt opgepakt dus wordt aantal met 1 verhoogd.
+     */
     public void toevoegenAantal() {
         this.aantal++;
     }
+    /**
+     * Helper wordt gebruikt om de optimale route te tonen en hierdoor gaat er 1 eraf.
+     */
     public void gebruik() {
         this.aantal --;
         if (debug){System.out.println("Helper - Optimale Route aantal over : " + aantal);}
     }    
-//    
-//    public void paint(Graphics g) {
-//        if(helperImage == null) {
-//            g.setColor(kleur); 
-//            g.fillRect(0, 0, vak_size_pixels, vak_size_pixels);            
-//        } else {        
-//            g.drawImage(helperImage.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null); 
-//        }
-//    }
-//    
-//    public void InitialiseerImage() {
-//        try {
-//            helperImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\helper.jpg")); 
-//        }
-//        catch (Exception e) {
-//            helperImage = null;
-//        }
-//    }
 }
