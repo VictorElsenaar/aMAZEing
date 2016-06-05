@@ -8,7 +8,7 @@ import javax.swing.JFrame;
  */
 public class AMAZEing {
     public static final String THEME = "mario"; // default, mario, minecraft
-    public static boolean debug = true;
+    public static boolean debug = false;
     
     private static final int WIDTH = 700;
     private static final int HEIGHT = 600;

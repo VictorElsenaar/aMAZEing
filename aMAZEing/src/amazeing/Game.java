@@ -192,8 +192,12 @@ public class Game extends JFrame{
             public void keyReleased(KeyEvent e) { 
                 if (e.getKeyCode() == KeyEvent.VK_E) {
                     if(debug){System.out.println("(E) Welke richting?");}
-                    fireing = true;
-                    setIngamePanel(fireing, "Welke richting?");
+                    if(level.getKogels() == 0) {
+                        setIngamePanel(true, "Geen Ammo!!!");
+                    } else {
+                        fireing = true;
+                        setIngamePanel(true, "Welke richting?");
+                    }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_Q) {
                     if(debug){System.out.println("(Q) toon optimal route");}
@@ -269,40 +273,40 @@ public class Game extends JFrame{
         if(fireing){
             if(debug) {System.out.println("FIRE LEFT"); }
             queue.add(new QueueHandler("left", "fire"));
-            handleFire();
         } else { // move character       
             queue.add(new QueueHandler("left", "move"));
-        }            
+        }
+        handleFire();
     }
     private void keyRight() {
         if(debug){System.out.println("RIGHT");}
          if(fireing){
             if(debug) {System.out.println("FIRE RIGHT"); }
-            queue.add(new QueueHandler("right", "fire"));
-            handleFire();
+            queue.add(new QueueHandler("right", "fire"));    
         } else { // move character
             queue.add(new QueueHandler("right", "move"));
-        }        
+        }   
+        handleFire();
     }
     private void keyDown() {
         if(debug){System.out.println("DOWN");}
         if(fireing){
             if(debug) {System.out.println("FIRE DOWN"); }
             queue.add(new QueueHandler("down", "fire"));
-            handleFire();
         } else { // move character
             queue.add(new QueueHandler("down", "move"));
-        }        
+        }   
+        handleFire();
     }
     private void keyUp() {
         if(debug){System.out.println("UP");}
         if(fireing){
             if(debug) {System.out.println("FIRE UP"); }
             queue.add(new QueueHandler("up", "fire"));
-            handleFire();
         } else { // move character        
             queue.add(new QueueHandler("up", "move"));
         }        
+        handleFire();
     }
     private void keySPACE() {
         level.removeAll();

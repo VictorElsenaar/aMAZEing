@@ -170,9 +170,9 @@ public class Level extends JComponent{
         return levels.size();
     }
     public String getLevel(int nr) {
-        System.out.println("getLevel " + nr);
+        if(debug){System.out.println("getLevel " + nr);}
         String level = levels.get(nr);
-        System.out.println(level);
+        if(debug){System.out.println(level);}
         return level;
     }    
     public void setNextLevel() {
@@ -188,7 +188,7 @@ public class Level extends JComponent{
     }
     public void setLevel(int nr) {
         String level = getLevel(nr);
-        System.out.println("setcurrentlevel " + nr);
+        if(debug){System.out.println("setcurrentlevel " + nr);}
         setCurrentLevel(nr);
         // Bepaal de breedte en hoogte
         for (int i = 1; i < MAX_MAZE_SIZE; i++) {
@@ -201,14 +201,6 @@ public class Level extends JComponent{
         global_vak_size_pixels = vak_size_pixels;  // voorlopig nodig voor Bom en Explosie
         
         if(debug){System.out.println(level);}        
-
-//        Muur muur = new Muur();
-//        Muur buitenmuur = new Muur(true);
-//        Figuur empty = new Leeg();
-//        Speler speler = new Speler(vak_size_pixels);
-//        Vriend vriend = new Vriend(vak_size_pixels);
-//        Bazooka bazooka = new Bazooka(vak_size_pixels);
-//        Helper helper = new Helper(vak_size_pixels);
         
         doolhofMap = new ArrayList<Vak>();
          
