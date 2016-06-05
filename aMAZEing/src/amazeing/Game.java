@@ -160,13 +160,10 @@ public class Game extends JFrame{
         /*
         Ingame informatie
         */
-//        private JPanel ingamePanel;
-//          private JLabel ingameLabel;
         ingamePanel = new JPanel();
         ingameLabel = new JLabel();
         ingamePanel.add(ingameLabel);
         ingamePanel.setBorder(border);
-        //ingamePanel.setBackground(Color.red);
         menuPanel.add(ingamePanel);
         ingamePanel.setVisible(false);
         
@@ -374,7 +371,6 @@ public class Game extends JFrame{
         stappenLabel.setText(level.getStappen() + " stappen");
         aantalBazookaLabel.setText(level.getKogels() +" kogel(s)");
         aantalHelperLabel.setText(level.getHelper() + " helper(s)");
-        
     }    
     public void infoKnoppen() {
         infoTextArea.setText("˄/W omhoog \n"
