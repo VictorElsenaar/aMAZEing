@@ -166,7 +166,7 @@ public class Game extends JFrame{
         ingameLabel = new JLabel();
         ingamePanel.add(ingameLabel);
         ingamePanel.setBorder(border);
-        ingamePanel.setBackground(Color.red);
+        //ingamePanel.setBackground(Color.red);
         menuPanel.add(ingamePanel);
         ingamePanel.setVisible(false);
         
@@ -193,10 +193,10 @@ public class Game extends JFrame{
                 if (e.getKeyCode() == KeyEvent.VK_E) {
                     if(debug){System.out.println("(E) Welke richting?");}
                     if(level.getKogels() == 0) {
-                        setIngamePanel(true, "Geen Ammo!!!");
+                        setIngamePanel(true, "Geen Ammo!!!", Color.RED);
                     } else {
                         fireing = true;
-                        setIngamePanel(true, "Welke richting?");
+                        setIngamePanel(true, "Welke richting?", Color.ORANGE);
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_Q) {
@@ -316,9 +316,13 @@ public class Game extends JFrame{
         repaint();
         requestFocusInWindow();            
     }
+    /**
+     * Disable fireing, movement kijkt naar deze parameter
+     * Information panel uitzetten.
+     */
     public void handleFire() {
         fireing = false;
-        setIngamePanel(false, "");
+        setIngamePanel(false, "", Color.BLACK);
     }
     public void setListenersAanButtons() {
         ActionListener listener = new ClickListener();
@@ -384,8 +388,9 @@ public class Game extends JFrame{
      * @param b = true is aan false is uit
      * @param text  = welke tekst het label erin moet tonen
      */
-    public void setIngamePanel(boolean b, String text) {
+    public void setIngamePanel(boolean b, String text, Color color) {
         ingameLabel.setText(text);
         ingamePanel.setVisible(b);
+        ingamePanel.setBackground(color);
     }
 }
