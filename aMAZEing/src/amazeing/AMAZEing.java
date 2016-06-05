@@ -24,8 +24,8 @@ public class AMAZEing {
         while(true) 
         {
             try {
-                game.executeQueue();
                 game.updateStatistics();
+                game.executeQueue();
                 game.checkEndLevel();
             } catch (Exception ex) {  
             }
