@@ -37,6 +37,7 @@ public class MenuPanel extends JPanel{
         afsluitenButton.setBounds(10, 70, 110, 20);
         add(afsluitenButton);
         
+        // Todo! dit moet dynamisch
         String[] levels = new String[] {
             "level 1", 
             "level 2",
