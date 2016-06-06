@@ -130,6 +130,7 @@ public class Game extends JFrame{
         setListenersAanButtons();
         add(menuPanel);
         
+        
         /*
         In Menu Panel statistieken
         */
