@@ -12,12 +12,7 @@ public class Cheater extends Figuur{
     
     //Constructor
     public Cheater(int vak_size_pixels, String theme) {
-        super(Color.RED);
-        setLayout(null);
-        setSize(vak_size_pixels, vak_size_pixels);
-        this.vak_size_pixels = vak_size_pixels;
-        setVakSizePixels(vak_size_pixels);
-        this.theme = theme;
+        super(Color.RED, vak_size_pixels, theme);       
         setWaarde();
         initialiseerImage("cheater");
     }

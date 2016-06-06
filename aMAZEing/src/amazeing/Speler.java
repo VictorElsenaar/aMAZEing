@@ -18,11 +18,7 @@ public class Speler extends Figuur {
 
     // Constructor
     public Speler(int vak_size_pixels, String theme) {
-        super(Color.BLUE);
-        setLayout(null);
-        setSize(vak_size_pixels, vak_size_pixels);
-        this.vak_size_pixels = vak_size_pixels;
-        this.theme = theme;
+        super(Color.BLUE, vak_size_pixels, theme);
         bazooka = new Bazooka(vak_size_pixels, theme);
         helper = new Helper(vak_size_pixels, theme);
         initialiseerImage("speler");

@@ -11,22 +11,14 @@ public class Muur extends Figuur {
     
     //Constructor
     public Muur(int vak_size_pixels, String theme) {
-        super(Color.DARK_GRAY);
+        super(Color.DARK_GRAY, vak_size_pixels, theme);
         borderMuur = false;
-        setLayout(null);
-        setSize(vak_size_pixels, vak_size_pixels);
-        this.vak_size_pixels = vak_size_pixels;
-        this.theme = theme;
         initialiseerImage("muur");
     }
     //Constructor voor bordermuur
     public Muur(boolean borderMuur, int vak_size_pixels, String theme) {
-        super(Color.BLACK);
+        super(Color.BLACK, vak_size_pixels, theme);
         this.borderMuur = borderMuur;
-        setLayout(null);
-        setSize(vak_size_pixels, vak_size_pixels); 
-        this.vak_size_pixels = vak_size_pixels;
-        this.theme = theme;
         initialiseerImage("buitenmuur");
     }
     public boolean getBorderMuur() {

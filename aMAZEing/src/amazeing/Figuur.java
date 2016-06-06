@@ -19,8 +19,13 @@ public abstract class Figuur extends JComponent {
     protected BufferedImage image;
     
     //Constructor
-    public Figuur(Color kleur) {       
+    public Figuur(Color kleur, int vak_size_pixels, String theme) {       
         this.kleur = kleur;
+        
+        setLayout(null);
+        setSize(vak_size_pixels, vak_size_pixels); 
+        this.vak_size_pixels = vak_size_pixels;
+        this.theme = theme;
     }
     
     public Color getkleur() {

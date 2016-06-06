@@ -9,11 +9,7 @@ import java.awt.Color;
 public class Vriend extends Figuur {
     
     public Vriend(int vak_size_pixels, String theme) {
-        super(Color.MAGENTA); 
-        setLayout(null);
-        setSize(vak_size_pixels, vak_size_pixels); 
-        this.vak_size_pixels = vak_size_pixels;
-        this.theme = theme;
+        super(Color.MAGENTA, vak_size_pixels, theme); 
         initialiseerImage("vriend");
     }
 }

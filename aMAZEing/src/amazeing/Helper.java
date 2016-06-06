@@ -12,13 +12,9 @@ public class Helper extends Figuur{
     
     //Constructor
     public Helper(int vak_size_pixels, String theme) {
-        super(Color.ORANGE);
+        super(Color.ORANGE, vak_size_pixels, theme);
         aantal = 0;
         if(debug) {aantal = 99;}
-        setLayout(null);
-        setSize(vak_size_pixels, vak_size_pixels); 
-        this.vak_size_pixels = vak_size_pixels;
-        this.theme = theme;
         initialiseerImage("helper");
     }
     public int getAantal() {

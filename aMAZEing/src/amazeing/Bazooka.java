@@ -16,14 +16,9 @@ public class Bazooka extends Figuur{
     
     // Constructor
     public Bazooka(int vak_size_pixels, String theme) {
-        super(Color.CYAN);
+        super(Color.CYAN, vak_size_pixels, theme);
         ammo = 0;
         if(debug) {ammo = 99;}
-        setLayout(null);
-        setSize(vak_size_pixels, vak_size_pixels);
-        this.vak_size_pixels = vak_size_pixels;
-        setVakSizePixels(vak_size_pixels);
-        this.theme = theme;
         initialiseerImage("bazooka");
     }
     public int getAmmo() {

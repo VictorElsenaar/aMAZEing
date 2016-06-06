@@ -10,11 +10,7 @@ public class Leeg extends Figuur{
 
     //Constructor
     public Leeg(int vak_size_pixels, String theme){
-        super(Color.WHITE);
-        setLayout(null);
-        setSize(vak_size_pixels, vak_size_pixels);
-        this.vak_size_pixels = vak_size_pixels;
-        this.theme = theme;
+        super(Color.WHITE, vak_size_pixels, theme);
         initialiseerImage("leeg");
     }
 }
