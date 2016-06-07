@@ -329,7 +329,7 @@ public class Level extends JComponent{
                             +  "1020202020202020002000202025202020222201"
                             +  "1000200020000000200020002000000020000001"
                             +  "1111111111111111111111111111111111111111";
-        
+             
         levels.add(level_one);
         levels.add(level_two);
         levels.add(level_three);

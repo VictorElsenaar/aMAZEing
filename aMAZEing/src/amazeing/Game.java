@@ -123,7 +123,7 @@ public class Game extends JFrame{
         /*
         Menu Panel met spel knoppen
         */
-        menuPanel = new MenuPanel();
+        menuPanel = new MenuPanel(level.getLevelsSize());
         menuPanel.setSize(130, 520);
         menuPanel.setBounds(540, 10, 130, 520);
         menuPanel.setBorder(border);
@@ -242,20 +242,8 @@ public class Game extends JFrame{
                 JComboBox<String> levelLijst = menuPanel.getLevelLijst();
                 String selectedLevel = (String) levelLijst.getSelectedItem();
                 level.removeAll();
-                switch (selectedLevel) {
-                    case "level 1":
-                        level.setLevel(0);
-                        break;
-                    case "level 2":
-                        level.setLevel(1);
-                        break;
-                    case "level 3":
-                        level.setLevel(2);
-                        break;
-                    case "level 4":
-                        level.setLevel(3);
-                        break;
-                }
+                int newlevel = Integer.parseInt(selectedLevel.substring(selectedLevel.indexOf(' ')+1));
+                level.setLevel(newlevel-1);
                 repaint();
                 gameState = 1;
                 setInformationPanel(false, "");
@@ -308,7 +296,7 @@ public class Game extends JFrame{
     }
     private void keySPACE() {
         level.removeAll();
-        this.level.setNextLevel();        
+        level.setNextLevel();        
         gameState = 1;
         setInformationPanel(false, "");
         repaint();

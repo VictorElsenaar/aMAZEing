@@ -1,6 +1,7 @@
 package amazeing;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -18,7 +19,7 @@ public class MenuPanel extends JPanel{
     private JButton goButton;
             
     //Constructor
-    public MenuPanel() {
+    public MenuPanel(int maxlevel) {
         menuPanel = new JPanel();
         menuPanel.setLayout(null);
         
@@ -37,14 +38,12 @@ public class MenuPanel extends JPanel{
         afsluitenButton.setBounds(10, 70, 110, 20);
         add(afsluitenButton);
         
-        // Todo! dit moet dynamisch
-        String[] levels = new String[] {
-            "level 1", 
-            "level 2",
-            "level 3",
-            "level 4"
-        };
-        levelLijst = new JComboBox<>(levels);
+        ArrayList<String> levels = new ArrayList<String>();
+        for (int i = 0; i < maxlevel; i++) {
+            levels.add("level " + (i+1));
+        }
+        String[] array = levels.toArray(new String[levels.size()]);
+        levelLijst = new JComboBox<>(array);
         levelLijst.setBounds(10, 100, 110, 20);
         add(levelLijst);
         
