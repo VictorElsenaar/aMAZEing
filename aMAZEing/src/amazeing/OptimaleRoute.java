@@ -13,7 +13,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 /**
- * Helper classen voor het vinden van de snelste route
+ * Klasse voor het vinden en tonen van de snelste route
  * @author Victor Elsenaar en Kahoo Wu
  */
 public class OptimaleRoute extends JComponent implements Runnable{
