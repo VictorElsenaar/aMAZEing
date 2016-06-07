@@ -329,6 +329,8 @@ public class Game extends JFrame{
     }
     public void checkEndLevel() {
         if (level.getVriendVak() == level.getSpelersVak()) {
+            // Clear Queue zodat er niet nog meer acties uitgevoerd worden na het vinden van de vriend.
+            queue.clear();
             if(debug){System.out.println("Vriend gevonden");}
             if(debug){System.out.println("currentlevel " + level.getCurrentLevel() + " == " + level.getLevelsSize() + " level.getLevelsSize()");}
             if(level.getCurrentLevel()+1 == level.getLevelsSize()) {
