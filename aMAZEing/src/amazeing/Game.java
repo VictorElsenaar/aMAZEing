@@ -372,6 +372,7 @@ public class Game extends JFrame{
     /**
      * @param b = true is aan false is uit
      * @param text  = welke tekst het label erin moet tonen
+     * @param color = kleur van achtergrond
      */
     public void setIngamePanel(boolean b, String text, Color color) {
         ingameLabel.setText(text);

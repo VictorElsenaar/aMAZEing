@@ -37,21 +37,21 @@ public class Level extends JComponent{
     
     private boolean toonOptimaleRoute = false;
     /**
-     * Na 5 seconden wordt de optimale route uitgezet.
+     * Na 2 seconden wordt de optimale route uitgezet.
      */
-    class MyThread implements Runnable {
-        private ArrayList<JPanel> kortste_route_panels;
-            public MyThread(ArrayList<JPanel> kortste_route_panels) {
-                this.kortste_route_panels = kortste_route_panels;
-            }
-            public void run() {
-                try {
-                    Thread.sleep(2000);
-                    toonOptimaleRoute(kortste_route_panels);
-                    if(debug){System.out.println("Optimale route uitgezet");}
-                } catch (Exception e) {}
-            }
-    }  
+//    class MyThread implements Runnable {
+//        private ArrayList<JPanel> kortste_route_panels;
+//            public MyThread(ArrayList<JPanel> kortste_route_panels) {
+//                this.kortste_route_panels = kortste_route_panels;
+//            }
+//            public void run() {
+//                try {
+//                    Thread.sleep(2000);
+//                    verdwijderOptimaleRoute(kortste_route_panels);
+//                    if(debug){System.out.println("Optimale route uitgezet");}
+//                } catch (Exception e) {}
+//            }
+//    }  
     
     //Constructor
     public Level(int level) {
@@ -106,35 +106,38 @@ public class Level extends JComponent{
     }
 
     public void toonOptimaleRoute() {
-        ArrayList<JPanel> kortste_route_panels = new ArrayList<JPanel>();
-        LinkedList<Integer> kortste_route = new LinkedList<Integer>();
-        kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
-        for (int i = 1; i < kortste_route.size()-1; i++) {
-            Vak vak = doolhofMap.get(kortste_route.get(i));
-            OptimaleRoute route = new OptimaleRoute(vak_size_pixels, THEME);
-            route.setName("OptimaleRoute");
-            JPanel panel = vak.getPanel();
-            panel.add(route);
-            panel.setComponentZOrder(route, 0);
-            panel.repaint();
-            kortste_route_panels.add(panel);
-        }                 
-        // Thread starten om na 2 seconden de optimale route niet meer te tonen.
-        Runnable r = new MyThread(kortste_route_panels);
-        new Thread(r).start();
+//        ArrayList<JPanel> kortste_route_panels = new ArrayList<JPanel>();
+//        LinkedList<Integer> kortste_route = new LinkedList<Integer>();
+//        kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
+//        for (int i = 1; i < kortste_route.size()-1; i++) {
+//            Vak vak = doolhofMap.get(kortste_route.get(i));
+//            OptimaleRoute route = new OptimaleRoute(vak_size_pixels, THEME);
+//            route.setName("OptimaleRoute");
+//            JPanel panel = vak.getPanel();
+//            panel.add(route);
+//            panel.setComponentZOrder(route, 0);
+//            panel.repaint();
+//            kortste_route_panels.add(panel);
+//        }                 
+//        // Thread starten om na 2 seconden de optimale route niet meer te tonen.
+//        Runnable r = new MyThread(kortste_route_panels);
+//        new Thread(r).start();
+        Runnable r2 = new OptimaleRoute(vak_size_pixels, THEME, doolhofMap, current_maze_size, spelersVak, vriendVak);
+        new Thread(r2).start();
+        
     }
     /**
      * Deze methode gaat langs alle panels en verwijdert daarin het component van de optimale route.
      * @param kortste_route_panels 
      */
-    public void toonOptimaleRoute(ArrayList<JPanel> kortste_route_panels){
-        for (JPanel panel : kortste_route_panels) {         
-            if (panel.getComponent(0).getName()!= null && panel.getComponent(0).getName().equals("OptimaleRoute")) {
-                panel.remove(panel.getComponent(0));
-                panel.repaint();
-            }
-        }       
-    }
+//    public void verdwijderOptimaleRoute(ArrayList<JPanel> kortste_route_panels){
+//        for (JPanel panel : kortste_route_panels) {         
+//            if (panel.getComponent(0).getName()!= null && panel.getComponent(0).getName().equals("OptimaleRoute")) {
+//                panel.remove(panel.getComponent(0));
+//                panel.repaint();
+//            }
+//        }       
+//    }
     
     public ArrayList<Vak> getcurrentMap() {
         return doolhofMap;

@@ -1,5 +1,7 @@
 package amazeing;
 
+import static amazeing.AMAZEing.THEME;
+import static amazeing.AMAZEing.debug;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -8,12 +10,21 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 /**
  * Helper classen voor het vinden van de snelste route
  * @author Victor Elsenaar en Kahoo Wu
  */
-public class OptimaleRoute extends JComponent{
+public class OptimaleRoute extends JComponent implements Runnable{
+    
+    private ArrayList<JPanel> kortste_route_panels;
+    private LinkedList<Integer> k_r;
+    
+    
+    
+    
+    
     private String theme;
     private BufferedImage optimalerouteImage;
     
@@ -32,6 +43,15 @@ public class OptimaleRoute extends JComponent{
         setSize(Level.global_vak_size_pixels, Level.global_vak_size_pixels); // maakt gebruik van public static global_vak_size_pixels 
         this.theme = theme;        
         initialiseerImage();
+    }    
+    public OptimaleRoute(int vak_size_pixels, String theme,ArrayList<Vak> doolhofMap, int current_maze_size, Vak startVak, Vak eindVak) {
+        setLayout(null);
+        setSize(Level.global_vak_size_pixels, Level.global_vak_size_pixels); // maakt gebruik van public static global_vak_size_pixels 
+        this.theme = theme;        
+        initialiseerImage();
+        
+        k_r = vindRoute(doolhofMap, current_maze_size, startVak, eindVak);
+        toonOptimaleRouteInner(k_r, doolhofMap,vak_size_pixels);
     }
     
     /**
@@ -199,26 +219,48 @@ public class OptimaleRoute extends JComponent{
             optimalerouteImage = null;
         }
     }    
-    
-    
-    /*public int positionchange(String richting, int current_maze_size) {
-        int position_change_amount = 0;
-        switch(richting) {
-            case "right":
-                position_change_amount = 1;
-                break;
-            case "left":
-                position_change_amount = -1;
-                break;
-            case "up":
-                position_change_amount = -current_maze_size;
-                break;
-            case "down":
-                position_change_amount = current_maze_size;
-                break;
+
+   // @Override
+    public void run() {
+        System.out.println("hello");
+        try {
+            //bouwroute;
+            //k_r = vindRoute(doolhofMap, current_maze_size, startVak, eindVak);
+            //toonOptimaleRouteInner(k_r, doolhofMap,vak_size_pixels);
+            Thread.sleep(2000);
+            verdwijderOptimaleRouteInner(kortste_route_panels);
+            if(debug){System.out.println("Optimale route uitgezet");}
+        } catch (Exception e) {}
+       
+      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    private void verdwijderOptimaleRouteInner(ArrayList<JPanel> kortste_route_panels){
+        for (JPanel panel : kortste_route_panels) {         
+            if (panel.getComponent(0).getName()!= null && panel.getComponent(0).getName().equals("OptimaleRoute")) {
+                panel.remove(panel.getComponent(0));
+                panel.repaint();
+            }
+        }       
+    }
+    private void toonOptimaleRouteInner(LinkedList<Integer> kortste_route,ArrayList<Vak> doolhofMap, int vak_size_pixels){
+        ArrayList<JPanel> kortste_route_panels2 = new ArrayList<JPanel>();
+        for (int i = 1; i < kortste_route.size()-1; i++) {
+            
+            Vak vak = doolhofMap.get(kortste_route.get(i));
+            
+            OptimaleRoute route = new OptimaleRoute(vak_size_pixels, THEME);
+            route.setName("OptimaleRoute");
+            JPanel panel = vak.getPanel();
+            panel.add(route);
+            panel.setComponentZOrder(route, 0);
+            panel.repaint();
+            
+            kortste_route_panels2.add(panel);
+            
+            
         }        
-        return position_change_amount;
-    }*/
+        this.kortste_route_panels = kortste_route_panels2;
+    }
 }
 
 

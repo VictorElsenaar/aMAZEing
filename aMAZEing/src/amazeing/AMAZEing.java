@@ -17,7 +17,7 @@ public class AMAZEing {
     /**
      * debug true geeft alle logging weer. Met uitzondering van Optimale Route, deze heeft in zijn eigen klasse nog een extra optdebug variabele
      */
-    public static boolean debug = false;
+    public static boolean debug = true;
     
     /**
      * Formaat van het spel. Do not change!
