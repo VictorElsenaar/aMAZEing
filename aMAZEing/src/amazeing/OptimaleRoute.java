@@ -20,7 +20,11 @@ public class OptimaleRoute extends JComponent implements Runnable{
     
     private ArrayList<JPanel> kortste_route_panels;
     private LinkedList<Integer> k_r;
-    
+    private int vak_size_pixels;
+    private ArrayList<Vak> doolhofMap;
+    private int current_maze_size;
+    private Vak startVak;
+    private Vak eindVak;    
     
     
     
@@ -37,6 +41,7 @@ public class OptimaleRoute extends JComponent implements Runnable{
     private static ArrayList<Integer> richtingen = new ArrayList<Integer>();
     private static LinkedList<Integer> huidige_route = new LinkedList<Integer>();
     
+
     //Constructor
     public OptimaleRoute(int vak_size_pixels, String theme) {
         setLayout(null);
@@ -50,8 +55,14 @@ public class OptimaleRoute extends JComponent implements Runnable{
         this.theme = theme;        
         initialiseerImage();
         
-        k_r = vindRoute(doolhofMap, current_maze_size, startVak, eindVak);
-        toonOptimaleRouteInner(k_r, doolhofMap,vak_size_pixels);
+        this.vak_size_pixels = vak_size_pixels;
+        this.doolhofMap = doolhofMap;
+        this.current_maze_size = current_maze_size;
+        this.startVak = startVak;
+        this.eindVak = eindVak;
+        
+//        k_r = vindRoute(doolhofMap, current_maze_size, startVak, eindVak);
+//        toonOptimaleRouteInner(k_r, doolhofMap,vak_size_pixels);
     }
     
     /**
@@ -225,8 +236,8 @@ public class OptimaleRoute extends JComponent implements Runnable{
         System.out.println("hello");
         try {
             //bouwroute;
-            //k_r = vindRoute(doolhofMap, current_maze_size, startVak, eindVak);
-            //toonOptimaleRouteInner(k_r, doolhofMap,vak_size_pixels);
+            k_r = vindRoute(doolhofMap, current_maze_size, startVak, eindVak);
+            toonOptimaleRouteInner(k_r, doolhofMap,vak_size_pixels);
             Thread.sleep(2000);
             verdwijderOptimaleRouteInner(kortste_route_panels);
             if(debug){System.out.println("Optimale route uitgezet");}
