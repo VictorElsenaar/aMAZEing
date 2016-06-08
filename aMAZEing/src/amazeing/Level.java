@@ -36,23 +36,7 @@ public class Level extends JComponent{
     private int currentLevel;
     
     private boolean toonOptimaleRoute = false;
-    /**
-     * Na 2 seconden wordt de optimale route uitgezet.
-     */
-//    class MyThread implements Runnable {
-//        private ArrayList<JPanel> kortste_route_panels;
-//            public MyThread(ArrayList<JPanel> kortste_route_panels) {
-//                this.kortste_route_panels = kortste_route_panels;
-//            }
-//            public void run() {
-//                try {
-//                    Thread.sleep(2000);
-//                    verdwijderOptimaleRoute(kortste_route_panels);
-//                    if(debug){System.out.println("Optimale route uitgezet");}
-//                } catch (Exception e) {}
-//            }
-//    }  
-    
+
     //Constructor
     public Level(int level) {
         setLayout(null);
@@ -72,6 +56,11 @@ public class Level extends JComponent{
         Speler huidigeSpeler = (Speler) spelersVak.getFiguur();
         return huidigeSpeler.getHelper();
     }
+    /**
+     * Methode dat de actie van de speler uitvoert. Indien er een richting is wordt deze gebruikt en anders genegeerd.
+     * @param direction = richting waarin de actie moet plaatsvinden
+     * @param type = bewegen, schieten of optimale route tonen is ook een actie type
+     */
     public void action(String direction, String type) {
         Speler huidigeSpeler = (Speler) spelersVak.getFiguur();
         switch(type) {
@@ -95,7 +84,7 @@ public class Level extends JComponent{
     }
 
     /**
-     * Functie om het level uit te lezen, heeft geen doelen in het spel verder.
+     * Methode om het level uit te lezen, heeft geen doelen in het spel verder.
      */
     public void readLevel() {
         ListIterator<Vak> iterator = doolhofMap.listIterator();
@@ -104,41 +93,17 @@ public class Level extends JComponent{
             if(debug){System.out.println(vak.toString());}
         }
     }
-
+    /**
+    * Optimale route laten tonen. Methode start eigen thread waardoor overige activiteiten door blijven gaan.
+    */
     public void toonOptimaleRoute() {
-//        ArrayList<JPanel> kortste_route_panels = new ArrayList<JPanel>();
-//        LinkedList<Integer> kortste_route = new LinkedList<Integer>();
-//        kortste_route = OptimaleRoute.vindRoute(doolhofMap, current_maze_size, spelersVak, vriendVak);
-//        for (int i = 1; i < kortste_route.size()-1; i++) {
-//            Vak vak = doolhofMap.get(kortste_route.get(i));
-//            OptimaleRoute route = new OptimaleRoute(vak_size_pixels, THEME);
-//            route.setName("OptimaleRoute");
-//            JPanel panel = vak.getPanel();
-//            panel.add(route);
-//            panel.setComponentZOrder(route, 0);
-//            panel.repaint();
-//            kortste_route_panels.add(panel);
-//        }                 
-//        // Thread starten om na 2 seconden de optimale route niet meer te tonen.
-//        Runnable r = new MyThread(kortste_route_panels);
-//        new Thread(r).start();
         Runnable r2 = new OptimaleRoute(vak_size_pixels, THEME, doolhofMap, current_maze_size, spelersVak, vriendVak);
-        new Thread(r2).start();
-        
+        new Thread(r2).start();   
     }
     /**
-     * Deze methode gaat langs alle panels en verwijdert daarin het component van de optimale route.
-     * @param kortste_route_panels 
+     * Geeft gehele map in een ArrayList van vakken terug.
+     * @return ArrayList<Vak>
      */
-//    public void verdwijderOptimaleRoute(ArrayList<JPanel> kortste_route_panels){
-//        for (JPanel panel : kortste_route_panels) {         
-//            if (panel.getComponent(0).getName()!= null && panel.getComponent(0).getName().equals("OptimaleRoute")) {
-//                panel.remove(panel.getComponent(0));
-//                panel.repaint();
-//            }
-//        }       
-//    }
-    
     public ArrayList<Vak> getcurrentMap() {
         return doolhofMap;
     }
@@ -157,12 +122,20 @@ public class Level extends JComponent{
     public int getLevelsSize(){
         return levels.size();
     }
+    /**
+     * Method geeft een String terug van het gevraagde level.
+     * @param nr = het index nummer van het level
+     * @return 
+     */
     public String getLevel(int nr) {
         if(debug){System.out.println("getLevel " + nr);}
         String level = levels.get(nr);
         if(debug){System.out.println(level);}
         return level;
     }    
+    /**
+     * Verhoogt het level met 1.
+     */
     public void setNextLevel() {
         this.currentLevel++;
         if(currentLevel <= levels.size()-1) {
@@ -174,6 +147,10 @@ public class Level extends JComponent{
     public void setCurrentLevel(int currentLevel) {
         this.currentLevel = currentLevel;
     }
+    /**
+     * Methode bouwt de doolhofMap op op basis van het gekozen level.
+     * @param nr = level index nummer
+     */
     public void setLevel(int nr) {
         String level = getLevel(nr);
         if(debug){System.out.println("setcurrentlevel " + nr);}
@@ -247,7 +224,9 @@ public class Level extends JComponent{
             }
         }
     }    
-
+    /**
+     * Opbouwen van de Array levels met alle geconfigureerde levels.
+     */
     public void addLevels() {
         String level_one ="1111111111"
                         + "1327200071"

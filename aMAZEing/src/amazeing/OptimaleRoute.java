@@ -18,6 +18,7 @@ import javax.swing.JPanel;
  */
 public class OptimaleRoute extends JComponent implements Runnable{
     
+    // Alle doorgegeven parameters in het object opslaan, aangezien dit object in een eigen thread alles gaat afhandelen afzonderlijk van het lopende spel.
     private static ArrayList<JPanel> kortste_route_panels;
     private static LinkedList<Integer> k_r;
     private static int vak_size_pixels;
@@ -29,7 +30,6 @@ public class OptimaleRoute extends JComponent implements Runnable{
     
     
     
-    private String theme;
     private BufferedImage optimalerouteImage;
     
     private static boolean optdebug = false;
@@ -43,12 +43,12 @@ public class OptimaleRoute extends JComponent implements Runnable{
     
 
     //Constructor
-    public OptimaleRoute(int vak_size_pixels, String theme) {
-        initGraphical(vak_size_pixels, theme);
+    public OptimaleRoute(int vak_size_pixels) {
+        initGraphical(vak_size_pixels);
         initialiseerImage();
     }    
     public OptimaleRoute(int vak_size_pixels, String theme,ArrayList<Vak> doolhofMap, int current_maze_size, Vak startVak, Vak eindVak) {
-        initGraphical(vak_size_pixels, theme);
+        initGraphical(vak_size_pixels);
         initialiseerImage();
         
         this.vak_size_pixels = vak_size_pixels;
@@ -188,6 +188,11 @@ public class OptimaleRoute extends JComponent implements Runnable{
         huidige_route.clear();
         richtingen.clear();        
     }
+    /**
+     * Methode om na te kijken of het vak reeds gebruikt is in de huidige route.
+     * @param indexnummer = indexnummer van de positie waar de optimale route berekening reeds geweest kan zijn
+     * @return 
+     */
     private static boolean is_gebruikt_vak (int indexnummer) {
         for (int vak : huidige_route) {
             if(indexnummer == vak) {
@@ -217,14 +222,13 @@ public class OptimaleRoute extends JComponent implements Runnable{
     }
     public void initialiseerImage() {
         try {
-            optimalerouteImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + theme + "\\\\optimaleroute.jpg")); 
+            optimalerouteImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + THEME + "\\\\optimaleroute.jpg")); 
         }
         catch (Exception e) {
             optimalerouteImage = null;
         }
     }    
-
-   // @Override
+    // Thread zorgt ervoor dat asynchoon het pad gevonden, getoond en verwijderd wordt.
     public void run() {
         try {
             k_r = vindRoute();
@@ -233,9 +237,11 @@ public class OptimaleRoute extends JComponent implements Runnable{
             verdwijderOptimaleRouteInner(kortste_route_panels);
             if(debug){System.out.println("Optimale route uitgezet");}
         } catch (Exception e) {}
-       
-      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    /**
+     * Deze methode zorgt ervoor dat de panelen weer verwijderd worden, zodat de optimale route tijdelijk getoond kan worden.
+     * @param kortste_route_panels = de opgebouwde panelen van de korte route.
+     */
     private void verdwijderOptimaleRouteInner(ArrayList<JPanel> kortste_route_panels){
         for (JPanel panel : kortste_route_panels) {         
             if (panel.getComponent(0).getName()!= null && panel.getComponent(0).getName().equals("OptimaleRoute")) {
@@ -244,29 +250,29 @@ public class OptimaleRoute extends JComponent implements Runnable{
             }
         }       
     }
+    /**
+     * Methode zorgt ervoor dat de panelen gemaakt worden die de optimale route omvatten en deze intekent met het geconfigureerde plaatje.
+     * @param kortste_route = reeds bepaalde kortste route
+     * @param doolhofMap = de map
+     * @param vak_size_pixels = de maat van een vak
+     */
     private void toonOptimaleRouteInner(LinkedList<Integer> kortste_route,ArrayList<Vak> doolhofMap, int vak_size_pixels){
         ArrayList<JPanel> kortste_route_panels2 = new ArrayList<JPanel>();
         for (int i = 1; i < kortste_route.size()-1; i++) {
-            
             Vak vak = doolhofMap.get(kortste_route.get(i));
-            
-            OptimaleRoute route = new OptimaleRoute(vak_size_pixels, THEME);
+            OptimaleRoute route = new OptimaleRoute(vak_size_pixels);
             route.setName("OptimaleRoute");
             JPanel panel = vak.getPanel();
             panel.add(route);
             panel.setComponentZOrder(route, 0);
             panel.repaint();
-            
             kortste_route_panels2.add(panel);
-            
-            
         }        
         this.kortste_route_panels = kortste_route_panels2;
     }
-    private void initGraphical(int vak_size_pixels, String theme) {
+    private void initGraphical(int vak_size_pixels) {
         setLayout(null);
         setSize(vak_size_pixels, vak_size_pixels);
-        this.theme = theme;       
     }
 }
 
