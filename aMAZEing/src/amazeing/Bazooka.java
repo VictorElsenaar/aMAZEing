@@ -14,7 +14,11 @@ import javax.swing.JPanel;
 public class Bazooka extends Figuur{    
     private int ammo;
     
-    // Constructor
+    /**
+     * Instantie van dit object
+     * @param vak_size_pixels = map afhankelijke maat van een vak
+     * @param theme = het ingestelde theme
+     */
     public Bazooka(int vak_size_pixels, String theme) {
         super(Color.CYAN, vak_size_pixels, theme);
         ammo = 0;
@@ -43,18 +47,15 @@ public class Bazooka extends Figuur{
             Bom bom = new Bom();
             panel.add(bom);
             panel.setComponentZOrder(bom, 0);
-            revalidate();
             panel.repaint();
             try {
-                Thread.sleep(100);
+                Thread.sleep(50);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Bazooka.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
             schietvak = doolhofMap.get(currentLocationIndex+(position_change_amount*i));
             i++;
             panel.remove(bom);
-            revalidate();
             panel.repaint();
         }
         if(schietvak.isMuur(schietvak)) { 
