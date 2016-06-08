@@ -15,7 +15,9 @@ import javax.swing.JComponent;
 public class Bom extends JComponent{
     private BufferedImage bomImage;
     
-    //Constructor
+    /**
+     * Nieuw instantie van dit object
+     */
     public Bom() {
         setLayout(null);
         setSize(Level.global_vak_size_pixels, Level.global_vak_size_pixels); // maakt gebruik van public static global_vak_size_pixels
@@ -29,6 +31,9 @@ public class Bom extends JComponent{
         g.drawImage(bomImage.getScaledInstance(Level.global_vak_size_pixels,Level.global_vak_size_pixels,0), 0, 0, null); // maakt gebruik van public static global_vak_size_pixels
         }
     }
+    /**
+     * Plaatje wordt in de buffer gezet
+     */
     public void initialiseerImage() {
         try {
             bomImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + THEME + "\\\\bom.jpg")); //hardcoded voorlopig

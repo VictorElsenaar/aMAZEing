@@ -9,13 +9,23 @@ import java.awt.Color;
 public class Muur extends Figuur {
     private boolean borderMuur;
     
-    //Constructor
+    /**
+     * Nieuw instantie van een muur
+     * @param vak_size_pixels = map afhankelijke maat van een vak
+     * @param theme = het ingestelde theme
+     */
     public Muur(int vak_size_pixels, String theme) {
         super(Color.DARK_GRAY, vak_size_pixels, theme);
         borderMuur = false;
         initialiseerImage("muur");
     }
-    //Constructor voor bordermuur
+    
+    /**
+     * Nieuw instantie van een bordermuur
+     * @param borderMuur = boolean om te bepalen of dit object een border- of een normale muur is
+     * @param vak_size_pixels = map afhankelijke maat van een vak
+     * @param theme = het ingestelde theme
+     */
     public Muur(boolean borderMuur, int vak_size_pixels, String theme) {
         super(Color.BLACK, vak_size_pixels, theme);
         this.borderMuur = borderMuur;

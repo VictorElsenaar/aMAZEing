@@ -15,7 +15,9 @@ import javax.swing.JComponent;
 public class Explosie extends JComponent {
     private BufferedImage explosieImage;
     
-    //Constructor
+    /**
+     * Nieuw instantie van dit object
+     */
     public Explosie() {
         setLayout(null);
         setSize(Level.global_vak_size_pixels, Level.global_vak_size_pixels); // maakt gebruik van public static global_vak_size_pixels
@@ -29,6 +31,9 @@ public class Explosie extends JComponent {
             g.drawImage(explosieImage.getScaledInstance(Level.global_vak_size_pixels,Level.global_vak_size_pixels,0), 0, 0, null); // maakt gebruik van public static global_vak_size_pixels
         }
     }
+    /**
+     * Plaatje wordt in de buffer gezet
+     */
     public void initialiseerImage() {
         try {
             explosieImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + THEME + "\\\\explosie.jpg")); 

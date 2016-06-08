@@ -18,10 +18,14 @@ public abstract class Figuur extends JComponent {
     protected String theme;
     protected BufferedImage image;
     
-    //Constructor
+    /**
+     * 
+     * @param kleur = kleur van elk figuur
+     * @param vak_size_pixels = map afhankelijke maat van een vak
+     * @param theme = het ingestelde theme
+     */
     public Figuur(Color kleur, int vak_size_pixels, String theme) {       
         this.kleur = kleur;
-        
         setLayout(null);
         setSize(vak_size_pixels, vak_size_pixels); 
         this.vak_size_pixels = vak_size_pixels;
@@ -45,6 +49,10 @@ public abstract class Figuur extends JComponent {
             g.drawImage(image.getScaledInstance(vak_size_pixels,vak_size_pixels,0), 0, 0, null); 
         }
     }    
+    /**
+     * Plaatje wordt in de buffer gezet.
+     * @param naam = naam van het figuur
+     */
     public void initialiseerImage(String naam) {
         try {
             image = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + THEME + "\\\\"+ naam +".jpg")); 

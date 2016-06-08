@@ -1,25 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package amazeing;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Panel;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 /**
  *
- * @author vic
+ * @author Victor Elsenaar en Kahoo Wu
  */
 public class Interactie extends JComponent implements Runnable {
     private int waarde;
     private Vak huidigeVak;
+    
+    /**
+     * Nieuw instantie van dit object
+     * @param waarde = waarde dat een interactie heeft
+     * @param huidigeVak = vak waar interactie plaatsvindt
+     */
     public Interactie(int waarde, Vak huidigeVak) {
         setLayout(null);
         setSize(Level.global_vak_size_pixels, Level.global_vak_size_pixels); // maakt gebruik van public static global_vak_size_pixels
@@ -28,7 +28,6 @@ public class Interactie extends JComponent implements Runnable {
     }
 
     public void paint(Graphics g) {
-        
         if(waarde == 1){
             g.setColor(Color.GREEN); 
             g.setFont(new Font("Courier", Font.BOLD, Level.global_vak_size_pixels/2)); 

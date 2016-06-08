@@ -38,24 +38,32 @@ public class Bazooka extends Figuur{
         ammo++;
     }
     
+    /**
+     * Bazooka wordt afgevuurd naar een bepaalde richting
+     * @param richting = de richting waar de bazooka afgevuurd wordt
+     * @param doolhofMap = de map
+     * @param spelersVak = het vak waar de speler staat
+     * @param position_change_amount = de waarde van het aantal posities dat in de string van het level gesprongen moet worden om in die richting te verplaatsen
+     * @return  de nieuwe doolhofmap
+     */
     public ArrayList<Vak> fire(String richting, ArrayList<Vak> doolhofMap, Vak spelersVak, int position_change_amount) {
         int currentLocationIndex = doolhofMap.indexOf(spelersVak);
         Vak schietvak = doolhofMap.get(currentLocationIndex+position_change_amount);
         int i = 1;
         while(!schietvak.isMuur(schietvak)) {
-            JPanel panel = schietvak.getPanel();
+            JPanel panel = schietvak.getPanel(); // haal het panel op van de schietvak
             Bom bom = new Bom();
-            panel.add(bom);
-            panel.setComponentZOrder(bom, 0);
+            panel.add(bom); // plaats object bom op het panel zodat bom daarop getekend kan worden 
+            panel.setComponentZOrder(bom, 0); // zet bom component vooraan zodat die over de andere objecten getekend wordt
             panel.repaint();
             try {
                 Thread.sleep(50);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Bazooka.class.getName()).log(Level.SEVERE, null, ex);
             }
-            schietvak = doolhofMap.get(currentLocationIndex+(position_change_amount*i));
+            schietvak = doolhofMap.get(currentLocationIndex+(position_change_amount*i)); // haal het volgende schietvak op
             i++;
-            panel.remove(bom);
+            panel.remove(bom); // verwijder bom object uit het panel
             panel.repaint();
         }
         if(schietvak.isMuur(schietvak)) { 
@@ -69,21 +77,18 @@ public class Bazooka extends Figuur{
                 if(debug) {System.out.println("Normale muur is stuk!");}
                 Figuur empty = new Leeg(vak_size_pixels, theme);
                 schietvak.setFiguur(empty);
-                JPanel panel = schietvak.getPanel();
+                JPanel panel = schietvak.getPanel(); // haal het panel op van de schietvak
                 Explosie explosie = new Explosie();
-                panel.removeAll();
-                panel.add(explosie);
-                revalidate();
+                panel.removeAll(); // verwijder alle componenten van het panel
+                panel.add(explosie); // plaats object explosie op panel
                 panel.repaint();
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Bazooka.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
                 panel.removeAll();
                 panel.add(empty);
-                revalidate();
                 panel.repaint();
             }
         }

@@ -10,7 +10,11 @@ import java.awt.Color;
 public class Helper extends Figuur{
     private int aantal;
     
-    //Constructor
+    /**
+     * Nieuw instantie van dit object
+     * @param vak_size_pixels = map afhankelijke maat van een vak
+     * @param theme = het ingestelde theme
+     */
     public Helper(int vak_size_pixels, String theme) {
         super(Color.ORANGE, vak_size_pixels, theme);
         aantal = 0;
@@ -21,13 +25,13 @@ public class Helper extends Figuur{
         return aantal;
     }
     /**
-     * Helper wordt opgepakt dus wordt aantal met 1 verhoogd.
+     * Helper wordt opgepakt dus wordt aantal met 1 verhoogd
      */
     public void toevoegenAantal() {
         this.aantal++;
     }
     /**
-     * Helper wordt gebruikt om de optimale route te tonen en hierdoor gaat er 1 eraf.
+     * Helper wordt gebruikt om de optimale route te tonen en hierdoor wordt het aantal helpers verminderd met 1
      */
     public void gebruik() {
         this.aantal --;

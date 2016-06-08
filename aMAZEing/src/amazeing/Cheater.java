@@ -10,7 +10,11 @@ import java.util.Random;
 public class Cheater extends Figuur{
     private int waarde;
     
-    //Constructor
+    /**
+     * Nieuw instantie van dit object
+     * @param vak_size_pixels = map afhankelijke maat van een vak
+     * @param theme = het ingestelde theme
+     */
     public Cheater(int vak_size_pixels, String theme) {
         super(Color.RED, vak_size_pixels, theme);       
         setWaarde();
@@ -25,7 +29,7 @@ public class Cheater extends Figuur{
     }
     
     /**
-     * Genereert een random getal tussen de minimum- en d maximumwaarde.
+     * Genereert een random getal tussen de minimum- en de maximumwaarde.
      * @param min De minimumwaarde dat een random getal mag hebben.
      * @param max De maximumwaarde dat een random getal mag hebben. 
      * @return Een random getal.

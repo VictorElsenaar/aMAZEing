@@ -73,7 +73,9 @@ public class Game extends JFrame{
      */
     private Queue<QueueHandler> queue = new LinkedList<QueueHandler>();
     
-    //Constructor
+    /**
+     * Nieuw instantie van dit object
+     */
     public Game() {
         setLayout(null);
         setFocusTraversalKeysEnabled(false); // TAB disable

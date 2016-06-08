@@ -37,7 +37,10 @@ public class Level extends JComponent{
     
     private boolean toonOptimaleRoute = false;
 
-    //Constructor
+    /**
+     * Nieuw instantie van dit object
+     * @param level = het level dat ingeladen wordt
+     */
     public Level(int level) {
         setLayout(null);
         addLevels();

@@ -36,11 +36,24 @@ public class OptimaleRoute extends JComponent implements Runnable{
     private static LinkedList<Integer> huidige_route = new LinkedList<Integer>();
     
 
-    //Constructor
+    /**
+     * Nieuw instantie van dit object
+     * @param vak_size_pixels = map afhankelijke maat van een vak
+     */
     public OptimaleRoute(int vak_size_pixels) {
         initGraphical(vak_size_pixels);
         initialiseerImage();
     }    
+    
+    /**
+     * Nieuw instantie van dit object
+     * @param vak_size_pixels = map afhankelijke maat van een vak
+     * @param theme = het ingestelde theme
+     * @param doolhofMap = de map
+     * @param current_maze_size = maat van de map
+     * @param startVak = het vak waar de speler op dit moment staat
+     * @param eindVak = het vak waar de vriend staat
+     */
     public OptimaleRoute(int vak_size_pixels, String theme,ArrayList<Vak> doolhofMap, int current_maze_size, Vak startVak, Vak eindVak) {
         initGraphical(vak_size_pixels);
         initialiseerImage();
@@ -54,7 +67,7 @@ public class OptimaleRoute extends JComponent implements Runnable{
     
     /**
      * Vraag de optimale route op van de doolhof op basis van een start en eind vak.
-     * @return 
+     * @return de kortste route
      */
     public static LinkedList<Integer> vindRoute(){
         initialiseren(); // Opschonen te gebruiken parameters.
@@ -182,6 +195,10 @@ public class OptimaleRoute extends JComponent implements Runnable{
         }
         //g.fillRect((vak.gety()*vak_size_pixels)+vak_size_pixels/4, (vak.getx()*vak_size_pixels)+vak_size_pixels/4, vak_size_pixels-(vak_size_pixels/2), vak_size_pixels-(vak_size_pixels/2));
     }
+    
+    /**
+     * Plaatje wordt in de buffer gezet
+     */
     public void initialiseerImage() {
         try {
             optimalerouteImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + THEME + "\\\\optimaleroute.jpg")); 

@@ -56,7 +56,7 @@ public class Speler extends Figuur {
     }
     
     /**
-     * 
+     * Speler beweegt naar het volgende vak
      * @param richting = richting waarop de speler wilt verplaatsen
      * @param doolhofMap = de map
      * @param current_maze_size = maat van de map
@@ -68,6 +68,7 @@ public class Speler extends Figuur {
         int position_change_amount = positionchange(richting, current_maze_size);
         int tempindex = doolhofMap.indexOf(spelersVak);
         Vak oudeVak = doolhofMap.get(tempindex);
+        System.out.println(oudeVak.toString());
         int new_position_index = (tempindex+position_change_amount);
         Vak nieuweVak = doolhofMap.get(new_position_index);
         
@@ -121,7 +122,6 @@ public class Speler extends Figuur {
                 teleport = (Teleport)nieuweVak.getFiguur();
                 new_position_index = teleport.getOther().getLocationIndex();
                 nieuweVak = doolhofMap.get(new_position_index);
-               
             }
             nieuweVak.setFiguur(huidigeSpeler);
             doolhofMap.set(new_position_index,nieuweVak);

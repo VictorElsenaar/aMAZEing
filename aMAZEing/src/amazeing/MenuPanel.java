@@ -18,7 +18,10 @@ public class MenuPanel extends JPanel{
     private JButton afsluitenButton;
     private JButton goButton;
             
-    //Constructor
+    /**
+     * Nieuw instantie van het menupanel
+     * @param maxlevel = aantal levels beschikbaar voor dit game
+     */
     public MenuPanel(int maxlevel) {
         menuPanel = new JPanel();
         menuPanel.setLayout(null);

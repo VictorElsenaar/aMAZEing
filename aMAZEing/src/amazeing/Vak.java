@@ -11,11 +11,15 @@ public class Vak extends JComponent{
     private Figuur figuur;
     private int x;
     private int y;
-
     private int vak_size_pixels;
     private JPanel panel;
     
-    // Constructor
+    /**
+     * Nieuw instantie van vak
+     * @param x de verticale cordinaat van het vak
+     * @param y de horizontale cordinaat van het vak
+     * @param figuur = het figuur dat op deze vak staat
+     */
     public Vak(int x, int y, Figuur figuur) {
         this.x = x;
         this.y = y;
@@ -43,6 +47,10 @@ public class Vak extends JComponent{
         return vak.getFiguur() instanceof Teleport;
     }
 
+    /**
+     * Leest de cordinaten van een vak (debug doeleinde)
+     * @return cordinaten van vak
+     */
     public String toString() {
         String x = Integer.toString(getx());
         String y = Integer.toString(gety());
@@ -50,7 +58,6 @@ public class Vak extends JComponent{
         return cord;
     }
     
-    // Getters and Setters
     public Figuur getFiguur(){
         return figuur;
     }
@@ -60,7 +67,6 @@ public class Vak extends JComponent{
     public int getx() {
         return x;
     }
-    
     public int gety() {
         return y;
     }
@@ -70,7 +76,6 @@ public class Vak extends JComponent{
     public void setY(int y) {
         this.y = y;
     }
-    
     public void setVakSizePixels(int vak_size_pixels) {
         this.vak_size_pixels = vak_size_pixels;
     }
