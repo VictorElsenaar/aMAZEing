@@ -3,6 +3,7 @@ package amazeing;
 import static amazeing.AMAZEing.debug;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
@@ -63,6 +64,7 @@ public class Speler extends Figuur {
      * @return het doolhofMap waarin de actie van de speler uitgevoerd is.
      */
     public ArrayList<Vak> move(String richting, ArrayList<Vak> doolhofMap, int current_maze_size, Vak spelersVak) {
+        int interactie = 0;
         int position_change_amount = positionchange(richting, current_maze_size);
         int tempindex = doolhofMap.indexOf(spelersVak);
         Vak oudeVak = doolhofMap.get(tempindex);
@@ -95,10 +97,12 @@ public class Speler extends Figuur {
 
             addaantalStappen();
             if(nieuweVak.isBazooka(nieuweVak)) {
+                interactie = 1;    
                 bazooka.toevoegenAmmo();
                 if(debug){System.out.println("Aantal raketten over van bazooka: " + bazooka.getAmmo());}
             }
             if(nieuweVak.isHelper(nieuweVak)) {
+                interactie = 1;
                 helper.toevoegenAantal();
                 if(debug){System.out.println("Aantal helper over: " + helper.getAantal());}
             }
@@ -109,6 +113,7 @@ public class Speler extends Figuur {
                 } else {
                     aantalStappen -= cheater.getWaarde();
                 }
+                interactie = cheater.getWaarde();
                 if(debug){System.out.println("Cheater opgepakt met waarde: " + cheater.getWaarde());}
             }
            // Teleport teleport1 = null;
@@ -125,9 +130,15 @@ public class Speler extends Figuur {
             JPanel panel = huidigeVak.getPanel();
             panel.removeAll(); 
             panel.add(huidigeSpeler);
-            revalidate();
             panel.repaint();
             oudpanel.repaint();
+            // teken de interactie indien aanwezig, indien je een item oppakt dat waarde heeft
+            if (interactie != 0) {
+                Runnable inter = new Interactie(interactie, huidigeVak);
+                new Thread(inter).start();
+                // Anders hangt hij heel even bij het eerste op te pakken item (bij een fresh start van het spel)
+                Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+            }            
         }
         return doolhofMap;
     }
