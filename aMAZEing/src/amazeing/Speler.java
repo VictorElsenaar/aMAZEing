@@ -13,6 +13,7 @@ public class Speler extends Figuur {
     private Bazooka bazooka;
     private Helper helper;
     private Cheater cheater;
+    private Teleport teleport = null;
     private Vak huidigeVak;
     private int aantalStappen = 0;
 
@@ -48,21 +49,32 @@ public class Speler extends Figuur {
         int position_change_amount = positionchange(richting, current_maze_size);
         int tempindex = doolhofMap.indexOf(spelersVak);
         Vak oudeVak = doolhofMap.get(tempindex);
-        Vak nieuweVak = doolhofMap.get(tempindex+position_change_amount);
+        int new_position_index = (tempindex+position_change_amount);
+        Vak nieuweVak = doolhofMap.get(new_position_index);
         
         if(!nieuweVak.isMuur(nieuweVak)) {
             // Oude vak speler ophalen
             Speler huidigeSpeler = (Speler) oudeVak.getFiguur();
 
+            // Haal het panel op van het oude vak. Gooi de componenten weg die op dat panel staan.
+            JPanel oudpanel = oudeVak.getPanel();
+            oudpanel.removeAll();            
+            
             // OUDE VAK LEEG MAKEN
             Figuur empty = new Leeg(vak_size_pixels, theme);
-            oudeVak.setFiguur(empty);
-            doolhofMap.set(tempindex, oudeVak);
             
-            // Haal het panel op van het oude vak. Gooi de componenten weg die op dat panel staan en voeg object Leeg toe op het panel.
-            JPanel oudpanel = oudeVak.getPanel();
-            oudpanel.removeAll();
-            oudpanel.add(empty);
+            if(teleport != null) {
+                // we zijn dus net geteleport
+                Teleport arrivedPortal = null;
+                arrivedPortal = teleport.getOther();
+                oudeVak.setFiguur(arrivedPortal);
+                oudpanel.add(arrivedPortal);
+                teleport = null;
+            } else {
+                oudeVak.setFiguur(empty);    
+                oudpanel.add(empty);
+            }
+            doolhofMap.set(tempindex, oudeVak);
 
             addaantalStappen();
             if(nieuweVak.isBazooka(nieuweVak)) {
@@ -82,21 +94,19 @@ public class Speler extends Figuur {
                 }
                 if(debug){System.out.println("Cheater opgepakt met waarde: " + cheater.getWaarde());}
             }
+           // Teleport teleport1 = null;
             if(nieuweVak.isTeleport(nieuweVak)) {
-                Teleport teleport1 = (Teleport)nieuweVak.getFiguur();
-                int newPosition = teleport1.getOther().getLocationIndex();
-                nieuweVak = doolhofMap.get(newPosition);
-                nieuweVak.setFiguur(huidigeSpeler);
-                doolhofMap.set(newPosition,nieuweVak);
-                setVak(doolhofMap.get(newPosition));
-            } else {
-            nieuweVak.setFiguur(huidigeSpeler);
-            doolhofMap.set(tempindex+position_change_amount,nieuweVak);
-            setVak(doolhofMap.get(tempindex+position_change_amount));
+                teleport = (Teleport)nieuweVak.getFiguur();
+                new_position_index = teleport.getOther().getLocationIndex();
+                nieuweVak = doolhofMap.get(new_position_index);
+               
             }
+            nieuweVak.setFiguur(huidigeSpeler);
+            doolhofMap.set(new_position_index,nieuweVak);
+            setVak(doolhofMap.get(new_position_index));
             // Haal het panel op van het nieuwe vak. Gooi de componenten weg die op dat panel staan en voeg object Speler toe op het panel.
             JPanel panel = huidigeVak.getPanel();
-            panel.removeAll();
+            panel.removeAll(); 
             panel.add(huidigeSpeler);
             revalidate();
             panel.repaint();
