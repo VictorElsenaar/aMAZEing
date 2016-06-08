@@ -54,10 +54,6 @@ public class OptimaleRoute extends JComponent implements Runnable{
     
     /**
      * Vraag de optimale route op van de doolhof op basis van een start en eind vak.
-     * @param doolhofMap
-     * @param current_maze_size
-     * @param startVak
-     * @param eindVak
      * @return 
      */
     public static LinkedList<Integer> vindRoute(){
