@@ -82,10 +82,18 @@ public class Speler extends Figuur {
                 }
                 if(debug){System.out.println("Cheater opgepakt met waarde: " + cheater.getWaarde());}
             }
+            if(nieuweVak.isTeleport(nieuweVak)) {
+                Teleport teleport1 = (Teleport)nieuweVak.getFiguur();
+                int newPosition = teleport1.getOther().getLocationIndex();
+                nieuweVak = doolhofMap.get(newPosition);
+                nieuweVak.setFiguur(huidigeSpeler);
+                doolhofMap.set(newPosition,nieuweVak);
+                setVak(doolhofMap.get(newPosition));
+            } else {
             nieuweVak.setFiguur(huidigeSpeler);
             doolhofMap.set(tempindex+position_change_amount,nieuweVak);
             setVak(doolhofMap.get(tempindex+position_change_amount));
-            
+            }
             // Haal het panel op van het nieuwe vak. Gooi de componenten weg die op dat panel staan en voeg object Speler toe op het panel.
             JPanel panel = huidigeVak.getPanel();
             panel.removeAll();

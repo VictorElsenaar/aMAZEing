@@ -39,6 +39,9 @@ public class Vak extends JComponent{
     public boolean isCheater(Vak vak) {
         return vak.getFiguur() instanceof Cheater;
     }
+    public boolean isTeleport(Vak vak) {
+        return vak.getFiguur() instanceof Teleport;
+    }
 
     public String toString() {
         String x = Integer.toString(getx());

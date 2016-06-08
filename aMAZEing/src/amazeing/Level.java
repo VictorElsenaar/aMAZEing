@@ -168,7 +168,10 @@ public class Level extends JComponent{
         if(debug){System.out.println(level);}        
         
         doolhofMap = new ArrayList<Vak>();
-         
+        
+        int teleport = 0;
+        Teleport teleport1 = null;
+        Teleport teleport2 = null;
         int counter = 0;
         for (int x = 0; x < current_maze_size ; x++) {
             if(debug){System.out.println("rows " + x);}
@@ -201,6 +204,17 @@ public class Level extends JComponent{
                     case 7: // Als het een 7 is dan een cheater plaatsen
                         figuur = new Cheater(vak_size_pixels, THEME);
                         break;
+                    case 8: // Als het een 8 is dan een teleport plaatsen                        
+                        figuur = new Teleport(vak_size_pixels, THEME);
+                        if (teleport == 0) {
+                            teleport++;
+                            teleport1 = (Teleport) figuur;
+                            teleport1.setLocationIndex(doolhofMap.size());
+                        } else {
+                            teleport2 = (Teleport) figuur;
+                            teleport2.setLocationIndex(doolhofMap.size());
+                        }
+                        break;
                     case 0: // Als het een 0 is dan een empty plaatsen
                         figuur = new Leeg(vak_size_pixels, THEME);
                         break;
@@ -222,6 +236,10 @@ public class Level extends JComponent{
                 doolhofMap.add(vak); 
                 counter++;
             }
+        }
+        if (teleport1 != null && teleport2 != null) {
+            teleport1.setOther(teleport2);
+            teleport2.setOther(teleport1);
         }
     }    
     /**
@@ -251,7 +269,7 @@ public class Level extends JComponent{
                         + "1111111111";
         
         String level_three =   "11111111111111111111" 
-                            +  "10000020702000000031" 
+                            +  "10000028702000000031" 
                             +  "10222020262022222221"
                             +  "10200020202020002401"                
                             +  "10202220000020202201"                
@@ -267,7 +285,7 @@ public class Level extends JComponent{
                             +  "12022220200022220201"                
                             +  "10002000202000000201"                
                             +  "10202020202022220201"                
-                            +  "10202020202000220201"                
+                            +  "10202020202000820201"                
                             +  "16200720002020000001"                
                             +  "11111111111111111111";
                                 
