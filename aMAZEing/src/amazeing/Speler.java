@@ -17,7 +17,11 @@ public class Speler extends Figuur {
     private Vak huidigeVak;
     private int aantalStappen = 0;
 
-    // Constructor
+    /**
+     * Nieuw instantie van dit object
+     * @param vak_size_pixels = map afhankelijke maat van een vak
+     * @param theme = het ingestelde theme
+     */
     public Speler(int vak_size_pixels, String theme) {
         super(Color.BLUE, vak_size_pixels, theme);
         bazooka = new Bazooka(vak_size_pixels, theme);
@@ -25,7 +29,12 @@ public class Speler extends Figuur {
         initialiseerImage("speler");
     }
     
-    // Let op richting bepaling staat ook in OptimaleRoute!
+    /**
+     * 
+     * @param richting = richting waarop de speler zijn actie uitvoert.
+     * @param current_maze_size = maat van de map
+     * @return de waarde van het aantal posities dat in de string van het level gesprongen moet worden om in die richting te lopen
+     */
     public int positionchange(String richting, int current_maze_size) {
         int position_change_amount = 0;
         switch(richting) {
@@ -45,6 +54,14 @@ public class Speler extends Figuur {
         return position_change_amount;
     }
     
+    /**
+     * 
+     * @param richting = richting waarop de speler wilt verplaatsen
+     * @param doolhofMap = de map
+     * @param current_maze_size = maat van de map
+     * @param spelersVak = het spelersvak
+     * @return het doolhofMap waarin de actie van de speler uitgevoerd is.
+     */
     public ArrayList<Vak> move(String richting, ArrayList<Vak> doolhofMap, int current_maze_size, Vak spelersVak) {
         int position_change_amount = positionchange(richting, current_maze_size);
         int tempindex = doolhofMap.indexOf(spelersVak);
@@ -114,6 +131,14 @@ public class Speler extends Figuur {
         }
         return doolhofMap;
     }
+    /**
+     * 
+     * @param richting = richting waarop de speler wilt schieten
+     * @param doolhofMap = map 
+     * @param current_maze_size = maat van de map
+     * @param spelersVak = het spelersvak
+     * @return 
+     */
     public ArrayList<Vak> fire(String richting, ArrayList<Vak> doolhofMap, int current_maze_size, Vak spelersVak) {
         int position_change_amount = positionchange(richting, current_maze_size);
         if (bazooka.getAmmo() > 0) {
@@ -122,7 +147,8 @@ public class Speler extends Figuur {
             if (debug) {System.out.println("Geen ammo.");}
         }
         return doolhofMap;
-    }   
+    }
+    
     public void setVak(Vak vak) {
         this.huidigeVak = vak;
     }
@@ -144,7 +170,7 @@ public class Speler extends Figuur {
         return this.aantalStappen;
     }
     /**
-     * Wanneer een speler een stap maakt, wordt er een stap opgeteld. 
+     * Wanneer een speler een stap maakt, wordt er een stap opgeteld voor de statistieken
      */
     public void addaantalStappen() {
         this.aantalStappen++;
