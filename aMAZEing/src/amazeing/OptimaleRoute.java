@@ -18,13 +18,13 @@ import javax.swing.JPanel;
  */
 public class OptimaleRoute extends JComponent implements Runnable{
     
-    private ArrayList<JPanel> kortste_route_panels;
-    private LinkedList<Integer> k_r;
-    private int vak_size_pixels;
-    private ArrayList<Vak> doolhofMap;
-    private int current_maze_size;
-    private Vak startVak;
-    private Vak eindVak;    
+    private static ArrayList<JPanel> kortste_route_panels;
+    private static LinkedList<Integer> k_r;
+    private static int vak_size_pixels;
+    private static ArrayList<Vak> doolhofMap;
+    private static int current_maze_size;
+    private static Vak startVak;
+    private static Vak eindVak;    
     
     
     
@@ -44,15 +44,11 @@ public class OptimaleRoute extends JComponent implements Runnable{
 
     //Constructor
     public OptimaleRoute(int vak_size_pixels, String theme) {
-        setLayout(null);
-        setSize(Level.global_vak_size_pixels, Level.global_vak_size_pixels); // maakt gebruik van public static global_vak_size_pixels 
-        this.theme = theme;        
+        initGraphical(vak_size_pixels, theme);
         initialiseerImage();
     }    
     public OptimaleRoute(int vak_size_pixels, String theme,ArrayList<Vak> doolhofMap, int current_maze_size, Vak startVak, Vak eindVak) {
-        setLayout(null);
-        setSize(Level.global_vak_size_pixels, Level.global_vak_size_pixels); // maakt gebruik van public static global_vak_size_pixels 
-        this.theme = theme;        
+        initGraphical(vak_size_pixels, theme);
         initialiseerImage();
         
         this.vak_size_pixels = vak_size_pixels;
@@ -60,9 +56,6 @@ public class OptimaleRoute extends JComponent implements Runnable{
         this.current_maze_size = current_maze_size;
         this.startVak = startVak;
         this.eindVak = eindVak;
-        
-//        k_r = vindRoute(doolhofMap, current_maze_size, startVak, eindVak);
-//        toonOptimaleRouteInner(k_r, doolhofMap,vak_size_pixels);
     }
     
     /**
@@ -73,7 +66,7 @@ public class OptimaleRoute extends JComponent implements Runnable{
      * @param eindVak
      * @return 
      */
-    public static LinkedList<Integer> vindRoute(ArrayList<Vak> doolhofMap, int current_maze_size, Vak startVak, Vak eindVak) {
+    public static LinkedList<Integer> vindRoute(){
         // Opschonen te gebruiken parameters.
         initialiseren();
         vul_richtingen(current_maze_size);
@@ -233,10 +226,8 @@ public class OptimaleRoute extends JComponent implements Runnable{
 
    // @Override
     public void run() {
-        System.out.println("hello");
         try {
-            //bouwroute;
-            k_r = vindRoute(doolhofMap, current_maze_size, startVak, eindVak);
+            k_r = vindRoute();
             toonOptimaleRouteInner(k_r, doolhofMap,vak_size_pixels);
             Thread.sleep(2000);
             verdwijderOptimaleRouteInner(kortste_route_panels);
@@ -271,6 +262,11 @@ public class OptimaleRoute extends JComponent implements Runnable{
             
         }        
         this.kortste_route_panels = kortste_route_panels2;
+    }
+    private void initGraphical(int vak_size_pixels, String theme) {
+        setLayout(null);
+        setSize(vak_size_pixels, vak_size_pixels);
+        this.theme = theme;       
     }
 }
 
