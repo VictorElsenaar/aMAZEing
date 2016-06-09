@@ -40,8 +40,8 @@ public class Bazooka extends Figuur{
     
     /**
      * Bazooka wordt afgevuurd naar een bepaalde richting
-     * @param richting = de richting waar de bazooka afgevuurd wordt
-     * @param doolhofMap = de map
+     * @param richting = de richting waarnaartoe de bazooka afgevuurd wordt
+     * @param doolhofMap = de map van het level
      * @param spelersVak = het vak waar de speler staat
      * @param position_change_amount = de waarde van het aantal posities dat in de string van het level gesprongen moet worden om in die richting te verplaatsen
      * @return  de nieuwe doolhofmap
@@ -52,7 +52,7 @@ public class Bazooka extends Figuur{
         int i = 1;
         while(!schietvak.isMuur(schietvak)) {
             JPanel panel = schietvak.getPanel(); // haal het panel op van de schietvak
-            Bom bom = new Bom();
+            Bom bom = new Bom(vak_size_pixels, theme);
             panel.add(bom); // plaats object bom op het panel zodat bom daarop getekend kan worden 
             panel.setComponentZOrder(bom, 0); // zet bom component vooraan zodat die over de andere objecten getekend wordt
             panel.repaint();
@@ -78,7 +78,7 @@ public class Bazooka extends Figuur{
                 Figuur empty = new Leeg(vak_size_pixels, theme);
                 schietvak.setFiguur(empty);
                 JPanel panel = schietvak.getPanel(); // haal het panel op van de schietvak
-                Explosie explosie = new Explosie();
+                Explosie explosie = new Explosie(vak_size_pixels, theme);
                 panel.removeAll(); // verwijder alle componenten van het panel
                 panel.add(explosie); // plaats object explosie op panel
                 panel.repaint();

@@ -143,10 +143,10 @@ public class Speler extends Figuur {
     }
     /**
      * 
-     * @param richting = richting waarop de speler wilt schieten
-     * @param doolhofMap = map 
+     * @param richting = richting waarnaartoe de speler wilt schieten
+     * @param doolhofMap = map van het level
      * @param current_maze_size = maat van de map
-     * @param spelersVak = het spelersvak
+     * @param spelersVak = het vak waar de speler op staat
      * @return 
      */
     public ArrayList<Vak> fire(String richting, ArrayList<Vak> doolhofMap, int current_maze_size, Vak spelersVak) {

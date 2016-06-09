@@ -1,45 +1,20 @@
 package amazeing;
 
-import static amazeing.AMAZEing.THEME;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
-import javax.swing.JComponent;
 
 /**
  *
  * @author Victor Elsenaar en Kahoo Wu
  */
-public class Bom extends JComponent{
-    private BufferedImage bomImage;
+public class Bom extends Figuur{
     
     /**
      * Nieuw instantie van dit object
+     * @param vak_size_pixels = map afhankelijke maat van een vak
+     * @param theme = het ingestelde theme
      */
-    public Bom() {
-        setLayout(null);
-        setSize(Level.global_vak_size_pixels, Level.global_vak_size_pixels); // maakt gebruik van public static global_vak_size_pixels
-        initialiseerImage();
+    public Bom(int vak_size_pixels, String theme) {
+        super(Color.RED, vak_size_pixels, theme);
+        initialiseerImage("bom");
     }    
-    public void paint(Graphics g) {
-        if(bomImage == null) {
-            g.setColor(Color.RED); 
-            g.fillRect(0, 0, Level.global_vak_size_pixels, Level.global_vak_size_pixels); //maakt gebruik van public static global_vak_size_pixels
-        } else {        
-        g.drawImage(bomImage.getScaledInstance(Level.global_vak_size_pixels,Level.global_vak_size_pixels,0), 0, 0, null); // maakt gebruik van public static global_vak_size_pixels
-        }
-    }
-    /**
-     * Plaatje wordt in de buffer gezet
-     */
-    public void initialiseerImage() {
-        try {
-            bomImage = ImageIO.read(new File("..\\\\aMAZEing\\\\src\\\\amazeing\\\\theme\\\\" + THEME + "\\\\bom.jpg")); //hardcoded voorlopig
-        }
-        catch (Exception e) {
-            bomImage = null;
-        }
-    }
 }
