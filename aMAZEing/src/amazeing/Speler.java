@@ -68,7 +68,6 @@ public class Speler extends Figuur {
         int position_change_amount = positionchange(richting, current_maze_size);
         int tempindex = doolhofMap.indexOf(spelersVak);
         Vak oudeVak = doolhofMap.get(tempindex);
-        System.out.println(oudeVak.toString());
         int new_position_index = (tempindex+position_change_amount);
         Vak nieuweVak = doolhofMap.get(new_position_index);
         
