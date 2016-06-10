@@ -19,21 +19,21 @@ import javax.swing.JPanel;
 public class OptimaleRoute extends JComponent implements Runnable{
     
     // Alle doorgegeven parameters in het object opslaan, aangezien dit object in een eigen thread alles gaat afhandelen afzonderlijk van het lopende spel.
-    private static ArrayList<JPanel> kortste_route_panels;
-    private static LinkedList<Integer> k_r;
-    private static int vak_size_pixels;
-    private static ArrayList<Vak> doolhofMap;
-    private static int current_maze_size;
-    private static Vak startVak;
-    private static Vak eindVak;    
+    private ArrayList<JPanel> kortste_route_panels;
+    private LinkedList<Integer> k_r;
+    private int vak_size_pixels;
+    private ArrayList<Vak> doolhofMap;
+    private int current_maze_size;
+    private Vak startVak;
+    private Vak eindVak;    
     
     private BufferedImage optimalerouteImage;
     
-    private static LinkedList<LinkedList> te_verwerken_routes = new LinkedList<LinkedList>();
-    private static LinkedList<LinkedList> gevonden_routes = new LinkedList<LinkedList>();
-    private static LinkedList<Integer> kortste_route = new LinkedList<Integer>();   
-    private static ArrayList<Integer> richtingen = new ArrayList<Integer>();
-    private static LinkedList<Integer> huidige_route = new LinkedList<Integer>();
+    private LinkedList<LinkedList> te_verwerken_routes = new LinkedList<LinkedList>();
+    private LinkedList<LinkedList> gevonden_routes = new LinkedList<LinkedList>();
+    private LinkedList<Integer> kortste_route = new LinkedList<Integer>();   
+    private ArrayList<Integer> richtingen = new ArrayList<Integer>();
+    private LinkedList<Integer> huidige_route = new LinkedList<Integer>();
     
 
     /**
@@ -69,7 +69,7 @@ public class OptimaleRoute extends JComponent implements Runnable{
      * Vraag de optimale route op van de doolhof op basis van een start en eind vak.
      * @return de kortste route
      */
-    public static LinkedList<Integer> vindRoute(){
+    public LinkedList<Integer> vindRoute(){
         initialiseren(); // Opschonen te gebruiken parameters.
         vul_richtingen(current_maze_size); // richtingen bepalen, deze zijn afhankelijk van de maat van het huidige level
         int start_vak = doolhofMap.indexOf(startVak);
@@ -141,7 +141,7 @@ public class OptimaleRoute extends JComponent implements Runnable{
      * Methode slaat de gevonden route op en bepaald gelijk of dit de kortste route is.
      * @param huidige_stap_positie = de index positie waarin de nieuwe stap op de doolhofmap zich bevindt
      */
-    private static void afhandelenGevondenRoute(int huidige_stap_positie) {
+    private void afhandelenGevondenRoute(int huidige_stap_positie) {
         huidige_route.add(huidige_stap_positie);
         LinkedList<Integer> route_gevonden = (LinkedList<Integer>) huidige_route.clone();
         // Sla gevonden route op in een array van gevonden_routes.
@@ -156,7 +156,7 @@ public class OptimaleRoute extends JComponent implements Runnable{
     /**
      * Opschonen van de parameters gebruikt voor het genereren van de optimale route.
      */
-    private static void initialiseren() {
+    private void initialiseren() {
         te_verwerken_routes.clear();
         gevonden_routes.clear();
         kortste_route.clear();
@@ -168,7 +168,7 @@ public class OptimaleRoute extends JComponent implements Runnable{
      * @param indexnummer = indexnummer van de positie waar de optimale route berekening reeds geweest kan zijn
      * @return 
      */
-    private static boolean is_gebruikt_vak (int indexnummer) {
+    private boolean is_gebruikt_vak (int indexnummer) {
         for (int vak : huidige_route) {
             if(indexnummer == vak) {
                 return true;
@@ -180,7 +180,7 @@ public class OptimaleRoute extends JComponent implements Runnable{
      * Op basis van de maat van de map worden de richtingen (aantal) bepaald.
      * @param current_maze_size 
      */
-    private static void vul_richtingen(int current_maze_size) {
+    private void vul_richtingen(int current_maze_size) {
         richtingen.add(1);
         richtingen.add(-1);
         richtingen.add(-current_maze_size);

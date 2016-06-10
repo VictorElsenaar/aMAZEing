@@ -5,6 +5,7 @@ import static amazeing.AMAZEing.debug;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
@@ -33,6 +34,9 @@ public class Level extends JComponent{
     private ArrayList<Vak> doolhofMap;    
     private Vak spelersVak;
     private Vak vriendVak;    
+    
+    private Vak vijandsVak;
+    
     private int currentLevel;
     
     private boolean toonOptimaleRoute = false;
@@ -46,6 +50,10 @@ public class Level extends JComponent{
         addLevels();
         setLevel(level);
         if(debug){readLevel();} // controleer het level    
+        
+        Runnable r3 = new MyThread();
+        new Thread(r3).start();
+        
     }
     public int getStappen() {
         Speler huidigeSpeler = (Speler) spelersVak.getFiguur();
@@ -103,6 +111,55 @@ public class Level extends JComponent{
         Runnable r2 = new OptimaleRoute(vak_size_pixels, THEME, doolhofMap, current_maze_size, spelersVak, vriendVak);
         new Thread(r2).start();   
     }
+    
+    public void vijandBeweeg() {
+        OptimaleRoute route = new OptimaleRoute(vak_size_pixels, THEME, doolhofMap, current_maze_size, vijandsVak, spelersVak);
+        LinkedList<Integer> kortste_route = new LinkedList<Integer>();   
+        kortste_route = route.vindRoute(); // haal de snelste route op om naar de speler toe te gaan
+        Vijand vijand = (Vijand) vijandsVak.getFiguur();
+        Figuur tempFiguur = null;
+        
+        for (int i = 1; i < 3; i++) { // om de 2 stappen moeten we deze methode opnieuw uitvoeren
+            Vak nieuweVak = doolhofMap.get(kortste_route.get(i));
+            Vak oudeVak = vijandsVak;
+            
+            JPanel oudePanel = oudeVak.getPanel();
+            if (tempFiguur == null) {
+                Figuur empty = new Leeg(vak_size_pixels, THEME); 
+                oudeVak.setFiguur(empty);
+                oudePanel.removeAll();
+                oudePanel.add(empty);
+            } else {
+                oudeVak.setFiguur(tempFiguur);
+                oudePanel.removeAll();
+                oudePanel.add(tempFiguur);
+            }
+            oudePanel.repaint();
+            tempFiguur = nieuweVak.getFiguur(); // sla tijdelijk de figuur van het nieuwevak op
+            
+            nieuweVak.setFiguur(vijand);
+            JPanel panel = nieuweVak.getPanel();
+            panel.removeAll();
+            panel.add(vijand);
+            panel.repaint();
+            vijandsVak = nieuweVak; // update vijandsVak positie
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Level.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    class MyThread implements Runnable {
+        @Override
+        public void run() {
+            while (true) {
+                vijandBeweeg();
+            }
+        }
+    }
+    
     /**
      * Geeft gehele map in een ArrayList van vakken terug.
      * @return ArrayList<Vak>
@@ -218,6 +275,9 @@ public class Level extends JComponent{
                             teleport2.setLocationIndex(doolhofMap.size());
                         }
                         break;
+                    case 9: // Als het een 9 is dan een vijand plaatsen
+                        figuur = new Vijand(vak_size_pixels, THEME);
+                        break;
                     case 0: // Als het een 0 is dan een empty plaatsen
                         figuur = new Leeg(vak_size_pixels, THEME);
                         break;
@@ -231,6 +291,9 @@ public class Level extends JComponent{
                 }
                 if (Integer.parseInt(typeOnPosition) == 4) {
                     vriendVak = vak;
+                }
+                if (Integer.parseInt(typeOnPosition) == 9) {
+                    vijandsVak = vak;
                 }
                 JPanel panel = vak.getPanel();
                 panel.setBounds((vak.gety()*vak_size_pixels), (vak.getx()*vak_size_pixels), vak_size_pixels, vak_size_pixels);
@@ -257,7 +320,7 @@ public class Level extends JComponent{
                         + "1020220001"
                         + "1020200221"
                         + "1020202241"
-                        + "1000200001"
+                        + "1090200001"
                         + "1111111111";
         
         String level_two ="1111111111"
@@ -286,7 +349,7 @@ public class Level extends JComponent{
                             +  "10222222252200020201"                
                             +  "10000000222222220201"                
                             +  "12022220200022220201"                
-                            +  "10002000202000000201"                
+                            +  "10002000202009000201"                
                             +  "10202020202022220201"                
                             +  "10202020202000820201"                
                             +  "16200720002020000001"                
