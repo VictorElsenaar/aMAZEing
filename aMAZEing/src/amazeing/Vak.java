@@ -46,6 +46,9 @@ public class Vak extends JComponent{
     public boolean isTeleport(Vak vak) {
         return vak.getFiguur() instanceof Teleport;
     }
+    public boolean isVijand(Vak vak) {
+        return vak.getFiguur() instanceof Vijand;
+    }
 
     /**
      * Leest de cordinaten van een vak (debug doeleinde)

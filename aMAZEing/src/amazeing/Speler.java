@@ -71,7 +71,7 @@ public class Speler extends Figuur {
         int new_position_index = (tempindex+position_change_amount);
         Vak nieuweVak = doolhofMap.get(new_position_index);
         
-        if(!nieuweVak.isMuur(nieuweVak)) {
+        if(!nieuweVak.isMuur(nieuweVak) && !nieuweVak.isVijand(nieuweVak)) {
             // Oude vak speler ophalen
             Speler huidigeSpeler = (Speler) oudeVak.getFiguur();
 

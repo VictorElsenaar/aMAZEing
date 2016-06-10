@@ -227,15 +227,11 @@ public class Game extends JFrame{
                     gameState = 1;
                     setInformationPanel(false, "");
                     requestFocusInWindow();
+                    level.startVijand();
                 }
             }
             if (e.getActionCommand().equals("Restart")) {
-                level.removeAll();
-                level.setLevel(level.getCurrentLevel());
-                gameState = 1;
-                setInformationPanel(false, "");
-                repaint();
-                requestFocusInWindow();
+                startLevel(level.getCurrentLevel());
             }
             if (e.getActionCommand().equals("Afsluiten")) {
                 System.exit(0);
@@ -243,16 +239,26 @@ public class Game extends JFrame{
             if (e.getActionCommand().equals("Go")) {
                 JComboBox<String> levelLijst = menuPanel.getLevelLijst();
                 String selectedLevel = (String) levelLijst.getSelectedItem();
-                level.removeAll();
                 int newlevel = Integer.parseInt(selectedLevel.substring(selectedLevel.indexOf(' ')+1));
-                level.setLevel(newlevel-1);
-                repaint();
-                gameState = 1;
-                setInformationPanel(false, "");
-                requestFocusInWindow();
+                startLevel(newlevel-1);
             }
         }
     }
+    private void startLevel(int nr) {
+        try {
+            level.stopVijand();
+            Thread.sleep(500); // geef stopvijand de tijd.
+        } catch (Exception e) {}
+        level.removeAll();
+        level.setLevel(nr);
+        repaint();
+        gameState = 1;
+        setInformationPanel(false, "");
+        requestFocusInWindow();
+        
+        level.startVijand();        
+    }
+    
     private void keyQ() {
         queue.add(new QueueHandler("None","optimal_route"));
     }
@@ -303,6 +309,7 @@ public class Game extends JFrame{
         setInformationPanel(false, "");
         repaint();
         requestFocusInWindow();            
+        level.startVijand();
     }
     /**
      * Disable fireing, movement kijkt naar deze parameter
@@ -324,15 +331,18 @@ public class Game extends JFrame{
         goButton.addActionListener(listener);
     }
     public void executeQueue() {
-        QueueHandler next = queue.remove();
-        level.action(next.getDirection(),next.getType());
-        if(debug){System.out.println("@@@@@"+next.getDirection());}
+        try {
+            QueueHandler next = queue.remove();
         
+            level.action(next.getDirection(),next.getType());
+            if(debug){System.out.println("@@@@@"+next.getDirection());}
+        } catch (Exception e) {}       
     }
     public void checkEndLevel() {
         if (level.getVriendVak() == level.getSpelersVak()) {
             // Clear Queue zodat er niet nog meer acties uitgevoerd worden na het vinden van de vriend.
             queue.clear();
+            level.stopVijand();
             if(debug){System.out.println("Vriend gevonden");}
             if(debug){System.out.println("currentlevel " + level.getCurrentLevel() + " == " + level.getLevelsSize() + " level.getLevelsSize()");}
             if(level.getCurrentLevel()+1 == level.getLevelsSize()) {
@@ -342,6 +352,13 @@ public class Game extends JFrame{
                 setgameState(8);
                 setInformationPanel(true, "Gefeliciteerd! vriend gevonden. Druk op <spatie> om door te gaan.");   
             }
+        }
+        // zonder deze sleep wordt dit niet uitgevoerd. tijdens het spel merk je hier niets van.
+        try {Thread.sleep(50);} catch (Exception e) {}
+        if(level.getSpelersVak() == level.getVijandsVak()) {
+            queue.clear();
+            setInformationPanel(true, "Verloren! Begin opnieuw.");
+            setgameState(9);
         }
     }
     public void setgameState(int state) {

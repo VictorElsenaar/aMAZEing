@@ -41,6 +41,10 @@ public class Level extends JComponent{
     
     private boolean toonOptimaleRoute = false;
 
+    private Runnable r3 = new MyThread();
+    private boolean shutdown;
+    private LinkedList<Integer> kortste_route;
+    
     /**
      * Nieuw instantie van dit object
      * @param level = het level dat ingeladen wordt
@@ -51,8 +55,8 @@ public class Level extends JComponent{
         setLevel(level);
         if(debug){readLevel();} // controleer het level    
         
-        Runnable r3 = new MyThread();
-        new Thread(r3).start();
+//        Runnable r3 = new MyThread();
+//        new Thread(r3).start();
         
     }
     public int getStappen() {
@@ -93,17 +97,6 @@ public class Level extends JComponent{
         if(debug){System.out.println(spelersVak.toString());}
         if(debug){System.out.println(vriendVak.toString());}       
     }
-
-    /**
-     * Methode om het level uit te lezen, heeft geen doelen in het spel verder.
-     */
-    public void readLevel() {
-        ListIterator<Vak> iterator = doolhofMap.listIterator();
-        while(iterator.hasNext()) {
-            Vak vak = iterator.next();
-            if(debug){System.out.println(vak.toString());}
-        }
-    }
     /**
     * Optimale route laten tonen. Methode start eigen thread waardoor overige activiteiten door blijven gaan.
     */
@@ -111,55 +104,70 @@ public class Level extends JComponent{
         Runnable r2 = new OptimaleRoute(vak_size_pixels, THEME, doolhofMap, current_maze_size, spelersVak, vriendVak);
         new Thread(r2).start();   
     }
-    
+    /**
+     * Laat de vijand bewegen in de richting van de speler.
+     */
     public void vijandBeweeg() {
-        OptimaleRoute route = new OptimaleRoute(vak_size_pixels, THEME, doolhofMap, current_maze_size, vijandsVak, spelersVak);
-        LinkedList<Integer> kortste_route = new LinkedList<Integer>();   
-        kortste_route = route.vindRoute(); // haal de snelste route op om naar de speler toe te gaan
-        Vijand vijand = (Vijand) vijandsVak.getFiguur();
-        Figuur tempFiguur = null;
-        
-        for (int i = 1; i < 3; i++) { // om de 2 stappen moeten we deze methode opnieuw uitvoeren
-            Vak nieuweVak = doolhofMap.get(kortste_route.get(i));
-            Vak oudeVak = vijandsVak;
-            
-            JPanel oudePanel = oudeVak.getPanel();
-            if (tempFiguur == null) {
-                Figuur empty = new Leeg(vak_size_pixels, THEME); 
-                oudeVak.setFiguur(empty);
-                oudePanel.removeAll();
-                oudePanel.add(empty);
-            } else {
-                oudeVak.setFiguur(tempFiguur);
-                oudePanel.removeAll();
-                oudePanel.add(tempFiguur);
-            }
-            oudePanel.repaint();
-            tempFiguur = nieuweVak.getFiguur(); // sla tijdelijk de figuur van het nieuwevak op
-            
-            nieuweVak.setFiguur(vijand);
-            JPanel panel = nieuweVak.getPanel();
-            panel.removeAll();
-            panel.add(vijand);
-            panel.repaint();
-            vijandsVak = nieuweVak; // update vijandsVak positie
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Level.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            }
-        }
+        try {
+            OptimaleRoute route = new OptimaleRoute(vak_size_pixels, THEME, doolhofMap, current_maze_size, vijandsVak, spelersVak);
+            kortste_route = route.vindRoute(); // haal de snelste route op om naar de speler toe te gaan
+            Vijand vijand = (Vijand) vijandsVak.getFiguur();
+            Figuur tempFiguur = null;
+
+            for (int i = 1; i < 3; i++) { // om de 2 stappen moeten we deze methode opnieuw uitvoeren           
+                if(shutdown) {break;}
+                Vak nieuweVak = doolhofMap.get(kortste_route.get(i));
+                Vak oudeVak = vijandsVak;
+
+                JPanel oudePanel = oudeVak.getPanel();
+                if (tempFiguur == null) {
+                    Figuur empty = new Leeg(vak_size_pixels, THEME); 
+                    oudeVak.setFiguur(empty);
+                    oudePanel.removeAll();
+                    oudePanel.add(empty);
+                } else {
+                    oudeVak.setFiguur(tempFiguur);
+                    oudePanel.removeAll();
+                    oudePanel.add(tempFiguur);
+                }
+                oudePanel.repaint();
+                tempFiguur = nieuweVak.getFiguur(); // sla tijdelijk de figuur van het nieuwevak op
+
+                nieuweVak.setFiguur(vijand);
+                JPanel panel = nieuweVak.getPanel();
+                panel.removeAll();
+                panel.add(vijand);
+                panel.repaint();
+                vijandsVak = nieuweVak; // update vijandsVak positie
+                if(tempFiguur instanceof Speler) {
+                    stopVijand();
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Level.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                }
+            }   
+        } catch (Exception e) {}
     }
     
     class MyThread implements Runnable {
         @Override
         public void run() {
-            while (true) {
+            while (!shutdown) {
                 vijandBeweeg();
             }
         }
     }
     
+    public void startVijand() {
+        kortste_route = null;
+        shutdown = false;
+        new Thread(r3).start();
+    }
+    public void stopVijand() {
+        shutdown = true;
+    }    
     /**
      * Geeft gehele map in een ArrayList van vakken terug.
      * @return ArrayList<Vak>
@@ -175,6 +183,9 @@ public class Level extends JComponent{
     }
     public Vak getVriendVak() {
         return vriendVak;
+    }
+    public Vak getVijandsVak() {
+        return vijandsVak;
     }
     public int getCurrentLevel() {
         return currentLevel;
@@ -393,7 +404,7 @@ public class Level extends JComponent{
                             +  "1020002022202020200020202020002020202221"
                             +  "1020202000202020222220202022222020200001"
                             +  "1020202020202020002000202025202020222201"
-                            +  "1000200020000000200020002000000020000001"
+                            +  "1000200020000000200020002000000020000091"
                             +  "1111111111111111111111111111111111111111";
              
         levels.add(level_one);
@@ -401,4 +412,14 @@ public class Level extends JComponent{
         levels.add(level_three);
         levels.add(level_four);
     }
+    /**
+     * Methode om het level uit te lezen, heeft geen doelen in het spel verder.
+     */
+    public void readLevel() {
+        ListIterator<Vak> iterator = doolhofMap.listIterator();
+        while(iterator.hasNext()) {
+            Vak vak = iterator.next();
+            if(debug){System.out.println(vak.toString());}
+        }
+    }    
 }
