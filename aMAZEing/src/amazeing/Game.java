@@ -190,26 +190,28 @@ public class Game extends JFrame{
             } 
             @Override
             public void keyReleased(KeyEvent e) { 
-                if (e.getKeyCode() == KeyEvent.VK_E) {
-                    if(debug){System.out.println("(E) Welke richting?");}
-                    if(level.getKogels() == 0) {
-                        setIngamePanel(true, "Geen Ammo!!!", Color.RED);
-                    } else {
-                        fireing = true;
-                        setIngamePanel(true, "Welke richting?", Color.ORANGE);
+                if(gameState == 1){
+                    if (e.getKeyCode() == KeyEvent.VK_E) {
+                        if(debug){System.out.println("(E) Welke richting?");}
+                        if(level.getKogels() == 0) {
+                            setIngamePanel(true, "Geen Ammo!!!", Color.RED);
+                        } else {
+                            fireing = true;
+                            setIngamePanel(true, "Welke richting?", Color.ORANGE);
+                        }
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_Q) {
+                        if(debug){System.out.println("(Q) toon optimal route");}
+                        keyQ();
+
                     }
                 }
-                if (e.getKeyCode() == KeyEvent.VK_Q) {
-                    if(debug){System.out.println("(Q) toon optimal route");}
-                    keyQ();
-                    
-                }
-                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    if(debug){System.out.println("Spatie werkt alleen aan het einde van een level");}
-                    if (gameState == 8) {
-                        keySPACE();
+                    if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                        if(debug){System.out.println("Spatie werkt alleen aan het einde van een level");}
+                        if (gameState == 8) {
+                            keySPACE();
+                        }
                     }
-                }
             } 
             public void keyTyped(KeyEvent e) { } 
         }); 
