@@ -198,6 +198,9 @@ public class Level extends JComponent{
     public int getLevelsSize(){
         return levels.size();
     }
+    public int getVak_size_pixels(){
+        return vak_size_pixels;
+    }
     /**
      * Method geeft een String terug van het gevraagde level.
      * @param nr = het index nummer van het level

@@ -13,8 +13,8 @@ public class Explosie extends Figuur {
      * @param vak_size_pixels = map afhankelijke maat van een vak
      * @param theme = het ingestelde theme
      */
-    public Explosie(int vaksize_pixels, String theme) {
-        super(Color.RED, vaksize_pixels, theme);
+    public Explosie(int vak_size_pixels, String theme) {
+        super(Color.RED, vak_size_pixels, theme);
         initialiseerImage("explosie");
     }    
 }

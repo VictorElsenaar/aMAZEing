@@ -177,6 +177,10 @@ public class Speler extends Figuur {
         }
         return false;
     }
+    /**
+     * 
+     * @return aantalStappen
+     */
     public int getaantalStappen() {
         return this.aantalStappen;
     }
@@ -186,9 +190,23 @@ public class Speler extends Figuur {
     public void addaantalStappen() {
         this.aantalStappen++;
     }
+    /** 
+     * 
+     * @return int bazooka ammo aantal
+     */
     public int getKogels() {
         return this.bazooka.getAmmo();
     }
+    /**
+     * add 1 extra ammo aan bazooka
+     */
+    public void addKogels() {
+        this.bazooka.toevoegenAmmo();
+    }
+    /**
+     * 
+     * @return int helper aantal
+     */
     public int getHelper() {
         return this.helper.getAantal();
     }
