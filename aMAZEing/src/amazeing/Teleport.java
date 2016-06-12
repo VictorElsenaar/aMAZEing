@@ -3,7 +3,7 @@ package amazeing;
 import java.awt.Color;
 
 /**
- *
+ * Class teleport weet zijn locatieindex van doolhofMap maar heeft geen directe verbinding met doolhofMap. Tevens weet hij ook waar zijn "uitgang" is.
  * @author Victor Elsenaar en Kahoo Wu
  */
 public class Teleport extends Figuur{

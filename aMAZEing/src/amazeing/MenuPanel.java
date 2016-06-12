@@ -7,7 +7,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 /**
- *
+ * Class menupanel bouwt het menupanel op.
  * @author Victor Elsenaar en Kahoo Wu
  */
 public class MenuPanel extends JPanel{

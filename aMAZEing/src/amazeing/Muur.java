@@ -3,7 +3,7 @@ package amazeing;
 import java.awt.Color;
 
 /**
- *
+ * Class Muur bevat een boolean om aan te geven of het een bordermuur is of niet. 
  * @author Victor Elsenaar en Kahoo Wu
  */
 public class Muur extends Figuur {

@@ -8,7 +8,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 /**
- *
+ * Class Interactie zorgt ervoor dat de speler een visuele interactie krijgt bij het oppakken van een item.
  * @author Victor Elsenaar en Kahoo Wu
  */
 public class Interactie extends JComponent implements Runnable {
@@ -26,7 +26,11 @@ public class Interactie extends JComponent implements Runnable {
         this.waarde = waarde;
         this.huidigeVak = huidigeVak;
     }
-
+    /**
+     * Als waarde == 1 dan een Groene textbox (dus oppakken item dat +1 doet) 
+     * Anders een rode (dus cheater, min stappen)
+     * @param g 
+     */
     public void paint(Graphics g) {
         if(waarde == 1){
             g.setColor(Color.GREEN); 

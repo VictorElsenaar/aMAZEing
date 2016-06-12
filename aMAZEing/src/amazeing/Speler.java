@@ -7,7 +7,8 @@ import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
- *
+ * Class Speler bevat bazooka helper cheater en weet of het eerder een teleporter heeft genomen.
+ * Tevens weet hij ook waar hij staat en hoeveel stappen er genomen zijn.
  * @author Victor Elsenaar en Kahoo Wu
  */
 public class Speler extends Figuur {

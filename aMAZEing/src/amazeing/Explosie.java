@@ -3,7 +3,7 @@ package amazeing;
 import java.awt.Color;
 
 /**
- *
+ * Class Explosie acteert alleen als een tekenbaar figuur
  * @author Victor Elsenaar en Kahoo Wu
  */
 public class Explosie extends Figuur {

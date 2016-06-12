@@ -2,8 +2,8 @@ package amazeing;
 
 import java.awt.Color;
 
-/**
- *
+/** 
+ * Class Vriend placeholder voor figuur vriend met bijhorende image.
  * @author Victor Elsenaar en Kahoo Wu
  */
 public class Vriend extends Figuur {

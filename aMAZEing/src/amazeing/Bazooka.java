@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
- *
+ * Class Bazooka bevat ammo en methodes om dit te raadplegen en muteren
  * @author Victor Elsenaar en Kahoo Wu
  */
 public class Bazooka extends Figuur{    

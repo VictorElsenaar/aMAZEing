@@ -10,7 +10,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 /**
- *
+ * Class level handelt alle interacties tussen de input van game (dus uiteindelijk van de speler) en de overige componenten af.
  * @author Victor Elsenaar en Kahoo Wu
  */
 public class Level extends JComponent{
@@ -19,6 +19,9 @@ public class Level extends JComponent{
      */
     private final int LEVEL_FRAME_SIZE = 500;
     
+    /**
+     * globale variabele voor het definieren van de maat van een vak m.b.t. het tekenen. Wordt gebruikt in extends figuur objecten.
+     */
     public static int global_vak_size_pixels;
     
     /**
@@ -33,14 +36,15 @@ public class Level extends JComponent{
     private ArrayList<String> levels = new ArrayList<String>();  
     private ArrayList<Vak> doolhofMap;    
     private Vak spelersVak;
-    private Vak vriendVak;    
-    
+    private Vak vriendVak;
     private Vak vijandsVak;
     
     private int currentLevel;
     
+    // Alleen voor de speler
     private boolean toonOptimaleRoute = false;
 
+    // Alleen voor de vijand
     private Runnable r3 = new MyThread();
     private boolean shutdown;
     private LinkedList<Integer> kortste_route;
@@ -54,10 +58,6 @@ public class Level extends JComponent{
         addLevels();
         setLevel(level);
         if(debug){readLevel();} // controleer het level    
-        
-//        Runnable r3 = new MyThread();
-//        new Thread(r3).start();
-        
     }
     public int getStappen() {
         Speler huidigeSpeler = (Speler) spelersVak.getFiguur();
@@ -159,12 +159,17 @@ public class Level extends JComponent{
             }
         }
     }
-    
+    /**
+     * Start de vijand met lopen. Clear eerst oude gegevens indien nodig.
+     */
     public void startVijand() {
         kortste_route = null;
         shutdown = false;
         new Thread(r3).start();
     }
+    /**
+     * Stop de vijand met lopen door in de while van de runnable de boolean op true te zetten.
+     */
     public void stopVijand() {
         shutdown = true;
     }    

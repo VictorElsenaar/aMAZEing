@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 /**
- *
+ * Abstract class Figuur als basis voor alle figuren in het spel.
  * @author Victor Elsenaar en Kahoo Wu
  */
 public abstract class Figuur extends JComponent {
@@ -41,6 +41,10 @@ public abstract class Figuur extends JComponent {
     public void setTheme(String theme) {
         this.theme = theme;
     }
+    /**
+     * Tekent een standaard kleur vakje van het object tenzij er een image gedefineerd is dan wordt de image getekend.
+     * @param g 
+     */
     public void paint(Graphics g) {
         if(image == null) {
             g.setColor(kleur); 

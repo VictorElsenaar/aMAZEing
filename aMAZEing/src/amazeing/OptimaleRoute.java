@@ -186,6 +186,10 @@ public class OptimaleRoute extends JComponent implements Runnable{
         richtingen.add(-current_maze_size);
         richtingen.add(current_maze_size);
     }
+    /**
+     * Tekent een standaard kleur vakje van het object tenzij er een image gedefineerd is dan wordt de image getekend.
+     * @param g 
+     */
     public void paint(Graphics g) {
         if (optimalerouteImage == null) {
             g.setColor(new Color(20,220,255,124));
@@ -193,7 +197,6 @@ public class OptimaleRoute extends JComponent implements Runnable{
         } else {
             g.drawImage(optimalerouteImage.getScaledInstance(Level.global_vak_size_pixels,Level.global_vak_size_pixels,0), 0, 0, null);
         }
-        //g.fillRect((vak.gety()*vak_size_pixels)+vak_size_pixels/4, (vak.getx()*vak_size_pixels)+vak_size_pixels/4, vak_size_pixels-(vak_size_pixels/2), vak_size_pixels-(vak_size_pixels/2));
     }
     
     /**
@@ -207,7 +210,9 @@ public class OptimaleRoute extends JComponent implements Runnable{
             optimalerouteImage = null;
         }
     }    
-    // Thread zorgt ervoor dat asynchoon het pad gevonden, getoond en verwijderd wordt.
+    /**
+     * Thread zorgt ervoor dat asynchroon van het spel het pad gevonden, getoond en verwijderd wordt.
+     */
     public void run() {
         try {
             k_r = vindRoute();

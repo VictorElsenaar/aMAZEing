@@ -4,7 +4,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 /**
- *
+ * Class Vak bevat de details van het vak. X y en weet welk figuur erop staat.
  * @author Victor Elsenaar en Kahoo Wu
  */
 public class Vak extends JComponent{
@@ -82,7 +82,9 @@ public class Vak extends JComponent{
     public void setVakSizePixels(int vak_size_pixels) {
         this.vak_size_pixels = vak_size_pixels;
     }
-    
+    /**
+     * Initieer standaard paneel met vak_size_pixel maat van het object zelf.
+     */
     public void initPanel() {
         panel = new JPanel();
         panel.setLayout(null);

@@ -20,7 +20,7 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 /**
- *
+ * Class game bevat het spel layout, knoppen afhandeling en gameState afhandeling. Gamestate bepaalt welke acties er mogelijk zijn.
  * @author Victor Elsenaar en Kahoo Wu
  */
 public class Game extends JFrame{
@@ -136,7 +136,6 @@ public class Game extends JFrame{
         /*
         In Menu Panel statistieken
         */
-        
         statsPanel = new JPanel();
         GridLayout gridLayout = new GridLayout(3,0);
         statsPanel.setLayout(gridLayout);
@@ -246,6 +245,10 @@ public class Game extends JFrame{
             }
         }
     }
+    /**
+     * Startlevel zorgt ervoor dat alle acties omtrent level starten afgehandeld worden.
+     * @param nr = levelnummer
+     */
     private void startLevel(int nr) {
         try {
             level.stopVijand();
@@ -257,10 +260,17 @@ public class Game extends JFrame{
         gameState = 1;
         setInformationPanel(false, "");
         requestFocusInWindow();
-        
         level.startVijand();        
     }
-    
+    private void keySPACE() {
+        level.removeAll();
+        level.setNextLevel();        
+        gameState = 1;
+        setInformationPanel(false, "");
+        repaint();
+        requestFocusInWindow();            
+        level.startVijand();
+    }    
     private void keyQ() {
         queue.add(new QueueHandler("None","optimal_route"));
     }
@@ -304,15 +314,6 @@ public class Game extends JFrame{
         }        
         handleFire();
     }
-    private void keySPACE() {
-        level.removeAll();
-        level.setNextLevel();        
-        gameState = 1;
-        setInformationPanel(false, "");
-        repaint();
-        requestFocusInWindow();            
-        level.startVijand();
-    }
     /**
      * Disable fireing, movement kijkt naar deze parameter
      * Information panel uitzetten.
@@ -321,6 +322,9 @@ public class Game extends JFrame{
         fireing = false;
         setIngamePanel(false, "", Color.BLACK);
     }
+    /**
+     * Koppel Listeners aan buttons.
+     */
     public void setListenersAanButtons() {
         ActionListener listener = new ClickListener();
         JButton startButton = menuPanel.getStartButton();
@@ -332,14 +336,19 @@ public class Game extends JFrame{
         JButton goButton = menuPanel.getGoButton();
         goButton.addActionListener(listener);
     }
+    /**
+     * Pakt uit de queue de volgende actie en vuurt deze af richting het level object.
+     */
     public void executeQueue() {
         try {
             QueueHandler next = queue.remove();
-        
             level.action(next.getDirection(),next.getType());
             if(debug){System.out.println("@@@@@"+next.getDirection());}
         } catch (Exception e) {}       
     }
+    /**
+     * Voert check uit of spel ten einde is en zet indien van toepassing de gamestate
+     */
     public void checkEndLevel() {
         if (level.getVriendVak() == level.getSpelersVak()) {
             // Clear Queue zodat er niet nog meer acties uitgevoerd worden na het vinden van de vriend.
@@ -369,21 +378,35 @@ public class Game extends JFrame{
     public int getgameState(){
         return this.gameState;
     }
-    
+    /**
+     * Informatiepaneel dat in het midden van het scherm komt, met text.
+     * @param b = boolean of het paneel aan of uitgezet moet worden
+     * @param text = de tekst in het paneel
+     */
     public void setInformationPanel(boolean b, String text) {
         infoLabel.setText(text);
         setCombinedInformationPanel(b);
     }
+    /**
+     * Combinatie van de panelen.
+     * @param b = boolean of het paneel aan of uitgezet moet worden
+     */
     public void setCombinedInformationPanel(boolean b) {
         informationPanel.setVisible(b);
         shadow_informationPanel.setVisible(b);
         blackborder_informationPanel.setVisible(b);
     }
+    /**
+     * Method updateStatistics past de stappen label, aantal bazooka label en aantal helper label aan door de informatie benodigd uit object level te halen.
+     */
     public void updateStatistics() {
         stappenLabel.setText(level.getStappen() + " stappen");
         aantalBazookaLabel.setText(level.getKogels() +" kogel(s)");
         aantalHelperLabel.setText(level.getHelper() + " helper(s)");
-    }    
+    }
+    /**
+     * Tekst voor de knoppen
+     */
     public void infoKnoppen() {
         infoTextArea.setText("˄/W omhoog \n"
                            + "˅/S beneden\n"

@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.Random;
 
 /**
- *
+ * Class cheater. Dit object is op de speelmap een figuur dat je oppakt en er direct een random(5,15) aantal stappen van de spelers totale stappen afhaalt.
  * @author Victor Elsenaar en Kahoo Wu
  */
 public class Cheater extends Figuur{
@@ -24,6 +24,9 @@ public class Cheater extends Figuur{
     public int getWaarde(){
         return this.waarde;
     }
+    /**
+     * Stelt een randomwaarde in tussen de 5 en 15
+     */
     public void setWaarde() {
         waarde = getRandomNumber(5, 15);
     }

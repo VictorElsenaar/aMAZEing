@@ -1,7 +1,7 @@
 package amazeing;
 
 /**
- *
+ * Class QueueHandler bevat een direction en een type. Opslag voor het soort actie dat een speler wilt uitvoeren.
  * @author Victor Elsenaar en Kahoo Wu
  */
 public class QueueHandler {
