@@ -231,13 +231,20 @@ public class Level extends JComponent{
      * @param nr = level index nummer
      */
     public void setLevel(int nr) {
-        String level = getLevel(nr);
-        if(debug){System.out.println("setcurrentlevel " + nr);}
-        setCurrentLevel(nr);
-        // Bepaal de breedte en hoogte
-        for (int i = 1; i < MAX_MAZE_SIZE; i++) {
-            if((level.length() / i) == i){
-                current_maze_size = i;
+        String level =  "";
+        if(nr == -1) {
+            // plek voor maze generator
+//            OptimaleRoute route = new OptimaleRoute(vak_size_pixels, THEME, doolhofMap, current_maze_size, vijandsVak, spelersVak);
+//            kortste_route = route.vindRoute(); // haal de snelste route op om naar de speler toe te gaan
+        } else {
+            level = getLevel(nr);
+            if(debug){System.out.println("setcurrentlevel " + nr);}
+            setCurrentLevel(nr);
+            // Bepaal de breedte en hoogte
+            for (int i = 1; i < MAX_MAZE_SIZE; i++) {
+                if((level.length() / i) == i){
+                    current_maze_size = i;
+                }
             }
         }
         // Bepaal aantal pixels voor de map, zodat hij netjes het frame vult.
@@ -429,5 +436,53 @@ public class Level extends JComponent{
             Vak vak = iterator.next();
             if(debug){System.out.println(vak.toString());}
         }
-    }    
+    }  
+    // Maze generator
+//    public static void fillMap(int max_size){
+//        for (int i = 0; i < max_size; i++) {
+//            for (int j = 0; j < max_size; j++) { 
+//
+//                // buitenmuren
+//                if(i==0 || i == max_size-1) { // bovenste en onderste regel
+//                    Vak buitenmuur = new Vak();
+//                    buitenmuur.visited = true;
+//                    buitenmuur.value = 1;
+//                    doolhofMap.add(buitenmuur);
+//                } else if(j==0 ){ // links
+//                    Vak buitenmuur = new Vak();
+//                     buitenmuur.visited = true;
+//                    buitenmuur.value = 1;
+//                    doolhofMap.add(buitenmuur); 
+//                } else if(j == max_size-1 ) { // rechts
+//                    Vak buitenmuur = new Vak();
+//                    buitenmuur.visited = true;
+//                    buitenmuur.value = 1;
+//                    doolhofMap.add(buitenmuur);
+////                
+////                // speler
+////                } else if (i==1 && j==1) { // links bovenin
+////                    Vak speler = new Vak();
+////                    speler.visited = true;
+////                    speler.value = 3;
+////                    doolhofMap.add(speler);
+////               
+////                // vriend
+////                } else if (i==max_size-2 && j== max_size-2) { // rechts onderin
+////                    Vak vriend = new Vak();
+////                    vriend.visited = true;
+////                    vriend.value = 4;
+////                    doolhofMap.add(vriend);
+////                    
+////                // anders leeg vak
+////                } else {
+////                    doolhofMap.add(0);
+////                }
+//                } else {
+//                    Vak muur = new Vak();
+//                    muur.value = 2;                    
+//                    doolhofMap.add(muur);
+//                }
+//            }
+//        }
+//    }
 }
