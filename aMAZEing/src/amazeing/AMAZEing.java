@@ -12,7 +12,7 @@ public class AMAZEing {
      * THEME is bepalend welke plaatjes er geladen worden. 
      * Noodzakelijk in Netbeans is dat bij een wisseling van het THEME dat er eerst een 'Clean and Build Project' gedaan wordt.
      */
-    public static final String THEME = "mario"; // default, mario, minecraft
+    public static final String THEME = "minecraft"; // default, mario, minecraft
     
     /**
      * debug true geeft alle logging weer. Met uitzondering van Optimale Route, deze heeft in zijn eigen klasse nog een extra optdebug variabele

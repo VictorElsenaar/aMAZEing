@@ -4,7 +4,7 @@ import static amazeing.AMAZEing.debug;
 import java.awt.Color;
 
 /**
- * Class Helper bevat ammo en methodes om dit te raadplegen en muteren
+ * Class Helper bevat aantal en methodes om dit te raadplegen en muteren
  * @author Victor Elsenaar en Kahoo Wu
  */
 public class Helper extends Figuur{
