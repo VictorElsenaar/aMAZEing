@@ -107,12 +107,12 @@ public class Level extends JComponent{
     /**
      * Laat de vijand bewegen in de richting van de speler.
      */
-    public void vijandBeweeg() {
+    public Figuur vijandBeweeg(Figuur tempFiguur) {
         try {
             OptimaleRoute route = new OptimaleRoute(vak_size_pixels, THEME, doolhofMap, current_maze_size, vijandsVak, spelersVak);
             kortste_route = route.vindRoute(); // haal de snelste route op om naar de speler toe te gaan
             Vijand vijand = (Vijand) vijandsVak.getFiguur();
-            Figuur tempFiguur = null;
+            //Figuur tempFiguur = null;
 
             for (int i = 1; i < 3; i++) { // om de 2 stappen moeten we deze methode opnieuw uitvoeren           
                 if(shutdown) {break;}
@@ -132,7 +132,7 @@ public class Level extends JComponent{
                 }
                 oudePanel.repaint();
                 tempFiguur = nieuweVak.getFiguur(); // sla tijdelijk de figuur van het nieuwevak op
-
+                
                 nieuweVak.setFiguur(vijand);
                 JPanel panel = nieuweVak.getPanel();
                 panel.removeAll();
@@ -149,13 +149,15 @@ public class Level extends JComponent{
                 }
             }   
         } catch (Exception e) {}
+        return tempFiguur;
     }
     
     class MyThread implements Runnable {
         @Override
         public void run() {
+            Figuur tempFiguur = null;
             while (!shutdown) {
-                vijandBeweeg();
+                tempFiguur = vijandBeweeg(tempFiguur);
             }
         }
     }
@@ -374,7 +376,7 @@ public class Level extends JComponent{
                             +  "10000000202202020201"
                             +  "10222222252200020201"                
                             +  "10000000222222220201"                
-                            +  "12022220200022220201"                
+                            +  "12022220205022220201"                
                             +  "10002000202009000201"                
                             +  "10202020202022220201"                
                             +  "10202020202000820201"                
