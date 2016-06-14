@@ -1,15 +1,10 @@
 package amazeing;
 
-import static amazeing.AMAZEing.THEME;
-import static amazeing.AMAZEing.debug;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import javax.swing.JPanel;
 
 /**
  * Class vijand, placeholder voor het figuur met bijhorende image.
- * @author Kahoo
+ * @author Victor Elsenaar en Kahoo Wu
  */
 public class Vijand extends Figuur{
     /**
