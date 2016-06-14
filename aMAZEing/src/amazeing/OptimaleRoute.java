@@ -90,7 +90,15 @@ public class OptimaleRoute extends JComponent implements Runnable{
                     // Als vak nog niet gebruikt is in huidige route, dan toevoegen en instellen als nieuw vertrekpunt
                     if(!is_gebruikt_vak(huidige_stap_positie)) {
                         nog_opties_teller++;
-                        if(ga_alternatieve) {                        
+                        // Controleer of het vak waar je op uitkomt het doel vak is.
+                        Vak eind_vak_huidige_route = doolhofMap.get(huidige_stap_positie);
+                            if(eind_vak_huidige_route == eindVak){
+                                afhandelenGevondenRoute(huidige_stap_positie);
+                                // Eind vak is gevonden dus andere richtingen hebben geen nut. Stop de For richtingen loop.
+                                nog_opties_teller = 0;
+                                break;
+                        }
+                        if(ga_alternatieve) {    
                             LinkedList<Integer> alternatieve_route = (LinkedList<Integer>) huidige_route.clone();
                             alternatieve_route.add(huidige_stap_positie);
                             // Alternatieve route toevoegen aan een array met alternatieve routes.
@@ -98,14 +106,6 @@ public class OptimaleRoute extends JComponent implements Runnable{
                         } else {
                             ga_alternatieve = true; // de volgende keer vanaf hetzelfde startvak is het een alternatieve route
                             nieuwe_stap = huidige_stap_positie;
-                            // Controleer of het vak waar je op uitkomt het doel vak is.
-                            Vak eind_vak_huidige_route = doolhofMap.get(huidige_stap_positie);
-                            if(eind_vak_huidige_route == eindVak){
-                                afhandelenGevondenRoute(huidige_stap_positie);
-                                // Eind vak is gevonden dus andere richtingen hebben geen nut. Stop de For richtingen loop.
-                                nog_opties_teller = 0;
-                                break;
-                            }
                         }
                         // als huidige route al langer is dan huidig korste route, dan gelijk afbreken.
                         if(!kortste_route.isEmpty() && huidige_route.size() > kortste_route.size()) {
@@ -136,7 +136,7 @@ public class OptimaleRoute extends JComponent implements Runnable{
             // Dit zou betekenen dat er een doolhof is zonder uitkomst.
         }
         return kortste_route;
-    }
+    }   
     /**
      * Methode slaat de gevonden route op en bepaald gelijk of dit de kortste route is.
      * @param huidige_stap_positie = de index positie waarin de nieuwe stap op de doolhofmap zich bevindt
