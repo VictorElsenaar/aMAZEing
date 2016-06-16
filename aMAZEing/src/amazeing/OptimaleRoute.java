@@ -92,11 +92,11 @@ public class OptimaleRoute extends JComponent implements Runnable{
                         nog_opties_teller++;
                         // Controleer of het vak waar je op uitkomt het doel vak is.
                         Vak eind_vak_huidige_route = doolhofMap.get(huidige_stap_positie);
-                            if(eind_vak_huidige_route == eindVak){
-                                afhandelenGevondenRoute(huidige_stap_positie);
-                                // Eind vak is gevonden dus andere richtingen hebben geen nut. Stop de For richtingen loop.
-                                nog_opties_teller = 0;
-                                break;
+                        if(eind_vak_huidige_route == eindVak){
+                            afhandelenGevondenRoute(huidige_stap_positie);
+                            // Eind vak is gevonden dus andere richtingen hebben geen nut. Stop de For richtingen loop.
+                            nog_opties_teller = 0;
+                            break;
                         }
                         if(ga_alternatieve) {    
                             LinkedList<Integer> alternatieve_route = (LinkedList<Integer>) huidige_route.clone();
