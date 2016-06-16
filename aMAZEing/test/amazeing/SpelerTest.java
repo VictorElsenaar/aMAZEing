@@ -43,7 +43,7 @@ public class SpelerTest {
      * Test of gebruikCheater method, of class Speler.
      */
     @Test
-    public void testGebruikCheater_TG1() {
+    public void testGebruikCheater_checkZero() {
         System.out.println("testGebruikCheater met nog maar 1 stap gezet");
         int dummyint = 5;
         String dummystring = "nvt";
@@ -61,7 +61,7 @@ public class SpelerTest {
      * Test of gebruikCheater method, of class Speler.
      */
     @Test
-    public void testGebruikCheater_TG2() {
+    public void testGebruikCheater_Normal() {
         System.out.println("testGebruikCheater met 20 stappen gezet");
         int dummyint = 5;
         String dummystring = "nvt";
@@ -77,8 +77,7 @@ public class SpelerTest {
                 
         int result = speler.getaantalStappen();
         assertEquals(expResult, result);        
-    }    
-
+    }   
 }
 /*
 //                if(aantalStappen-cheater.getWaarde() < 0) {
