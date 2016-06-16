@@ -109,11 +109,7 @@ public class Speler extends Figuur {
             }
             if(nieuweVak.isCheater(nieuweVak)){
                 cheater = (Cheater)nieuweVak.getFiguur();
-                if(aantalStappen-cheater.getWaarde() < 0) {
-                    aantalStappen = 0;
-                } else {
-                    aantalStappen -= cheater.getWaarde();
-                }
+                gebruikCheater(cheater);
                 interactie = cheater.getWaarde();
                 if(debug){System.out.println("Cheater opgepakt met waarde: " + cheater.getWaarde());}
             }
@@ -159,7 +155,17 @@ public class Speler extends Figuur {
         }
         return doolhofMap;
     }
-    
+    /**
+     * Verwerken van de waarde die de cheater had in de gemaakte stappen van de speler.
+     * @param cheater is het object dat net opgepakt is door de speler
+     */
+    public void gebruikCheater(Cheater cheater) {
+        if(aantalStappen-cheater.getWaarde() < 0) {
+            aantalStappen = 0;
+        } else {
+            aantalStappen -= cheater.getWaarde();
+        }
+    }        
     public void setVak(Vak vak) {
         this.huidigeVak = vak;
     }
